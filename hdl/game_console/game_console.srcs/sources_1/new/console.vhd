@@ -11,7 +11,7 @@
 -- Dependencies:
 -- 		VGA Types
 -- 		Game Console Utilities
--- 		CPU
+-- 		Central Processing Unit
 -- 		Video Card
 -- 		Memory
 -- 		Sound Card
@@ -50,6 +50,10 @@ entity console is
 		vsync: out std_logic
 
 		-- Memory Ports
+		-- TODO: Add ports for controllers
+
+		-- Sound Card Ports
+		-- TODO: Add ports for audio out
 	);
 end console;
 
@@ -122,6 +126,10 @@ architecture console_arch of console is
 			state: in t_Bus_State;
 			io: inout t_Digital_IO(0 to 15)(7 downto 0)
 		);
+	end component;
+
+	component sound_card
+		-- port ();
 	end component;
 
 	-------------------------------
@@ -201,6 +209,8 @@ begin
 			state => state,
 			io => io
 		);
+
+	APU: sound_card;
 
 	-------------------------------
 	-- Module Implementation

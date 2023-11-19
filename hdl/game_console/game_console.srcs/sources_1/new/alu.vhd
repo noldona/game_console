@@ -31,7 +31,7 @@ entity alu is
 		b: in std_logic_vector(7 downto 0);
 		sel: in std_logic_vector(2 downto 0);
 		result: out std_logic_vector(7 downto 0);
-		nzvc: out std_logic_vector(3 downto 0)
+		status: out std_logic_vector(7 downto 0)
 	);
 end alu;
 
@@ -63,7 +63,8 @@ begin
 
 	-------------------------------
 	-- Module Implementation
-	-------------------------------
+	------------------------------
+	-- TODO: Updated this to use the 6502 status flags
 	ALU_PROC: process (a, b, sel)
 		variable sum_uns: unsigned (8 downto 0);
 	begin
@@ -75,35 +76,35 @@ begin
 				result <= std_logic_vector(sum_uns(7 downto 0));
 
 				-- Set the negative flag
-				nzvc(3) <= sum_uns(7);
+				status(3) <= sum_uns(7);
 
 				-- Set the zero flag
 				if (sum_uns(7 downto 0) = x"00") then
-					nzvc(2) <= '1';
+					status(2) <= '1';
 				else
-					nzvc(2) <= '0';
+					status(2) <= '0';
 				end if;
 
 				-- Set the overflow flag
 				if ((a(7) = '0' and b(7) = '0' and sum_uns(7) = '1') or
 						(a(7) = '1' and b(7) = '1' and sum_uns(7) = '0')) then
-					nzvc(1) <= '1';
+					status(1) <= '1';
 				else
-					nzvc(1) <= '0';
+					status(1) <= '0';
 				end if;
 
 				-- Set the carry flag
-				nzvc(0) <= sum_uns(8);
+				status(0) <= sum_uns(8);
 
-			-- TODO - Implement Subtract
-			-- TODO - Implement And
-			-- TODO - Implement OR
-			-- TODO - Implement Increment
-			-- TODO - Implement Decrement
+			-- TODO: Implement Subtract
+			-- TODO: Implement And
+			-- TODO: Implement OR
+			-- TODO: Implement Increment
+			-- TODO: Implement Decrement
 
 			when others =>
 				result <= "ZZZZZZZZ";
-				nzvc <= "ZZZZ";
+				status <= "ZZZZZZZZ";
 		end case;
 	end process;
 

@@ -70,7 +70,6 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 3
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7s25csga225-1
 
@@ -91,6 +90,7 @@ OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_vhdl -vhdl2008 -library xil_defaultlib {
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console_utils.vhd
+  C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/alu.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/vga_types.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/control_unit.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd
@@ -98,6 +98,7 @@ read_vhdl -vhdl2008 -library xil_defaultlib {
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd
+  C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sound_card.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd

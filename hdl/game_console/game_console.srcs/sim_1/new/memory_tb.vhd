@@ -1,15 +1,17 @@
 -------------------------------------------------------------------------------
 -- Engineer: Ronald Jones
 --
--- Create Date: 10/29/2023 11:24:47 AM
--- Design Name: Sound Card
--- Module Name: sound_card - sound_card_arch
+-- Create Date: 11/19/2023 03:55:39 PM
+-- Design Name: Memory Test Bench
+-- Module Name: memory_tb - memory_tb_arch
 -- Project Name: Game Console
 -- Target Devices: Digilent Cmod S7 Development Board
--- Description:
+-- Description: This is a test bench for the Memory module
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Memory
+-- 		Random Access Memory Test Bench
 --
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created
@@ -25,12 +27,11 @@ use IEEE.NUMERIC_STD.ALL;
 use WORK.CONSOLE_UTILS.ALL;
 
 
--- TODO: Implement the sound card
-entity sound_card is
-	-- port ();
-end sound_card;
+entity memory_tb is
+	--  port ();
+end memory_tb;
 
-architecture sound_card_arch of sound_card is
+architecture memory_tb_arch of memory_tb is
 	-------------------------------
 	-- Functions
 	-------------------------------
@@ -46,6 +47,20 @@ architecture sound_card_arch of sound_card is
 	-------------------------------
 	-- Components
 	-------------------------------
+	component memory
+		port (
+			clk: in std_logic;
+			rst: in std_logic;
+			data: inout std_logic_vector(7 downto 0);
+			addr: in std_logic_vector(15 downto 0);
+			state: in t_Bus_State;
+			io: inout t_Digital_IO(0 to 15)(7 downto 0)
+		);
+	end component;
+
+	component ram_tb
+		-- port ();
+	end component;
 
 	-------------------------------
 	-- Signals
@@ -59,5 +74,8 @@ begin
 	-------------------------------
 	-- Module Implementation
 	-------------------------------
+	-- TODO: Implement the Memory test bench
 
-end sound_card_arch;
+	RAM_UUT: ram_tb;
+
+end memory_tb_arch;

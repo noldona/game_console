@@ -57,6 +57,7 @@ package console_utils is
 	-----------------------------------------------
 	impure function init_ram_hex(start: integer; stop: integer; filename: string) return t_Ram_Array;
 	impure function init_ram_from_file_or_zeros(start: integer; stop: integer; filename: string) return t_Ram_Array;
+
 end package;
 
 package body console_utils is

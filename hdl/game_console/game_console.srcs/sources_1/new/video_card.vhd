@@ -21,9 +21,7 @@
 -- Dependencies:
 -- 		VGA Types
 -- 		Game Console Utilities
--- 		Video Card Sync Counter
--- 		Video Card Memory Mapper
--- 		Dual Port RAM
+-- 		Sync Counter
 --
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created

@@ -43,7 +43,7 @@ entity data_path is
 		X_Load: in std_logic;
 		Y_Load: in std_logic;
 		ALU_Sel: in std_logic_vector(2 downto 0);
-		Status_Result: out std_logic_vector(3 downto 0);
+		Status_Result: out std_logic_vector(7 downto 0);
 		Status_Load: in std_logic;
 		Bus1_Sel: in std_logic_vector(1 downto 0);
 		Bus2_Sel: in std_logic_vector(1 downto 0)
@@ -68,9 +68,9 @@ architecture data_path_arch of data_path is
 	-------------------------------
 	component alu
 		port (
-			A: in std_logic_vector(7 downto 0);
-			B: in std_logic_vector(7 downto 0);
-			ALU_sel: in std_logic_vector(2 downto 0);
+			a: in std_logic_vector(7 downto 0);
+			b: in std_logic_vector(7 downto 0);
+			sel: in std_logic_vector(2 downto 0);
 			result: out std_logic_vector(7 downto 0);
 			status: out std_logic_vector(7 downto 0)
 		);
@@ -180,7 +180,16 @@ begin
 			rst => rst,
 			load => Status_Load,
 			data_rx => status,
-			data_tx => status_out
+			data_tx => Status_Result
+		);
+
+	ALU_1: alu
+		port map (
+			a => B,
+			b => Bus1,
+			sel => ALU_Sel,
+			result => ALU_Result,
+			status => status
 		);
 
 	-------------------------------
@@ -189,7 +198,6 @@ begin
 	data_rx <= data;
 	data_tx <= Bus1;
 	addr <= x"00" & MAR;
-	Status_Result <= status_out(3 downto 0);
 
 	MUX_BUS1: process (Bus1_Sel, PC, A, B)
 	begin

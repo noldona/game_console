@@ -38,8 +38,8 @@ entity control_unit is
 	 	A_Load: out std_logic;
 	 	B_Load: out std_logic;
 	 	ALU_Sel: out std_logic_vector(2 downto 0);
-	 	CCR_Result: in std_logic_vector(3 downto 0);
-	 	CCR_Load: out std_logic;
+	 	Status_Result: in std_logic_vector(7 downto 0);
+	 	Status_Load: out std_logic;
 	 	Bus1_Sel: out std_logic_vector(1 downto 0);
 	 	Bus2_Sel: out std_logic_vector(1 downto 0)
 	 );
@@ -53,6 +53,7 @@ architecture control_unit_arch of control_unit is
 	-------------------------------
 	-- Types
 	-------------------------------
+	-- TODO: Update this to use the 6502 opcodes
 	type t_States is (
 		S_FETCH_0,  -- Opcode fetch states
 		S_FETCH_1,
@@ -110,6 +111,7 @@ architecture control_unit_arch of control_unit is
 		S_BRA_5,
 		S_BRA_6,
 
+		-- TODO: Create states for other branching commands
 		S_BEQ_4,  -- Branch if Z = 1
 		S_BEQ_5,
 		S_BEQ_6,
@@ -140,6 +142,7 @@ architecture control_unit_arch of control_unit is
 	constant DECA: std_logic_vector(7 downto 0) := x"48";  -- A <= A - 1
 	constant DECB: std_logic_vector(7 downto 0) := x"49";  -- B <= B - 1
 	constant BRA: std_logic_vector(7 downto 0) := x"20";  -- Branch Always
+	-- TODO: Add constants for other branching memonics
 	constant BMI: std_logic_vector(7 downto 0) := x"21";  -- Branch if N = 1
 	constant BPL: std_logic_vector(7 downto 0) := x"22";  -- Branch if N = 0
 	constant BEQ: std_logic_vector(7 downto 0) := x"23";  -- Branch if Z = 1
@@ -176,7 +179,7 @@ begin
 		end if;
 	end process;
 
-	NEXT_STATE_LOGIC: process (current_state, IR, CCR_RESULT)
+	NEXT_STATE_LOGIC: process (current_state, IR, Status_Result)
 	begin
 		case (current_state) is
 			-- Opcode Fetch
@@ -217,7 +220,8 @@ begin
 					when BRA =>  -- Branch Always
 						next_state <= S_BRA_4;
 					when BEQ =>  -- Branch Equals
-						if (CCR_Result(2) = '1') then  -- N = 1
+						-- TODO: Update this to use 6502 status flags
+						if (Status_Result(2) = '1') then  -- N = 1
 							next_state <= S_BEQ_4;
 						else
 							next_state <= S_BEQ_7;
@@ -327,7 +331,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -340,7 +344,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -353,7 +357,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -367,7 +371,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -384,7 +388,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -397,7 +401,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -410,7 +414,7 @@ begin
 				A_Load <= '1';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -427,7 +431,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -440,7 +444,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -453,7 +457,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -466,7 +470,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -479,7 +483,7 @@ begin
 				A_Load <= '1';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -496,7 +500,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -509,7 +513,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -522,7 +526,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -535,7 +539,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "01";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= WRITE;
@@ -552,7 +556,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -565,7 +569,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -578,7 +582,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '1';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -595,7 +599,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -608,7 +612,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -621,7 +625,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -634,7 +638,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -647,7 +651,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '1';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -664,7 +668,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -677,7 +681,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -690,7 +694,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -703,7 +707,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "10";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= WRITE;
@@ -720,10 +724,12 @@ begin
 				A_Load <= '1';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '1';
+				Status_Load <= '1';
 				Bus1_Sel <= "01";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
+
+			-- TODO: Implment steps for other math and logic commands
 
 			-------------------------------
 			-- Branch Always
@@ -737,7 +743,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -750,7 +756,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -763,10 +769,12 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
+
+			-- TODO: Implement steps for other branching commands
 
 			-------------------------------
 			-- Branch if Z = 1
@@ -780,7 +788,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -793,7 +801,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
@@ -806,7 +814,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -823,7 +831,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
@@ -839,7 +847,7 @@ begin
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
-				CCR_Load <= '0';
+				Status_Load <= '0';
 				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;

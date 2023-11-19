@@ -132,4 +132,5 @@ package vga_types is
 		),
 		pixel_freq => 40e6
 	);
+
 end package;

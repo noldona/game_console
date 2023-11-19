@@ -1,15 +1,15 @@
 -------------------------------------------------------------------------------
 -- Engineer: Ronald Jones
 --
--- Create Date: 10/29/2023 11:24:47 AM
--- Design Name: Sound Card
--- Module Name: sound_card - sound_card_arch
+-- Create Date: 11/19/2023 03:55:39 PM
+-- Design Name: Arithmetic Logic Unit Test Bench
+-- Module Name: alu_tb - alu_tb_arch
 -- Project Name: Game Console
 -- Target Devices: Digilent Cmod S7 Development Board
--- Description:
+-- Description: This is a test bench for the Arithmetic Logic Unit module
 --
 -- Dependencies:
--- 		Game Console Utilities
+-- 		Arithmetic Logic Unit
 --
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created
@@ -22,15 +22,13 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-use WORK.CONSOLE_UTILS.ALL;
 
+-- TODO: Implement the ALU test bench
+entity alu_tb is
+	--  port ();
+end alu_tb;
 
--- TODO: Implement the sound card
-entity sound_card is
-	-- port ();
-end sound_card;
-
-architecture sound_card_arch of sound_card is
+architecture alu_tb_arch of alu_tb is
 	-------------------------------
 	-- Functions
 	-------------------------------
@@ -60,4 +58,4 @@ begin
 	-- Module Implementation
 	-------------------------------
 
-end sound_card_arch;
+end alu_tb_arch;
