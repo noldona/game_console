@@ -1,0 +1,15 @@
+# compile vhdl design source files
+vhdl2008 xil_defaultlib  \
+"../../../../game_console.srcs/sources_1/new/console_utils.vhd" \
+"../../../../game_console.srcs/sources_1/new/control_unit.vhd" \
+"../../../../game_console.srcs/sources_1/new/dual_port_ram.vhd" \
+"../../../../game_console.srcs/sources_1/new/memory_mapper.vhd" \
+"../../../../game_console.srcs/sources_1/new/vga_types.vhd" \
+"../../../../game_console.srcs/sources_1/new/sync_counter.vhd" \
+"../../../../game_console.srcs/sources_1/new/video_card.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../../game_console.srcs/sim_1/new/video_card_tb.vhd" \
+
+# Do not sort compile order
+nosort
