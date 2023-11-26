@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="alu_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="alu_tb" />
+            <top_module name="console_utils" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0 ps"></ZoomStartTime>
+      <ZoomEndTime time="7,311 ps"></ZoomEndTime>
+      <Cursor1Time time="3,005 ps"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="149"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="10" />
+   <wvobject fp_name="/alu_tb/a" type="array">
+      <obj_property name="ElementShortName">a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">a[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/b" type="array">
+      <obj_property name="ElementShortName">b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">b[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/sel" type="array">
+      <obj_property name="ElementShortName">sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">sel[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/result" type="array">
+      <obj_property name="ElementShortName">result[7:0]</obj_property>
+      <obj_property name="ObjectShortName">result[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/status" type="array">
+      <obj_property name="ElementShortName">status[7:0]</obj_property>
+      <obj_property name="ObjectShortName">status[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="vbus7562" type="vbus">
+      <obj_property name="label">Negative</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/alu_tb/status[3]" type="logic">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">[3]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus7564" type="vbus">
+      <obj_property name="label">Zero</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/alu_tb/status[2]" type="logic">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">[2]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus7566" type="vbus">
+      <obj_property name="label">Overflow</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/alu_tb/status[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus7568" type="vbus">
+      <obj_property name="label">Carry</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/alu_tb/status[0]" type="logic">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">[0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group4750" type="group">
+      <obj_property name="label">UUT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/alu_tb/UUT/a" type="array">
+         <obj_property name="ElementShortName">a[7:0]</obj_property>
+         <obj_property name="ObjectShortName">a[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/alu_tb/UUT/b" type="array">
+         <obj_property name="ElementShortName">b[7:0]</obj_property>
+         <obj_property name="ObjectShortName">b[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/alu_tb/UUT/sel" type="array">
+         <obj_property name="ElementShortName">sel[2:0]</obj_property>
+         <obj_property name="ObjectShortName">sel[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/alu_tb/UUT/result" type="array">
+         <obj_property name="ElementShortName">result[7:0]</obj_property>
+         <obj_property name="ObjectShortName">result[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/alu_tb/UUT/status" type="array">
+         <obj_property name="ElementShortName">status[7:0]</obj_property>
+         <obj_property name="ObjectShortName">status[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="vbus7578" type="vbus">
+         <obj_property name="label">Negative</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/alu_tb/UUT/status[3]" type="logic">
+            <obj_property name="ElementShortName">[3]</obj_property>
+            <obj_property name="ObjectShortName">[3]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="vbus7584" type="vbus">
+         <obj_property name="label">Zero</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/alu_tb/UUT/status[2]" type="logic">
+            <obj_property name="ElementShortName">[2]</obj_property>
+            <obj_property name="ObjectShortName">[2]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="vbus7582" type="vbus">
+         <obj_property name="label">Overflow</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/alu_tb/UUT/status[1]" type="logic">
+            <obj_property name="ElementShortName">[1]</obj_property>
+            <obj_property name="ObjectShortName">[1]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="vbus7580" type="vbus">
+         <obj_property name="label">Carry</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/alu_tb/UUT/status[0]" type="logic">
+            <obj_property name="ElementShortName">[0]</obj_property>
+            <obj_property name="ObjectShortName">[0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+</wave_config>

@@ -126,11 +126,11 @@ begin
 			"'"
 			severity error;
 		rst <= '1';  -- Take out of reset mode
+		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Sync Counter Reset Test End" severity note;
 
 		-- Test Blank State
 		report "Sync Counter Blank Test Beging" severity note;
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle
 		assert blank = '0'
 			report "Sync Counter Test: Blank Test - Invalid 'blank' value, " &
 			"Expected: '0' but got '" &

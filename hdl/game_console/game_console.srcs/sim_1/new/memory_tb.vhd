@@ -127,11 +127,11 @@ begin
 				"'"
 			severity error;
 		rst <= '1';  -- Take out of reset mode
+		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Memory Reset Test End" severity note;
 
 		-- Test Writing/Reading Working RAM
 		report "Memory Write/Read Working RAM Test Begin" severity note;
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle befor changing data
 		-- Set the data
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"01AA";  -- Set address to write to in Working RAM

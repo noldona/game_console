@@ -116,6 +116,7 @@ begin
 				"'"
 			severity error;
 		rst <= '1';  -- Take out of reset mode
+		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "I/O Reset Test End" severity note;
 
 		-- Test Writing I/O

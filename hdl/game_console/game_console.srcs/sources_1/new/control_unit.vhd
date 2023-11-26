@@ -795,7 +795,7 @@ begin
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '1';
-				Bus1_Sel <= "01";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
+				Bus1_Sel <= "10";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 

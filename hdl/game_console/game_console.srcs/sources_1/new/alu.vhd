@@ -66,8 +66,9 @@ begin
 	------------------------------
 	-- TODO: Updated this to use the 6502 status flags
 	ALU_PROC: process (a, b, sel)
-		variable sum_uns: unsigned (8 downto 0);
+		variable sum_uns: unsigned(8 downto 0);
 	begin
+		status <= x"00";
 		case sel is
 			-- Addition
 			when "000" =>
@@ -103,8 +104,8 @@ begin
 			-- TODO: Implement Decrement
 
 			when others =>
-				result <= "ZZZZZZZZ";
-				status <= "ZZZZZZZZ";
+				result <= BUS_HIGH_Z;
+				status <= BUS_HIGH_Z;
 		end case;
 	end process;
 

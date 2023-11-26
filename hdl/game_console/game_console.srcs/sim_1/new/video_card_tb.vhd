@@ -241,11 +241,11 @@ begin
 			"'"
 			severity error;
 		rst <= '1';  -- Take out of reset mode
+		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "VGA Reset Test End" severity note;
 
 		-- Test Register Write/Read
 		report "VGA Register Test Begin" severity note;
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"2000";  -- Set address to Video Card Register
 		data <= x"80";  -- Set address to VRAM 2 base address

@@ -111,11 +111,11 @@ begin
 			"'"
 			severity error;
 		rst <= '1';  -- Take out of reset mode
+		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Register Reset Test End" severity note;
 
 		-- Test Loading
 		report "Register Load Test Begin" severity note;
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		-- Set the data
 		load <= '1';
 		data_rx <= x"FFFF";

@@ -25,6 +25,7 @@ use IEEE.NUMERIC_STD.ALL;
 use WORK.CONSOLE_UTILS.ALL;
 
 
+-- TODO: Update this to support larger than 8 bits
 entity reg is
 	generic (
 		SIZE: integer := 8

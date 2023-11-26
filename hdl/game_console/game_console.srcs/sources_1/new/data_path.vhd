@@ -79,12 +79,15 @@ architecture data_path_arch of data_path is
 	end component;
 
 	component reg
+		generic (
+			SIZE: integer := 8
+		);
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
 			load: in std_logic;
-			data_rx: in std_logic_vector(7 downto 0);
-			data_tx: out std_logic_vector(7 downto 0)
+			data_rx: in std_logic_vector(SIZE - 1 downto 0);
+			data_tx: out std_logic_vector(SIZE - 1 downto 0)
 		);
 	end component;
 
@@ -104,6 +107,7 @@ architecture data_path_arch of data_path is
 	signal B: std_logic_vector(7 downto 0);  -- General Purpose Register
 	signal X: std_logic_vector(7 downto 0);  -- Index Register
 	signal Y: std_logic_vector(7 downto 0);  -- Index Register
+	-- TODO: Implement the stack
 	signal SP: std_logic_vector(7 downto 0);  -- Stack Pointer Low-Byte, High-Byte is always x"01"
 	signal PC: std_logic_vector(15 downto 0);  -- Program Counter
 	signal MAR: std_logic_vector(15 downto 0);  -- Memory Address Register
@@ -123,6 +127,9 @@ begin
 	-- Component Implementations
 	-------------------------------
 	INSTRUCTION_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
 		port map (
 			clk => clk,
 			rst => rst,
@@ -132,6 +139,9 @@ begin
 		);
 
 	A_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
 		port map (
 			clk => clk,
 			rst => rst,
@@ -141,6 +151,9 @@ begin
 		);
 
 	B_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
 		port map (
 			clk => clk,
 			rst => rst,
@@ -150,6 +163,9 @@ begin
 		);
 
 	X_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
 		port map (
 			clk => clk,
 			rst => rst,
@@ -159,6 +175,9 @@ begin
 		);
 
 	Y_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
 		port map (
 			clk => clk,
 			rst => rst,
@@ -168,6 +187,9 @@ begin
 		);
 
 	STATUS_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
 		port map (
 			clk => clk,
 			rst => rst,
@@ -213,11 +235,13 @@ begin
 		end case;
 	end process;
 
+	-- TODO: Update this to use a counter register with 16 bits
 	PROGRAM_COUNTER: process (clk, rst)
 	begin
 		if (rst = '0') then
 			-- TODO: Change this to use reset vector x"FFFC"-x"FFFD"
 			PC_uns <= x"4020";
+			data <= BUS_HIGH_Z;
 		elsif (rising_edge(clk)) then
 			if (PC_Load = '1') then
 				if (PC_Byte = '0') then
@@ -231,6 +255,7 @@ begin
 		end if;
 	end process;
 
+	-- TODO: Update this to use register with 16 bits
 	MEMORY_ADDRESS_REGISTER: process (clk, rst)
 	begin
 		if (rst = '0') then
