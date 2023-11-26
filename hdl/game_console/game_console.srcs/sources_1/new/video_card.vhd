@@ -21,7 +21,7 @@
 -- Dependencies:
 -- 		VGA Types
 -- 		Game Console Utilities
--- 		Sync Counter
+-- 		Video Card Sync Counter
 --
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created
@@ -43,13 +43,15 @@ entity video_card is
 		RESOLUTION: t_VGA := VGA_640_480_60;
 		X_DIV: integer := 2;
 		Y_DIV: integer := 2;
-		MEM_OFFSET: integer := 0
+		REG_ADDR_MIN: integer;
+		REG_ADDR_MAX: integer
 	);
 	port (
 		clk: in std_logic;
 		rst: in std_logic;
-		data: in std_logic_vector(7 downto 0);
-		addr: out std_logic_vector(15 downto 0);
+		data: inout std_logic_vector(7 downto 0);
+		addr: in std_logic_vector(15 downto 0);
+		state: in t_Bus_State;
 		rdy: in std_logic;
 		vgaRed: out std_logic_vector(2 downto 0);
 		vgaGreen: out std_logic_vector(2 downto 0);
@@ -63,6 +65,15 @@ architecture video_card_arch of video_card is
 	-------------------------------
 	-- Functions
 	-------------------------------
+	-- Inline If-Then-Else function
+	function ite(b: boolean; x, y: integer) return integer is
+		begin
+			if (b) then
+				return x;
+			else
+				return y;
+			end if;
+		end function ite;
 
 	-------------------------------
 	-- Types
@@ -77,8 +88,8 @@ architecture video_card_arch of video_card is
 	-------------------------------
 	component sync_counter
 		generic (
-			resolution: t_VGA;
-			dir: std_logic  -- '0' = Horizontal, '1' = Vertical
+			RESOLUTION: t_VGA := VGA_640_480_60;
+			DIR: std_logic := '0'  -- '0' = Horizontal, '1' = Vertical
 		);
 		port (
 			clk: in std_logic;
@@ -87,6 +98,35 @@ architecture video_card_arch of video_card is
 			blank: out std_logic;
 			addr: out std_logic_vector(15 downto 0);
 			carry: out std_logic
+		);
+	end component;
+
+	component ram
+		generic (
+			START_ADDRESS: integer := 16#0000#;
+			END_ADDRESS: integer := 16#FFFF#;
+			INIT_FILE: string := "";
+			READ_ONLY: std_logic := '0'  -- 0: RAM, 1: ROM
+		);
+		port (
+			clk: in std_logic;
+			rst: in std_logic;
+			state: in t_Bus_State;
+			addr: in std_logic_vector(15 downto 0);
+			data: inout std_logic_vector(7 downto 0)
+		);
+	end component;
+
+	component reg
+		generic (
+			SIZE: integer := 8
+		);
+		port (
+			clk: in std_logic;
+			rst: in std_logic;
+			load: in std_logic;
+			data_rx: in std_logic_vector(SIZE - 1 downto 0);
+			data_tx: out std_logic_vector(SIZE - 1 downto 0)
 		);
 	end component;
 
@@ -101,11 +141,20 @@ architecture video_card_arch of video_card is
 	signal vblank: std_logic := '0';
 	signal vcarry: std_logic := '1';
 
-	-- Address Lines
+	-- Address Signals
 	signal addr_x: std_logic_vector(15 downto 0) := x"0000";
 	signal addr_y: std_logic_vector(15 downto 0) := x"0000";
 	signal temp: std_logic_vector(31 downto 0);
 
+	-- VRAM Signals
+	signal ram_addr: std_logic_vector(15 downto 0) := x"0000";
+	signal ram_data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
+
+	-- VREG Signals
+	signal data_rx: std_logic_vector(7 downto 0);
+	signal data_tx: std_logic_vector(7 downto 0);
+	signal EN: std_logic;
+	signal load: std_logic;
 
 begin
 	-------------------------------
@@ -114,12 +163,12 @@ begin
 	-- Sync Counter for the Hortizontal
 	HSYNC_COUNTER: sync_counter
 		generic map (
-			resolution => RESOLUTION,
-			dir => '0'  -- Horizontal
+			RESOLUTION => RESOLUTION,
+			DIR => '0'  -- Horizontal
 		)
 		port map (
 			clk => clk,
-			rst => '1',
+			rst => rst,
 			sync => hsync,
 			blank => hblank,
 			addr => addr_x,
@@ -129,26 +178,93 @@ begin
 	-- Sync Counter for the Vertical
 	VSYNC_COUNTER: sync_counter
 		generic map (
-			resolution => RESOLUTION,
-			dir => '1'  -- Vertical
+			RESOLUTION => RESOLUTION,
+			DIR => '1'  -- Vertical
 		)
 		port map (
 			clk => hcarry,
-			rst => '1',
+			rst => rst,
 			sync => vsync,
 			blank => vblank,
 			addr => addr_y,
 			carry => vcarry
 		);
 
+	VRAM_1: ram
+		generic map (
+			START_ADDRESS => 16#0000#,
+			END_ADDRESS => 16#7FFF#,
+			INIT_FILE => "image_1.mif",
+			READ_ONLY => '1'
+		)
+		port map (
+			clk => clk,
+			rst => rst,
+			state => READ,
+			addr => ram_addr,
+			data => ram_data
+		);
+
+	VRAM_2: ram
+		generic map (
+			START_ADDRESS => 16#8000#,
+			END_ADDRESS => 16#FFFF#,
+			INIT_FILE => "image_2.mif",
+			READ_ONLY => '1'
+		)
+		port map (
+			clk => clk,
+			rst => rst,
+			state => READ,
+			addr => ram_addr,
+			data => ram_data
+		);
+
+	VGA_REG: reg
+		generic map (
+			SIZE => 8
+		)
+		port map (
+			clk => clk,
+			rst => rst,
+			load => load,
+			data_rx => data_rx,
+			data_tx => data_tx
+		);
+
 	-------------------------------
 	-- Module Implementation
 	-------------------------------
-	temp <= std_logic_vector((((unsigned(addr_y) / Y_DIV) * (RESOLUTION.hsync.active)) + ((unsigned(addr_x) - 1) / X_DIV) + MEM_OFFSET));
-	addr <= temp(15 downto 0);
+	ENABLE: process (addr)
+	begin
+		if ((to_integer(unsigned(addr)) >= REG_ADDR_MIN) and
+				(to_integer(unsigned(addr)) <= REG_ADDR_MAX)) then
+			EN <= '1';
+		else
+			EN <= '0';
+		end if;
+	end process;
 
-	vgaRed <= "000" when (vblank = '1' or hblank = '1') else data(7 downto 5);
-	vgaGreen <= "000" when (vblank = '1' or hblank = '1') else data(4 downto 2);
-	vgaBlue <= "00" when (vblank = '1' or hblank = '1') else data(1 downto 0);
+	REG_LOAD: process (EN)
+	begin
+		if (EN = '1' and state = WRITE) then
+			load <= '1';
+		else
+			load <= '0';
+		end if;
+	end process;
+
+	data_rx <= data;
+	data <= data_tx when (state = READ AND EN = '1') else BUS_HIGH_Z;
+
+	temp <= std_logic_vector(
+		((unsigned(addr_y) / Y_DIV) * RESOLUTION.hsync.active) +
+		((unsigned(addr_x)) / X_DIV) +
+		(to_unsigned(ite((data_tx = x"80"), 16#8000#, 16#0000#), 16)));
+	ram_addr <= temp(15 downto 0);
+
+	vgaRed <= "000" when (vblank = '1' or hblank = '1') else ram_data(7 downto 5);
+	vgaGreen <= "000" when (vblank = '1' or hblank = '1') else ram_data(4 downto 2);
+	vgaBlue <= "00" when (vblank = '1' or hblank = '1') else ram_data(1 downto 0);
 
 end video_card_arch;

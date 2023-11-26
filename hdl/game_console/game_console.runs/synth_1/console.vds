@@ -3,8 +3,8 @@
 # SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
 # IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
 # SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
-# Start of session at: Sun Nov 19 17:41:27 2023
-# Process ID: 23192
+# Start of session at: Sat Nov 25 19:20:09 2023
+# Process ID: 72596
 # Current directory: C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.runs/synth_1
 # Command line: vivado.exe -log console.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source console.tcl
 # Log file: C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.runs/synth_1/console.vds
@@ -12,213 +12,187 @@
 # Running On: LAPTOP-JRMFS4PA, OS: Windows, CPU Frequency: 2592 MHz, CPU Physical cores: 6, Host memory: 16971 MB
 #-----------------------------------------------------------
 source console.tcl -notrace
-create_project: Time (s): cpu = 00:00:02 ; elapsed = 00:00:09 . Memory (MB): peak = 1460.348 ; gain = 159.578
+create_project: Time (s): cpu = 00:00:02 ; elapsed = 00:00:09 . Memory (MB): peak = 1461.164 ; gain = 160.262
 Command: read_checkpoint -auto_incremental -incremental C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/utils_1/imports/synth_1/video_card.dcp
 INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/utils_1/imports/synth_1/video_card.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+read_checkpoint: Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 1496.996 ; gain = 0.000
 Command: synth_design -top console -part xc7s25csga225-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7s25'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7s25'
 INFO: [Device 21-403] Loading part xc7s25csga225-1
-INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
-INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 45260
+INFO: [Synth 8-7075] Helper process launched with PID 61736
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:07 . Memory (MB): peak = 2272.230 ; gain = 410.988
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:09 . Memory (MB): peak = 2273.926 ; gain = 409.797
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'console' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:60]
-INFO: [Synth 8-3491] module 'clk_wiz_0' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.runs/synth_1/.Xil/Vivado-23192-LAPTOP-JRMFS4PA/realtime/clk_wiz_0_stub.vhdl:6' bound to instance 'CLK_WIZ' of component 'clk_wiz_0' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:168]
-INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.runs/synth_1/.Xil/Vivado-23192-LAPTOP-JRMFS4PA/realtime/clk_wiz_0_stub.vhdl:16]
-INFO: [Synth 8-3491] module 'cpu' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:31' bound to instance 'CPU_1' of component 'cpu' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:179]
+INFO: [Synth 8-3491] module 'clk_wiz_0' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.runs/synth_1/.Xil/Vivado-72596-LAPTOP-JRMFS4PA/realtime/clk_wiz_0_stub.vhdl:6' bound to instance 'CLK_WIZ' of component 'clk_wiz_0' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:179]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.runs/synth_1/.Xil/Vivado-72596-LAPTOP-JRMFS4PA/realtime/clk_wiz_0_stub.vhdl:16]
+INFO: [Synth 8-3491] module 'cpu' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:31' bound to instance 'CPU_1' of component 'cpu' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:190]
 INFO: [Synth 8-638] synthesizing module 'cpu' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:42]
-INFO: [Synth 8-3491] module 'control_unit' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/control_unit.vhd:28' bound to instance 'CU_1' of component 'control_unit' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:123]
-INFO: [Synth 8-638] synthesizing module 'control_unit' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/control_unit.vhd:48]
-INFO: [Synth 8-256] done synthesizing module 'control_unit' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/control_unit.vhd:48]
-INFO: [Synth 8-3491] module 'data_path' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:30' bound to instance 'DP_1' of component 'data_path' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:141]
-INFO: [Synth 8-638] synthesizing module 'data_path' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:53]
-INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'INSTRUCTION_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:123]
-INFO: [Synth 8-638] synthesizing module '\reg ' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:38]
-INFO: [Synth 8-256] done synthesizing module '\reg ' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:38]
-INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'MEMORY_ADDRESS_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:132]
-INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'A_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:141]
-INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'B_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:150]
-INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'X_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:159]
-INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'Y_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:168]
-INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'STATUS_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:177]
-INFO: [Synth 8-3491] module 'alu' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/alu.vhd:28' bound to instance 'ALU_1' of component 'alu' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:186]
+INFO: [Synth 8-3491] module 'control_unit' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/control_unit.vhd:28' bound to instance 'CU_1' of component 'control_unit' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:126]
+INFO: [Synth 8-638] synthesizing module 'control_unit' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/control_unit.vhd:49]
+INFO: [Synth 8-256] done synthesizing module 'control_unit' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/control_unit.vhd:49]
+WARNING: [Synth 8-5640] Port 'pc_byte' is missing in component declaration [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:58]
+INFO: [Synth 8-3491] module 'data_path' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:30' bound to instance 'DP_1' of component 'data_path' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:145]
+INFO: [Synth 8-638] synthesizing module 'data_path' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:55]
+INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'INSTRUCTION_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:125]
+INFO: [Synth 8-638] synthesizing module '\reg ' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:41]
+INFO: [Synth 8-256] done synthesizing module '\reg ' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:41]
+INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'A_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:134]
+INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'B_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:143]
+INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'X_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:152]
+INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'Y_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:161]
+INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'STATUS_REGISTER' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:170]
+INFO: [Synth 8-3491] module 'alu' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/alu.vhd:28' bound to instance 'ALU_1' of component 'alu' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:179]
 INFO: [Synth 8-638] synthesizing module 'alu' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/alu.vhd:38]
 INFO: [Synth 8-256] done synthesizing module 'alu' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/alu.vhd:38]
-INFO: [Synth 8-256] done synthesizing module 'data_path' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:53]
+INFO: [Synth 8-226] default block is never used [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:197]
+INFO: [Synth 8-256] done synthesizing module 'data_path' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/data_path.vhd:55]
 INFO: [Synth 8-256] done synthesizing module 'cpu' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:42]
-INFO: [Synth 8-3491] module 'video_card' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:41' bound to instance 'VGA_CARD' of component 'video_card' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:189]
-INFO: [Synth 8-638] synthesizing module 'video_card' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:62]
-	Parameter resolution bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
-	Parameter dir bound to: 1'b0 
-INFO: [Synth 8-3491] module 'sync_counter' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:30' bound to instance 'HSYNC_COUNTER' of component 'sync_counter' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:115]
+	Parameter RESOLUTION bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
+	Parameter X_DIV bound to: 2 - type: integer 
+	Parameter Y_DIV bound to: 2 - type: integer 
+	Parameter REG_ADDR_MIN bound to: 8192 - type: integer 
+	Parameter REG_ADDR_MAX bound to: 8192 - type: integer 
+INFO: [Synth 8-3491] module 'video_card' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:41' bound to instance 'VGA_CARD' of component 'video_card' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:200]
+INFO: [Synth 8-638] synthesizing module 'video_card' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:64]
+	Parameter RESOLUTION bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
+	Parameter X_DIV bound to: 2 - type: integer 
+	Parameter Y_DIV bound to: 2 - type: integer 
+	Parameter REG_ADDR_MIN bound to: 8192 - type: integer 
+	Parameter REG_ADDR_MAX bound to: 8192 - type: integer 
+	Parameter RESOLUTION bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
+	Parameter DIR bound to: 1'b0 
+INFO: [Synth 8-3491] module 'sync_counter' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:30' bound to instance 'HSYNC_COUNTER' of component 'sync_counter' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:164]
 INFO: [Synth 8-638] synthesizing module 'sync_counter' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:45]
-	Parameter resolution bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
-	Parameter dir bound to: 1'b0 
+	Parameter RESOLUTION bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
+	Parameter DIR bound to: 1'b0 
+WARNING: [Synth 8-614] signal 'cnt' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:84]
 INFO: [Synth 8-256] done synthesizing module 'sync_counter' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:45]
-	Parameter resolution bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
-	Parameter dir bound to: 1'b1 
-INFO: [Synth 8-3491] module 'sync_counter' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:30' bound to instance 'VSYNC_COUNTER' of component 'sync_counter' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:130]
+	Parameter RESOLUTION bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
+	Parameter DIR bound to: 1'b1 
+INFO: [Synth 8-3491] module 'sync_counter' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:30' bound to instance 'VSYNC_COUNTER' of component 'sync_counter' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:179]
 INFO: [Synth 8-638] synthesizing module 'sync_counter__parameterized1' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:45]
-	Parameter resolution bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
-	Parameter dir bound to: 1'b1 
+	Parameter RESOLUTION bound to: 352'b0000000000000000000000101000000000000000000000000000000000010000000000000000000000000000011000000000000000000000000000000011000000000000000000000000001100100000000000000000000000000001111000000000000000000000000000000000101000000000000000000000000000000010000000000000000000000000001000010000000000000000000000100000110100000001100000000010001111011000 
+	Parameter DIR bound to: 1'b1 
+WARNING: [Synth 8-614] signal 'cnt' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:84]
 INFO: [Synth 8-256] done synthesizing module 'sync_counter__parameterized1' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:45]
-INFO: [Synth 8-256] done synthesizing module 'video_card' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:62]
-INFO: [Synth 8-3491] module 'memory' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:44' bound to instance 'MEM' of component 'memory' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:203]
-INFO: [Synth 8-638] synthesizing module 'memory' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:55]
 	Parameter START_ADDRESS bound to: 0 - type: integer 
-	Parameter END_ADDRESS bound to: 8191 - type: integer 
-	Parameter INIT_FILE bound to: (null) - type: string 
-	Parameter READ_ONLY bound to: 1'b0 
-INFO: [Synth 8-3491] module 'ram' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:28' bound to instance 'RAM_1' of component 'ram' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:112]
+	Parameter END_ADDRESS bound to: 32767 - type: integer 
+	Parameter INIT_FILE bound to: image_1.mif - type: string 
+	Parameter READ_ONLY bound to: 1'b1 
+INFO: [Synth 8-3491] module 'ram' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:28' bound to instance 'VRAM_1' of component 'ram' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:193]
 INFO: [Synth 8-638] synthesizing module 'ram' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
 	Parameter START_ADDRESS bound to: 0 - type: integer 
+	Parameter END_ADDRESS bound to: 32767 - type: integer 
+	Parameter INIT_FILE bound to: image_1.mif - type: string 
+	Parameter READ_ONLY bound to: 1'b1 
+WARNING: [Synth 8-614] signal 'RAM' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:81]
+WARNING: [Synth 8-614] signal 'addr' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+INFO: [Synth 8-256] done synthesizing module 'ram' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
+	Parameter START_ADDRESS bound to: 32768 - type: integer 
+	Parameter END_ADDRESS bound to: 65535 - type: integer 
+	Parameter INIT_FILE bound to: image_2.mif - type: string 
+	Parameter READ_ONLY bound to: 1'b1 
+INFO: [Synth 8-3491] module 'ram' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:28' bound to instance 'VRAM_2' of component 'ram' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:208]
+INFO: [Synth 8-638] synthesizing module 'ram__parameterized1' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
+	Parameter START_ADDRESS bound to: 32768 - type: integer 
+	Parameter END_ADDRESS bound to: 65535 - type: integer 
+	Parameter INIT_FILE bound to: image_2.mif - type: string 
+	Parameter READ_ONLY bound to: 1'b1 
+WARNING: [Synth 8-614] signal 'RAM' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:81]
+WARNING: [Synth 8-614] signal 'addr' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+INFO: [Synth 8-256] done synthesizing module 'ram__parameterized1' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
+	Parameter SIZE bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'reg' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:28' bound to instance 'VGA_REG' of component 'reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:223]
+INFO: [Synth 8-638] synthesizing module 'reg__parameterized2' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:41]
+	Parameter SIZE bound to: 8 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'reg__parameterized2' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/reg.vhd:41]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:248]
+INFO: [Synth 8-256] done synthesizing module 'video_card' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:64]
+	Parameter IO_DIR bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'memory' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:44' bound to instance 'MEM' of component 'memory' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:222]
+INFO: [Synth 8-638] synthesizing module 'memory' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:58]
+	Parameter IO_DIR bound to: 16'b0000000000000000 
+	Parameter START_ADDRESS bound to: 0 - type: integer 
 	Parameter END_ADDRESS bound to: 8191 - type: integer 
 	Parameter INIT_FILE bound to: (null) - type: string 
 	Parameter READ_ONLY bound to: 1'b0 
-WARNING: [Synth 8-614] signal 'rst' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:92]
-INFO: [Synth 8-256] done synthesizing module 'ram' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
+INFO: [Synth 8-3491] module 'ram' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:28' bound to instance 'RAM_1' of component 'ram' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:113]
+INFO: [Synth 8-638] synthesizing module 'ram__parameterized3' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
+	Parameter START_ADDRESS bound to: 0 - type: integer 
+	Parameter END_ADDRESS bound to: 8191 - type: integer 
+	Parameter INIT_FILE bound to: (null) - type: string 
+	Parameter READ_ONLY bound to: 1'b0 
+WARNING: [Synth 8-614] signal 'RAM' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:81]
+WARNING: [Synth 8-614] signal 'addr' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+INFO: [Synth 8-256] done synthesizing module 'ram__parameterized3' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
 	Parameter START_ADDRESS bound to: 16416 - type: integer 
 	Parameter END_ADDRESS bound to: 65535 - type: integer 
-	Parameter INIT_FILE bound to: prg.bin - type: string 
+	Parameter INIT_FILE bound to: prg.mif - type: string 
 	Parameter READ_ONLY bound to: 1'b1 
-INFO: [Synth 8-3491] module 'ram' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:28' bound to instance 'CART_1' of component 'ram' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:127]
-INFO: [Synth 8-638] synthesizing module 'ram__parameterized1' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
+INFO: [Synth 8-3491] module 'ram' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:28' bound to instance 'CART_1' of component 'ram' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:128]
+INFO: [Synth 8-638] synthesizing module 'ram__parameterized5' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
 	Parameter START_ADDRESS bound to: 16416 - type: integer 
 	Parameter END_ADDRESS bound to: 65535 - type: integer 
-	Parameter INIT_FILE bound to: prg.bin - type: string 
+	Parameter INIT_FILE bound to: prg.mif - type: string 
 	Parameter READ_ONLY bound to: 1'b1 
-WARNING: [Synth 8-614] signal 'rst' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:92]
-INFO: [Synth 8-256] done synthesizing module 'ram__parameterized1' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
-INFO: [Synth 8-256] done synthesizing module 'memory' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:55]
-INFO: [Synth 8-3491] module 'sound_card' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sound_card.vhd:29' bound to instance 'APU' of component 'sound_card' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:213]
+WARNING: [Synth 8-614] signal 'RAM' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:81]
+WARNING: [Synth 8-614] signal 'addr' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:94]
+INFO: [Synth 8-256] done synthesizing module 'ram__parameterized5' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/ram.vhd:44]
+	Parameter START_ADDRESS bound to: 16384 - type: integer 
+	Parameter IO_DIR bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'io' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/io.vhd:28' bound to instance 'IO_1' of component 'io' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:143]
+INFO: [Synth 8-638] synthesizing module 'io' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/io.vhd:43]
+	Parameter START_ADDRESS bound to: 16384 - type: integer 
+	Parameter IO_DIR bound to: 16'b0000000000000000 
+WARNING: [Synth 8-614] signal 'io_ports' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/io.vhd:78]
+WARNING: [Synth 8-614] signal 'addr' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/io.vhd:91]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/io.vhd:91]
+INFO: [Synth 8-256] done synthesizing module 'io' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/io.vhd:43]
+INFO: [Synth 8-256] done synthesizing module 'memory' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory.vhd:58]
+INFO: [Synth 8-3491] module 'sound_card' declared at 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sound_card.vhd:29' bound to instance 'APU' of component 'sound_card' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:235]
 INFO: [Synth 8-638] synthesizing module 'sound_card' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sound_card.vhd:33]
 INFO: [Synth 8-256] done synthesizing module 'sound_card' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sound_card.vhd:33]
 INFO: [Synth 8-256] done synthesizing module 'console' (0#1) [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:60]
 WARNING: [Synth 8-3848] Net rdy in module/entity cpu does not have driver. [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:38]
-WARNING: [Synth 8-3848] Net X_Load in module/entity cpu does not have driver. [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:111]
-WARNING: [Synth 8-3848] Net Y_Load in module/entity cpu does not have driver. [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:112]
+WARNING: [Synth 8-3848] Net X_Load in module/entity cpu does not have driver. [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:114]
+WARNING: [Synth 8-3848] Net Y_Load in module/entity cpu does not have driver. [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/cpu.vhd:115]
 WARNING: [Synth 8-3848] Net vgaGreen in module/entity console does not have driver. [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd:47]
-WARNING: [Synth 8-7129] Port rst in module ram__parameterized1 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port data[0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[0][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[1][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[2][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[3][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[4][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[5][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[6][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[7][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[8][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[9][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][5] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][4] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][3] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][2] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][1] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[10][0] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[11][7] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[11][6] in module memory is either unconnected or has no load
-WARNING: [Synth 8-7129] Port io[11][5] in module memory is either unconnected or has no load
-INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-7129] Port rdy in module video_card is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Status_Result[7] in module control_unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Status_Result[6] in module control_unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Status_Result[5] in module control_unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Status_Result[4] in module control_unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Status_Result[3] in module control_unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Status_Result[1] in module control_unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Status_Result[0] in module control_unit is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rdy in module cpu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vgaGreen[2] in module console is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vgaGreen[1] in module console is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vgaGreen[0] in module console is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst_btn in module console is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:21 ; elapsed = 00:01:00 . Memory (MB): peak = 3832.938 ; gain = 1971.695
+Finished RTL Elaboration : Time (s): cpu = 00:16:05 ; elapsed = 00:38:00 . Memory (MB): peak = 4699.590 ; gain = 2835.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:01:03 . Memory (MB): peak = 3844.551 ; gain = 1983.309
+Finished Handling Custom Attributes : Time (s): cpu = 00:16:07 ; elapsed = 00:38:03 . Memory (MB): peak = 4699.590 ; gain = 2835.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:22 ; elapsed = 00:01:03 . Memory (MB): peak = 3844.551 ; gain = 1983.309
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:16:07 ; elapsed = 00:38:03 . Memory (MB): peak = 4699.590 ; gain = 2835.461
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:02 . Memory (MB): peak = 3862.316 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 4717.250 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -233,22 +207,20 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/console_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 4022.816 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 4883.039 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.495 . Memory (MB): peak = 4022.816 ; gain = 0.000
-INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
-INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+Constraint Validation Runtime : Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.586 . Memory (MB): peak = 4883.039 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:35 ; elapsed = 00:01:33 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Constraint Validation : Time (s): cpu = 00:16:30 ; elapsed = 00:38:34 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7s25csga225-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:35 ; elapsed = 00:01:33 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Loading Part and Timing Information : Time (s): cpu = 00:16:31 ; elapsed = 00:38:34 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -257,84 +229,109 @@ Applied set_property IO_BUFFER_TYPE = NONE for clk_12MHz. (constraint file  c:/U
 Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_12MHz. (constraint file  c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 5).
 Applied set_property KEEP_HIERARCHY = SOFT for CLK_WIZ. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:35 ; elapsed = 00:01:33 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:16:31 ; elapsed = 00:38:34 . Memory (MB): peak = 4883.039 ; gain = 3018.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Preparing Guide Design
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-6702] IncrSynth : Design change found in an area of the design that prevents previous synthesis information being used, Reverting to default synthesis
+---------------------------------------------------------------------------------
+Finished Doing Graph Differ : Time (s): cpu = 00:16:39 ; elapsed = 00:38:51 . Memory (MB): peak = 4883.039 ; gain = 3018.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Preparing Guide Design : Time (s): cpu = 00:16:39 ; elapsed = 00:38:51 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'control_unit'
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
-               s_fetch_0 |                           000000 |                           000000
-               s_fetch_1 |                           000001 |                           000001
-               s_fetch_2 |                           000010 |                           000010
-              s_decode_3 |                           000011 |                           000011
-             s_lda_imm_4 |                           000100 |                           000100
-             s_lda_imm_5 |                           000101 |                           000101
-             s_lda_imm_6 |                           000110 |                           000110
-             s_lda_dir_4 |                           000111 |                           000111
-             s_lda_dir_5 |                           001000 |                           001000
-             s_lda_dir_6 |                           001001 |                           001001
-             s_lda_dir_7 |                           001010 |                           001010
-             s_sta_dir_4 |                           001011 |                           001100
-             s_sta_dir_5 |                           001100 |                           001101
-             s_sta_dir_6 |                           001101 |                           001110
-             s_sta_dir_7 |                           001110 |                           001111
-             s_ldb_imm_4 |                           001111 |                           010000
-             s_ldb_imm_5 |                           010000 |                           010001
-             s_ldb_imm_6 |                           010001 |                           010010
-             s_ldb_dir_4 |                           010010 |                           010011
-             s_ldb_dir_5 |                           010011 |                           010100
-             s_ldb_dir_6 |                           010100 |                           010101
-             s_ldb_dir_7 |                           010101 |                           010110
-             s_stb_dir_4 |                           010110 |                           011000
-             s_stb_dir_5 |                           010111 |                           011001
-             s_stb_dir_6 |                           011000 |                           011010
-             s_stb_dir_7 |                           011001 |                           011011
-              s_add_ab_4 |                           011010 |                           011100
-                 iSTATE3 |                           011011 |                           011111
-                 iSTATE2 |                           011100 |                           100000
-                 iSTATE1 |                           011101 |                           100001
-                 iSTATE0 |                           011110 |                           100010
-                  iSTATE |                           011111 |                           100011
+               s_fetch_0 | 00000000000000000000000000000000000000001 |                           000000
+               s_fetch_1 | 00000000000000000000000000000000000000010 |                           000001
+               s_fetch_2 | 00000000000000000000000000000000000000100 |                           000010
+               s_fetch_3 | 00000000000000000000000000000000000001000 |                           000011
+              s_decode_4 | 00000000000000000000000000000000000010000 |                           000100
+             s_lda_imm_5 | 00000000000000000000000000000000000100000 |                           000101
+             s_lda_imm_6 | 00000000000000000000000000000000001000000 |                           000110
+             s_lda_imm_7 | 00000000000000000000000000000000010000000 |                           000111
+             s_lda_dir_5 | 00000000000000000000000000000000100000000 |                           001001
+             s_lda_dir_6 | 00000000000000000000000000000001000000000 |                           001010
+             s_lda_dir_7 | 00000000000000000000000000000010000000000 |                           001011
+             s_lda_dir_8 | 00000000000000000000000000000100000000000 |                           001100
+             s_lda_dir_9 | 00000000000000000000000000001000000000000 |                           001101
+             s_sta_dir_5 | 00000000000000000000000000010000000000000 |                           001110
+             s_sta_dir_6 | 00000000000000000000000000100000000000000 |                           001111
+             s_sta_dir_7 | 00000000000000000000000001000000000000000 |                           010000
+             s_sta_dir_8 | 00000000000000000000000010000000000000000 |                           010001
+             s_ldb_imm_5 | 00000000000000000000000100000000000000000 |                           010010
+             s_ldb_imm_6 | 00000000000000000000001000000000000000000 |                           010011
+             s_ldb_imm_7 | 00000000000000000000010000000000000000000 |                           010100
+             s_ldb_dir_5 | 00000000000000000000100000000000000000000 |                           010101
+             s_ldb_dir_6 | 00000000000000000001000000000000000000000 |                           010110
+             s_ldb_dir_7 | 00000000000000000010000000000000000000000 |                           010111
+             s_ldb_dir_8 | 00000000000000000100000000000000000000000 |                           011000
+             s_ldb_dir_9 | 00000000000000001000000000000000000000000 |                           011001
+             s_stb_dir_5 | 00000000000000010000000000000000000000000 |                           011010
+             s_stb_dir_6 | 00000000000000100000000000000000000000000 |                           011011
+             s_stb_dir_7 | 00000000000001000000000000000000000000000 |                           011100
+             s_stb_dir_8 | 00000000000010000000000000000000000000000 |                           011101
+              s_add_ab_5 | 00000000000100000000000000000000000000000 |                           011110
+                 iSTATE1 | 00000000001000000000000000000000000000000 |                           100001
+                 iSTATE0 | 00000000010000000000000000000000000000000 |                           100010
+                  iSTATE | 00000000100000000000000000000000000000000 |                           100011
+                 iSTATE4 | 00000001000000000000000000000000000000000 |                           100100
+                 iSTATE3 | 00000010000000000000000000000000000000000 |                           100101
+                 s_bra_5 | 00000100000000000000000000000000000000000 |                           100110
+                 iSTATE2 | 00001000000000000000000000000000000000000 |                           100111
 *
-                 s_bra_4 |                           100000 |                           100100
-                 s_bra_5 |                           100001 |                           100101
-                 s_bra_6 |                           100010 |                           100110
-                 s_beq_4 |                           100011 |                           100111
-                 s_beq_5 |                           100100 |                           101000
-                 s_beq_6 |                           100101 |                           101001
-                 s_beq_7 |                           100110 |                           101010
+                 s_beq_5 | 00010000000000000000000000000000000000000 |                           101010
+                 s_beq_6 | 00100000000000000000000000000000000000000 |                           101011
+                 s_beq_7 | 01000000000000000000000000000000000000000 |                           101100
+                 s_beq_8 | 10000000000000000000000000000000000000000 |                           101101
 ---------------------------------------------------------------------------------------------------
-INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'sequential' in module 'control_unit'
+INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'one-hot' in module 'control_unit'
 WARNING: [Synth 8-327] inferring latch for variable 'status_reg' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/alu.vhd:79]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:01 ; elapsed = 00:02:37 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:18:11 ; elapsed = 00:41:18 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
+
+
+Incremental Synthesis Report Summary:
+
+1. Incremental synthesis run: no
+
+   Reason for not running incremental synthesis : Design change found in an area of the design that prevents previous synthesis information being used
+
+
+INFO: [Synth 8-7130] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input   32 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 2     
 	   2 Input   16 Bit       Adders := 3     
+	   3 Input   16 Bit       Adders := 1     
 	   2 Input    9 Bit       Adders := 1     
-	   2 Input    8 Bit       Adders := 1     
 +---Registers : 
-	               16 Bit    Registers := 2     
-	                8 Bit    Registers := 8200  
-	                1 Bit    Registers := 7     
+	               16 Bit    Registers := 4     
+	                8 Bit    Registers := 8215  
+	                1 Bit    Registers := 3     
++---Multipliers : 
+	              16x16  Multipliers := 1     
 +---Muxes : 
-	   2 Input   16 Bit        Muxes := 2     
-	   2 Input    8 Bit        Muxes := 5     
-	   4 Input    8 Bit        Muxes := 8     
-	  35 Input    6 Bit        Muxes := 1     
-	  15 Input    6 Bit        Muxes := 1     
-	   2 Input    6 Bit        Muxes := 1     
+	  36 Input   41 Bit        Muxes := 1     
+	  15 Input   41 Bit        Muxes := 1     
+	   2 Input   41 Bit        Muxes := 1     
+	   3 Input   16 Bit        Muxes := 2     
+	   2 Input   16 Bit        Muxes := 4     
+	   2 Input    8 Bit        Muxes := 3     
+	   4 Input    8 Bit        Muxes := 2     
+	  41 Input    6 Bit        Muxes := 11    
 	   2 Input    3 Bit        Muxes := 2     
-	  35 Input    2 Bit        Muxes := 3     
+	  39 Input    2 Bit        Muxes := 3     
 	   2 Input    2 Bit        Muxes := 1     
-	   3 Input    1 Bit        Muxes := 8192  
-	  35 Input    1 Bit        Muxes := 7     
-	   2 Input    1 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 25    
+	  39 Input    1 Bit        Muxes := 8     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -350,34 +347,108 @@ Finished Part Resource Summary
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-3886] merging instance 'data_regi_15' (FDE) to 'data_regi_14'
-INFO: [Synth 8-3886] merging instance 'data_regi_14' (FDE) to 'data_regi_13'
-INFO: [Synth 8-3886] merging instance 'data_regi_13' (FDE) to 'data_regi_12'
-INFO: [Synth 8-3886] merging instance 'data_regi_12' (FDE) to 'data_regi_11'
-INFO: [Synth 8-3886] merging instance 'data_regi_11' (FDE) to 'data_regi_10'
-INFO: [Synth 8-3886] merging instance 'data_regi_10' (FDE) to 'data_regi_9'
-INFO: [Synth 8-3886] merging instance 'data_regi_9' (FDE) to 'data_regi_8'
+WARNING: [Synth 8-7129] Port vgaGreen[2] in module console is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vgaGreen[1] in module console is either unconnected or has no load
+WARNING: [Synth 8-7129] Port vgaGreen[0] in module console is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst_btn in module console is either unconnected or has no load
+INFO: [Synth 8-3886] merging instance 'data_regi_16' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_15' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_14' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_13' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_12' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_11' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_10' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_16' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_40' (FDC) to 'data_regi_33'
+INFO: [Synth 8-3886] merging instance 'data_regi_15' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_39' (FDC) to 'data_regi_33'
+INFO: [Synth 8-3886] merging instance 'data_regi_14' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_38' (FDC) to 'data_regi_33'
+INFO: [Synth 8-3886] merging instance 'data_regi_13' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_37' (FDC) to 'data_regi_33'
+INFO: [Synth 8-3886] merging instance 'data_regi_12' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_36' (FDC) to 'data_regi_33'
+INFO: [Synth 8-3886] merging instance 'data_regi_11' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_35' (FDC) to 'data_regi_33'
+INFO: [Synth 8-3886] merging instance 'data_regi_10' (FDC) to 'data_regi_8'
+INFO: [Synth 8-3886] merging instance 'data_regi_34' (FDC) to 'data_regi_33'
+DSP Report: Generating DSP multOp, operation Mode is: A*(B:0x280).
+DSP Report: operator multOp is absorbed into DSP multOp.
+DSP Report: Generating DSP temp, operation Mode is: PCIN+(A:0x0):B+C.
+DSP Report: operator temp is absorbed into DSP temp.
+WARNING: [Synth 8-3917] design console__GC0 has port state[1] driven by constant 0
+WARNING: [Synth 8-3917] design console__GC0 has port state[0] driven by constant 0
+WARNING: [Synth 8-7129] Port rdy in module video_card is either unconnected or has no load
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (VGA_CARD/\VGA_REG/data_reg[7] )
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_24' (FDC) to 'VGA_CARD/data_regi_16'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_48' (FDC) to 'VGA_CARD/data_regi_41'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_23' (FDC) to 'VGA_CARD/data_regi_16'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_47' (FDC) to 'VGA_CARD/data_regi_41'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_19' (FDC) to 'VGA_CARD/data_regi_16'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_43' (FDC) to 'VGA_CARD/data_regi_41'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_22' (FDC) to 'VGA_CARD/data_regi_16'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_46' (FDC) to 'VGA_CARD/data_regi_41'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_18' (FDC) to 'VGA_CARD/data_regi_16'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_42' (FDC) to 'VGA_CARD/data_regi_41'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_21' (FDC) to 'VGA_CARD/data_regi_16'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_45' (FDC) to 'VGA_CARD/data_regi_41'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_16' (FDC) to 'VGA_CARD/data_regi_20'
+INFO: [Synth 8-3886] merging instance 'VGA_CARD/data_regi_41' (FDC) to 'VGA_CARD/data_regi_44'
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:45 ; elapsed = 00:04:23 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:22:02 ; elapsed = 00:46:39 . Memory (MB): peak = 4883.039 ; gain = 3018.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++------------+------------+---------------+----------------+
+|Module Name | RTL Object | Depth x Width | Implemented As | 
++------------+------------+---------------+----------------+
+|ram         | RAM[0]     | 32768x8       | LUT            | 
+|ram         | RAM[32768] | 32768x8       | LUT            | 
+|ram         | RAM[16416] | 65536x8       | LUT            | 
++------------+------------+---------------+----------------+
+
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping      | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|video_card  | A*(B:0x280)      | 15     | 10     | -      | -      | 25     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|video_card  | PCIN+(A:0x0):B+C | 30     | 15     | 16     | -      | -1     | 0    | 0    | 0    | -    | -     | 0    | 0    | 
++------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:51 ; elapsed = 00:04:39 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:22:12 ; elapsed = 00:47:00 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:52 ; elapsed = 00:04:40 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Timing Optimization : Time (s): cpu = 00:22:24 ; elapsed = 00:47:22 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+INFO: [Synth 8-5844] Detected registers with asynchronous reset at DSP/BRAM block boundary. Consider using synchronous reset for optimal packing [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:89]
+INFO: [Synth 8-5844] Detected registers with asynchronous reset at DSP/BRAM block boundary. Consider using synchronous reset for optimal packing [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/sync_counter.vhd:89]
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:52 ; elapsed = 00:04:40 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Technology Mapping : Time (s): cpu = 00:22:25 ; elapsed = 00:47:42 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -391,46 +462,109 @@ Finished Flattening Before IO Insertion
 ---------------------------------------------------------------------------------
 Start Final Netlist Cleanup
 ---------------------------------------------------------------------------------
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[40]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[39]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[38]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[37]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[36]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[35]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[34]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[33]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[32]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[31]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[30]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[29]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[28]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[27]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[26]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[25]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[24]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[23]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[22]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[21]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[20]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[19]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[18]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[17]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[16]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[15]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[14]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[13]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[12]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[11]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[10]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[9]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[8]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[7]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[6]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[5]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[4]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[3]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[2]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[1]) is unused and will be removed from module console.
+WARNING: [Synth 8-3332] Sequential element (CPU_1/CU_1/FSM_onehot_current_state_reg[0]) is unused and will be removed from module console.
 INFO: [Synth 8-4649] Removing BlackBox instance APU of module sound_card having unconnected or no output ports
 ---------------------------------------------------------------------------------
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:54 ; elapsed = 00:04:45 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished IO Insertion : Time (s): cpu = 00:22:29 ; elapsed = 00:47:50 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:54 ; elapsed = 00:04:45 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Renaming Generated Instances : Time (s): cpu = 00:22:29 ; elapsed = 00:47:50 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin vgaRed_OBUF[0] with 1st driver pin 'vgaRed_OBUF[0]_inst_i_1/O' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:266]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin vgaRed_OBUF[0] with 2nd driver pin 'vgaRed_OBUF[0]_inst_i_2/O' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:267]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin vgaRed_OBUF[1] with 1st driver pin 'vgaRed_OBUF[1]_inst_i_1/O' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:266]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin vgaRed_OBUF[1] with 2nd driver pin 'vgaRed_OBUF[1]_inst_i_2/O' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:267]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin vgaRed_OBUF[2] with 1st driver pin 'vgaRed_OBUF[2]_inst_i_1/O' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:266]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin vgaRed_OBUF[2] with 2nd driver pin 'vgaRed_OBUF[2]_inst_i_2/O' [C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/video_card.vhd:267]
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        3|Failed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:54 ; elapsed = 00:04:45 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:22:30 ; elapsed = 00:47:50 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:54 ; elapsed = 00:04:45 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Renaming Generated Ports : Time (s): cpu = 00:22:30 ; elapsed = 00:47:50 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:54 ; elapsed = 00:04:45 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Handling Custom Attributes : Time (s): cpu = 00:22:30 ; elapsed = 00:47:51 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:54 ; elapsed = 00:04:45 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Renaming Generated Nets : Time (s): cpu = 00:22:30 ; elapsed = 00:47:51 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
 ---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|video_card  | A*B         | 15     | 10     | -      | -      | 25     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|video_card  | PCIN+A:B+C  | 0      | 15     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
 
 Report BlackBoxes: 
 +------+--------------+----------+
@@ -444,38 +578,44 @@ Report Cell Usage:
 |      |Cell           |Count |
 +------+---------------+------+
 |1     |clk_wiz_0_bbox |     1|
-|2     |CARRY4         |    24|
-|3     |LUT1           |     2|
-|4     |LUT2           |     2|
-|5     |LUT3           |     1|
-|6     |LUT4           |     4|
-|7     |LUT5           |     7|
-|8     |LUT6           |    11|
-|9     |FDRE           |    68|
-|10    |OBUF           |     7|
-|11    |OBUFT          |     3|
+|2     |CARRY4         |    30|
+|3     |DSP48E1        |     2|
+|5     |LUT1           |     3|
+|6     |LUT2           |   119|
+|7     |LUT3           |    64|
+|8     |LUT4           |   222|
+|9     |LUT5           |   696|
+|10    |LUT6           |  4891|
+|11    |MUXF7          |  1113|
+|12    |MUXF8          |   353|
+|13    |FDCE           |    34|
+|14    |FDRE           |    50|
+|15    |OBUF           |     7|
+|16    |OBUFT          |     3|
 +------+---------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:54 ; elapsed = 00:04:45 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Finished Writing Synthesis Report : Time (s): cpu = 00:22:30 ; elapsed = 00:47:51 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 6 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:23 ; elapsed = 00:04:43 . Memory (MB): peak = 4022.816 ; gain = 1983.309
-Synthesis Optimization Complete : Time (s): cpu = 00:01:54 ; elapsed = 00:05:03 . Memory (MB): peak = 4022.816 ; gain = 2161.574
+Synthesis finished with 0 errors, 6 critical warnings and 50 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:06:08 ; elapsed = 00:47:39 . Memory (MB): peak = 4883.039 ; gain = 2835.461
+Synthesis Optimization Complete : Time (s): cpu = 00:22:30 ; elapsed = 00:47:57 . Memory (MB): peak = 4883.039 ; gain = 3018.910
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 4022.816 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 24 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.084 . Memory (MB): peak = 4883.039 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1498 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4022.816 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 4883.039 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: bd56622e
+Synth Design complete | Checksum: fdeab030
 INFO: [Common 17-83] Releasing license: Synthesis
-78 Infos, 110 Warnings, 0 Critical Warnings and 0 Errors encountered.
+124 Infos, 88 Warnings, 6 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:55 ; elapsed = 00:05:11 . Memory (MB): peak = 4022.816 ; gain = 2526.086
+synth_design: Time (s): cpu = 00:22:32 ; elapsed = 00:48:09 . Memory (MB): peak = 4883.039 ; gain = 3386.043
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
 INFO: [Common 17-1381] The checkpoint 'C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.runs/synth_1/console.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:07 ; elapsed = 00:00:15 . Memory (MB): peak = 4883.039 ; gain = 0.000
 INFO: [runtcl-4] Executing : report_utilization -file console_utilization_synth.rpt -pb console_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Nov 19 17:47:04 2023...
+INFO: [Common 17-206] Exiting Vivado at Sat Nov 25 20:09:07 2023...

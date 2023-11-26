@@ -103,11 +103,19 @@ architecture console_arch of console is
 	end component;
 
 	component video_card
+		generic (
+			RESOLUTION: t_VGA := VGA_640_480_60;
+			X_DIV: integer := 2;
+			Y_DIV: integer := 2;
+			REG_ADDR_MIN: integer;
+			REG_ADDR_MAX: integer
+		);
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
-			data: in std_logic_vector(7 downto 0);
-			addr: out std_logic_vector(15 downto 0);
+			data: inout std_logic_vector(7 downto 0);
+			addr: in std_logic_vector(15 downto 0);
+			state: in t_Bus_State;
 			rdy: in std_logic;
 			vgaRed: out std_logic_vector(2 downto 0);
 			vgaGreen: out std_logic_vector(2 downto 0);
@@ -118,13 +126,16 @@ architecture console_arch of console is
 	end component;
 
 	component memory
+		generic (
+			IO_DIR: std_logic_vector(0 to 15) := x"0000"
+		);
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: in std_logic_vector(15 downto 0);
 			state: in t_Bus_State;
-			io: inout t_Digital_IO(0 to 15)(7 downto 0)
+			io_ports: inout t_Digital_IO(0 to 15)(7 downto 0)
 		);
 	end component;
 
@@ -148,7 +159,7 @@ architecture console_arch of console is
 	-- Other signals
 	signal rdy: std_logic;
 	signal rst: std_logic := '1';
-	signal io: t_Digital_IO(0 to 15)(7 downto 0);
+	signal io_ports: t_Digital_IO(0 to 15)(7 downto 0);
 
 	-- State
 	signal current_state: t_States;
@@ -187,27 +198,38 @@ begin
 		);
 
 	VGA_CARD: video_card
-		port map (
-			clk => clk_25MHz,
-			rst => rst,
-			data => data_bus,
-			addr => addr_bus,
-			rdy => rdy,
-			vgaRed => vgaRed,
-			vgaGreen => vgaRed,
-			vgaBlue => vgaBlue,
-			hsync => hysnc,
-			vsync => vsync
-		);
-
-	MEM: memory
+		generic map (
+			RESOLUTION => VGA_640_480_60,
+			X_DIV => 2,
+			Y_DIV => 2,
+			REG_ADDR_MIN => VC_REG_MIN,
+			REG_ADDR_MAX => VC_REG_MAX
+		)
 		port map (
 			clk => clk_25MHz,
 			rst => rst,
 			data => data_bus,
 			addr => addr_bus,
 			state => state,
-			io => io
+			rdy => rdy,
+			vgaRed => vgaRed,
+			vgaGreen => vgaGreen,
+			vgaBlue => vgaBlue,
+			hsync => hysnc,
+			vsync => vsync
+		);
+
+	MEM: memory
+		generic map (
+			IO_DIR => x"0000"
+		)
+		port map (
+			clk => clk_25MHz,
+			rst => rst,
+			data => data_bus,
+			addr => addr_bus,
+			state => state,
+			io_ports => io_ports
 		);
 
 	APU: sound_card;

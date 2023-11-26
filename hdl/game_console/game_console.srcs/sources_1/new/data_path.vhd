@@ -36,8 +36,10 @@ entity data_path is
 		IR_Load: in std_logic;
 		IR: out std_logic_vector(7 downto 0);
 		MAR_Load: in std_logic;
+		MAR_Byte: in std_logic;
 		PC_Load: in std_logic;
 		PC_Inc: in std_logic;
+		PC_Byte: in std_logic;
 		A_Load: in std_logic;
 		B_Load: in std_logic;
 		X_Load: in std_logic;
@@ -104,7 +106,7 @@ architecture data_path_arch of data_path is
 	signal Y: std_logic_vector(7 downto 0);  -- Index Register
 	signal SP: std_logic_vector(7 downto 0);  -- Stack Pointer Low-Byte, High-Byte is always x"01"
 	signal PC: std_logic_vector(15 downto 0);  -- Program Counter
-	signal MAR: std_logic_vector(7 downto 0);  -- Memory Address Register
+	signal MAR: std_logic_vector(15 downto 0);  -- Memory Address Register
 	-- Processor Flags, NV-BDIZC
 	-- Negative (N), Overflow (V), reserved, Break (B), Decimal (D),
 	-- Interrupt Disabled (I), Zero (Z), Carry (C)
@@ -113,7 +115,7 @@ architecture data_path_arch of data_path is
 
 	-- Others
 	signal ALU_Result: std_logic_vector(7 downto 0);
-	signal PC_uns: unsigned(7 downto 0);
+	signal PC_uns: unsigned(15 downto 0);
 
 
 begin
@@ -127,15 +129,6 @@ begin
 			load => IR_Load,
 			data_rx => Bus2,
 			data_tx => IR
-		);
-
-	MEMORY_ADDRESS_REGISTER: reg
-		port map (
-			clk => clk,
-			rst => rst,
-			load => MAR_Load,
-			data_rx => Bus2,
-			data_tx => MAR
 		);
 
 	A_REGISTER: reg
@@ -197,14 +190,15 @@ begin
 	-------------------------------
 	data_rx <= data;
 	data_tx <= Bus1;
-	addr <= x"00" & MAR;
+	addr <= MAR;
 
 	MUX_BUS1: process (Bus1_Sel, PC, A, B)
 	begin
 		case (Bus1_Sel) is
 			when "00" => Bus1 <= PC(7 downto 0);
-			when "01" => Bus1 <= A;
-			when "10" => Bus1 <= B;
+			when "01" => Bus1 <= PC(15 downto 8);
+			when "10" => Bus1 <= A;
+			when "11" => Bus1 <= B;
 			when others => Bus1 <= x"00";
 		end case;
 	end process;
@@ -222,16 +216,36 @@ begin
 	PROGRAM_COUNTER: process (clk, rst)
 	begin
 		if (rst = '0') then
-			PC_uns <= x"00";
+			-- TODO: Change this to use reset vector x"FFFC"-x"FFFD"
+			PC_uns <= x"4020";
 		elsif (rising_edge(clk)) then
 			if (PC_Load = '1') then
-				PC_uns <= unsigned(Bus2);
+				if (PC_Byte = '0') then
+					PC_uns(7 downto 0) <= unsigned(Bus2);  -- Low Byte
+				else
+					PC_uns(15 downto 8) <= unsigned(Bus2);  -- High Byte
+				end if;
 			elsif (PC_Inc = '1') then
 				PC_uns <= PC_uns + 1;
 			end if;
 		end if;
 	end process;
 
-	PC <= x"00" & std_logic_vector(PC_uns);
+	MEMORY_ADDRESS_REGISTER: process (clk, rst)
+	begin
+		if (rst = '0') then
+			MAR <= x"0000";
+		elsif (rising_edge(clk)) then
+			if (MAR_Load = '1') then
+				if (MAR_Byte = '0') then
+					MAR(7 downto 0) <= Bus2;  -- Low Byte
+				else
+					MAR(15 downto 8) <= Bus2;  -- High Byte
+				end if;
+			end if;
+		end if;
+	end process;
+
+	PC <= std_logic_vector(PC_uns);
 
 end data_path_arch;

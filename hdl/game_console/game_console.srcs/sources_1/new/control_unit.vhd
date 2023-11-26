@@ -33,6 +33,7 @@ entity control_unit is
 	 	IR_Load: out std_logic;
 	 	IR: in std_logic_vector(7 downto 0);
 	 	MAR_Load: out std_logic;
+		MAR_Byte: out std_logic;
 	 	PC_Load: out std_logic;
 	 	PC_Inc: out std_logic;
 	 	A_Load: out std_logic;
@@ -58,64 +59,74 @@ architecture control_unit_arch of control_unit is
 		S_FETCH_0,  -- Opcode fetch states
 		S_FETCH_1,
 		S_FETCH_2,
+		S_FETCH_3,
 
-		S_DECODE_3,  -- Opcode decode state
+		S_DECODE_4,  -- Opcode decode state
 
-		S_LDA_IMM_4,  -- Load A (Immediate) states
-		S_LDA_IMM_5,
+		S_LDA_IMM_5,  -- Load A (Immediate) states
 		S_LDA_IMM_6,
+		S_LDA_IMM_7,
+		S_LDA_IMM_8,
 
-		S_LDA_DIR_4,  -- Load A (Direct) states
-		S_LDA_DIR_5,
+		-- TODO: Make this handle 16-bit addresses
+		S_LDA_DIR_5,  -- Load A (Direct) states
 		S_LDA_DIR_6,
 		S_LDA_DIR_7,
 		S_LDA_DIR_8,
+		S_LDA_DIR_9,
 
-		S_STA_DIR_4,  -- Store A (Direct) states
-		S_STA_DIR_5,
+		-- TODO: Make this handle 16-bit addresses
+		S_STA_DIR_5,  -- Store A (Direct) states
 		S_STA_DIR_6,
 		S_STA_DIR_7,
+		S_STA_DIR_8,
 
-		S_LDB_IMM_4,  -- Load B (Immediate) states
-		S_LDB_IMM_5,
+		S_LDB_IMM_5,  -- Load B (Immediate) states
 		S_LDB_IMM_6,
+		S_LDB_IMM_7,
 
-		S_LDB_DIR_4,  -- Load B (Direct) states
-		S_LDB_DIR_5,
+		-- TODO: Make this handle 16-bit addresses
+		S_LDB_DIR_5,  -- Load B (Direct) states
 		S_LDB_DIR_6,
 		S_LDB_DIR_7,
 		S_LDB_DIR_8,
+		S_LDB_DIR_9,
 
-		S_STB_DIR_4,  -- Store B (Direct) states
-		S_STB_DIR_5,
+		-- TODO: Make this handle 16-bit addresses
+		S_STB_DIR_5,  -- Store B (Direct) states
 		S_STB_DIR_6,
 		S_STB_DIR_7,
+		S_STB_DIR_8,
 
-		S_ADD_AB_4,  -- A <= A + B
+		S_ADD_AB_5,  -- A <= A + B
 
-		S_SUB_AB_4,  -- A <= A - B
+		S_SUB_AB_5,  -- A <= A - B
 
-		S_AND_AB_4,  -- A <= A & B
+		S_AND_AB_5,  -- A <= A & B
 
-		S_OR_AB_4,  -- A <= A | B
+		S_OR_AB_5,  -- A <= A | B
 
-		S_INCA_4,  -- A <= A + 1
+		S_INCA_5,  -- A <= A + 1
 
-		S_DECA_4,  -- A <= A - 1
+		S_DECA_5,  -- A <= A - 1
 
-		S_INCB_4,  -- B <= B + 1
+		S_INCB_5,  -- B <= B + 1
 
-		S_DECB_4,  -- B <= B - 1
+		S_DECB_5,  -- B <= B - 1
 
-		S_BRA_4,  -- Branch Always
-		S_BRA_5,
+		-- TODO: Make this handle 16-bit addresses
+		S_BRA_5,  -- Branch Always
 		S_BRA_6,
+		S_BRA_7,
+		S_BRA_8,
 
 		-- TODO: Create states for other branching commands
-		S_BEQ_4,  -- Branch if Z = 1
-		S_BEQ_5,
+
+		-- TODO: Make this handle 16-bit addresses
+		S_BEQ_5,  -- Branch if Z = 1
 		S_BEQ_6,
-		S_BEQ_7
+		S_BEQ_7,
+		S_BEQ_8
 	);
 
 	-------------------------------
@@ -188,130 +199,132 @@ begin
 			when S_FETCH_1 =>
 				next_state <= S_FETCH_2;
 			when S_FETCH_2 =>
-				next_state <= S_DECODE_3;
+				next_state <= S_FETCH_3;
+			when S_FETCH_3 =>
+				next_state <= S_DECODE_4;
 			-- Opcode Decode
-			when S_DECODE_3 =>
+			when S_DECODE_4 =>
 				-- Handle the different opcodes
 				case (IR) is
 					when LDA_IMM =>  -- Load A (Immediate)
-						next_state <= S_LDA_IMM_4;
+						next_state <= S_LDA_IMM_5;
 					when LDA_DIR =>  -- Load A (Direct)
-						next_state <= S_LDA_DIR_4;
+						next_state <= S_LDA_DIR_5;
 					when STA_DIR =>  -- Store A (Direct)
-						next_state <= S_STA_DIR_4;
+						next_state <= S_STA_DIR_5;
 					when LDB_IMM =>  -- Load B (Immediate)
-						next_state <= S_LDB_IMM_4;
+						next_state <= S_LDB_IMM_5;
 					when LDB_DIR =>  -- Load B (Direct)
-						next_state <= S_LDB_DIR_4;
+						next_state <= S_LDB_DIR_5;
 					when STB_DIR =>  -- Store B (Direct)
-						next_state <= S_STB_DIR_4;
+						next_state <= S_STB_DIR_5;
 					when ADD_AB =>  -- A <= A + B
-						next_state <= S_ADD_AB_4;
+						next_state <= S_ADD_AB_5;
 					when OR_AB =>  -- A <= A | B
-						next_state <= S_OR_AB_4;
+						next_state <= S_OR_AB_5;
 					when INCA =>  -- A <= A + 1
-						next_state <= S_INCA_4;
+						next_state <= S_INCA_5;
 					when DECA =>  -- A <= A - 1
-						next_state <= S_DECA_4;
+						next_state <= S_DECA_5;
 					when INCB =>  -- B <= B + 1
-						next_state <= S_INCB_4;
+						next_state <= S_INCB_5;
 					when DECB =>  -- B <= B - 1
-						next_state <= S_DECB_4;
+						next_state <= S_DECB_5;
 					when BRA =>  -- Branch Always
-						next_state <= S_BRA_4;
+						next_state <= S_BRA_5;
 					when BEQ =>  -- Branch Equals
 						-- TODO: Update this to use 6502 status flags
 						if (Status_Result(2) = '1') then  -- N = 1
-							next_state <= S_BEQ_4;
+							next_state <= S_BEQ_5;
 						else
-							next_state <= S_BEQ_7;
+							next_state <= S_BEQ_8;
 						end if;
 					when others =>
 						next_state <= S_FETCH_0;
 				end case;
 
 			-- Load A (Immediate) Instructions
-			when S_LDA_IMM_4 =>
-				next_state <= S_LDA_IMM_5;
 			when S_LDA_IMM_5 =>
 				next_state <= S_LDA_IMM_6;
 			when S_LDA_IMM_6 =>
+				next_state <= S_LDA_IMM_7;
+			when S_LDA_IMM_7 =>
 				next_state <= S_FETCH_0;
 
 			-- Load A (Direct) Instructions
-			when S_LDA_DIR_4 =>
-				next_state <= S_LDA_DIR_5;
 			when S_LDA_DIR_5 =>
 				next_state <= S_LDA_DIR_6;
 			when S_LDA_DIR_6 =>
 				next_state <= S_LDA_DIR_7;
 			when S_LDA_DIR_7 =>
-				next_state <= S_LDA_DIR_7;
+				next_state <= S_LDA_DIR_8;
 			when S_LDA_DIR_8 =>
+				next_state <= S_LDA_DIR_9;
+			when S_LDA_DIR_9 =>
 				next_state <= S_FETCH_0;
 
 			-- Store A (Direct) Instructions
-			when S_STA_DIR_4 =>
-				next_state <= S_STA_DIR_5;
 			when S_STA_DIR_5 =>
 				next_state <= S_STA_DIR_6;
 			when S_STA_DIR_6 =>
 				next_state <= S_STA_DIR_7;
 			when S_STA_DIR_7 =>
+				next_state <= S_STA_DIR_8;
+			when S_STA_DIR_8 =>
 				next_state <= S_FETCH_0;
 
 			-- Load B (Immediate) Instructions
-			when S_LDB_IMM_4 =>
-				next_state <= S_LDB_IMM_5;
 			when S_LDB_IMM_5 =>
 				next_state <= S_LDB_IMM_6;
 			when S_LDB_IMM_6 =>
+				next_state <= S_LDB_IMM_7;
+			when S_LDB_IMM_7 =>
 				next_state <= S_FETCH_0;
 
 			-- Load B (Direct) Instructions
-			when S_LDB_DIR_4 =>
-				next_state <= S_LDB_DIR_5;
 			when S_LDB_DIR_5 =>
 				next_state <= S_LDB_DIR_6;
 			when S_LDB_DIR_6 =>
 				next_state <= S_LDB_DIR_7;
 			when S_LDB_DIR_7 =>
-				next_state <= S_LDB_DIR_7;
+				next_state <= S_LDB_DIR_8;
 			when S_LDB_DIR_8 =>
+				next_state <= S_LDB_DIR_9;
+			when S_LDB_DIR_9 =>
 				next_state <= S_FETCH_0;
 
 			-- Store B (Direct) Instructions
-			when S_STB_DIR_4 =>
-				next_state <= S_STB_DIR_5;
 			when S_STB_DIR_5 =>
 				next_state <= S_STB_DIR_6;
 			when S_STB_DIR_6 =>
 				next_state <= S_STB_DIR_7;
 			when S_STB_DIR_7 =>
+				next_state <= S_STB_DIR_8;
+			when S_STB_DIR_8 =>
 				next_state <= S_FETCH_0;
 
 			-- A <= A + B
-			when S_ADD_AB_4 =>
+			when S_ADD_AB_5 =>
 				next_state <= S_FETCH_0;
 
 			-- Branch Always
-			when S_BRA_4 =>
-				next_state <= S_BRA_5;
 			when S_BRA_5 =>
 				next_state <= S_BRA_6;
-			when S_BRA_6 =>
+			when S_BRA_7 =>
+				next_state <= S_BRA_8;
+			when S_BRA_8 =>
 				next_state <= S_FETCH_0;
 
 			-- Branch Z = 1
-			when S_BEQ_4 =>
-				next_state <= S_BEQ_5;
 			when S_BEQ_5 =>
 				next_state <= S_BEQ_6;
 			when S_BEQ_6 =>
+				next_state <= S_BEQ_7;
+			when S_BEQ_7 =>
 				next_state <= S_FETCH_0;
 
 			-- Branch Z = 0
-			when S_BEQ_7 =>
+			when S_BEQ_8 =>
 				next_state <= S_FETCH_0;
 
 			when others =>
@@ -322,100 +335,135 @@ begin
 	OUTPUT_LOGIC: process (current_state)
 	begin
 		case (current_state) is
-			-- Put PC onto MAR to provice address of opcode
+			-- Put PC Low Byte onto MAR Low Byte to provide address of opcode
 			when S_FETCH_0 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= READ;
+			-- Put PC High Byte onto MAR High Byte to provide address of opcode
+			when S_FETCH_1 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "01";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Increment PC, Opcode will be available next state
-			when S_FETCH_1 =>
+			when S_FETCH_2 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put opcode into IR
-			when S_FETCH_2 =>
+			when S_FETCH_3 =>
 				IR_Load <= '1';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- No outputs, machine is decoding IR to decide which state
 			-- to go to next
-			when S_DECODE_3 =>
+			when S_DECODE_4 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 
 			-------------------------------
 			-- Load A (Immediate)
 			-------------------------------
-			-- Put PC into MAR to provide address of operand
-			when S_LDA_IMM_4 =>
+			-- Put PC Low Byte into MAR Low Byte to provide address of operand
+			when S_LDA_IMM_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= READ;
+			-- Put PC High Byte into MAR High Byte to provide address of operand
+			when S_LDA_IMM_6 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "01";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Increment PC, Operand will be available next state
-			when S_LDA_IMM_5 =>
+			when S_LDA_IMM_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Operand is available, latch into A
-			when S_LDA_IMM_6 =>
+			when S_LDA_IMM_8 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '1';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -423,68 +471,73 @@ begin
 			-- Load A (Direct)
 			-------------------------------
 			-- Put PC into MAR to provide address of operand
-			when S_LDA_DIR_4 =>
+			when S_LDA_DIR_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Prepare to receive operand from memory, increment PC
-			when S_LDA_DIR_5 =>
+			when S_LDA_DIR_6 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put operand into MAR (Leave Bus2 = Memory)
-			when S_LDA_DIR_6 =>
+			when S_LDA_DIR_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Wait for memory to respond
-			when S_LDA_DIR_7 =>
+			when S_LDA_DIR_8 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put data arriving on bus into A
-			when S_LDA_DIR_8 =>
+			when S_LDA_DIR_9 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '1';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -492,55 +545,59 @@ begin
 			-- Store A (Direct)
 			-------------------------------
 			-- Put PC into MAR to provide address of operand
-			when S_STA_DIR_4 =>
+			when S_STA_DIR_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Prepare to receive operand from memory, increment PC
-			when S_STA_DIR_5 =>
+			when S_STA_DIR_6 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put operand into MAR (Leave Bus2 = Memory)
-			when S_STA_DIR_6 =>
+			when S_STA_DIR_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Put A onto Bus2, which is connected to Memory, assert write
-			when S_STA_DIR_7 =>
+			when S_STA_DIR_8 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "01";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "01";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= WRITE;
 
@@ -548,42 +605,45 @@ begin
 			-- Load B (Immediate)
 			-------------------------------
 			-- Put PC into MAR to provide address of operand
-			when S_LDB_IMM_4 =>
+			when S_LDB_IMM_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Increment PC, Operand will be available next state
-			when S_LDB_IMM_5 =>
+			when S_LDB_IMM_6 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Operand is available, latch into B
-			when S_LDB_IMM_6 =>
+			when S_LDB_IMM_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '1';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -591,68 +651,73 @@ begin
 			-- Load B (Direct)
 			-------------------------------
 			-- Put PC into MAR to provide address of operand
-			when S_LDB_DIR_4 =>
+			when S_LDB_DIR_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Prepare to receive operand from memory, increment PC
-			when S_LDB_DIR_5 =>
+			when S_LDB_DIR_6 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put operand into MAR (Leave Bus2 = Memory)
-			when S_LDB_DIR_6 =>
+			when S_LDB_DIR_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Wait for memory to respond
-			when S_LDB_DIR_7 =>
+			when S_LDB_DIR_8 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put data arriving on bus into B
-			when S_LDB_DIR_8 =>
+			when S_LDB_DIR_9 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '1';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -660,55 +725,59 @@ begin
 			-- Store B (Direct)
 			-------------------------------
 			-- Put PC into MAR to provide address of operand
-			when S_STB_DIR_4 =>
+			when S_STB_DIR_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Prepare to receive operand from memory, increment PC
-			when S_STB_DIR_5 =>
+			when S_STB_DIR_6 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put operand into MAR (Leave Bus2 = Memory)
-			when S_STB_DIR_6 =>
+			when S_STB_DIR_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Put B onto Bus2, which is connected to Memory, assert write
-			when S_STB_DIR_7 =>
+			when S_STB_DIR_8 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "10";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "10";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= WRITE;
 
@@ -716,16 +785,17 @@ begin
 			-- A <= A + B
 			-------------------------------
 			-- Assert control signals to perform addition
-			when S_ADD_AB_4 =>
+			when S_ADD_AB_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '1';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '1';
-				Bus1_Sel <= "01";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "01";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -735,42 +805,45 @@ begin
 			-- Branch Always
 			-------------------------------
 			-- Put PC into MAR to provide address of operand
-			when S_BRA_4 =>
+			when S_BRA_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Prepare to receive operand from memory
-			when S_BRA_5 =>
+			when S_BRA_6 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put operand into PC (Leave Bus2 = Memory)
-			when S_BRA_6 =>
+			when S_BRA_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '1';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -780,42 +853,45 @@ begin
 			-- Branch if Z = 1
 			-------------------------------
 			-- Put PC into MAR to provide address of operand
-			when S_BEQ_4 =>
+			when S_BEQ_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 			-- Prepare to receive operand from memory
-			when S_BEQ_5 =>
+			when S_BEQ_6 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 			-- Put operand into PC (Leave Bus2 = Memory)
-			when S_BEQ_6 =>
+			when S_BEQ_7 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '1';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -823,16 +899,17 @@ begin
 			-- Branch if Z = 0
 			-------------------------------
 			-- Z = 0, so just increment PC
-			when S_BEQ_7 =>
+			when S_BEQ_8 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '1';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 
@@ -842,13 +919,14 @@ begin
 			when others =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				A_Load <= '0';
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "00";  -- "00" = PC, "01" = A, "10" = B
+				Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 		end case;

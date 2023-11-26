@@ -26,12 +26,15 @@ use WORK.CONSOLE_UTILS.ALL;
 
 
 entity reg is
+	generic (
+		SIZE: integer := 8
+	);
 	port (
 		clk: in std_logic;
 		rst: in std_logic;
 		load: in std_logic;
-		data_rx: in std_logic_vector(7 downto 0);
-		data_tx: out std_logic_vector(7 downto 0)
+		data_rx: in std_logic_vector(SIZE - 1 downto 0);
+		data_tx: out std_logic_vector(SIZE - 1 downto 0)
 	);
 end reg;
 
@@ -55,6 +58,7 @@ architecture reg_arch of reg is
 	-------------------------------
 	-- Signals
 	-------------------------------
+	signal data: std_logic_vector(SIZE - 1 downto 0);
 
 begin
 	-------------------------------
@@ -64,13 +68,15 @@ begin
 	-------------------------------
 	-- Module Implementation
 	-------------------------------
+	data_tx <= data;
+
 	REG_PROC: process (clk, rst)
 	begin
 		if (rst = '0') then
-			data_tx <= x"00";
+			data <= (others => '0');
 		elsif (rising_edge(clk)) then
 			if (load = '1') then
-				data_tx <= data_rx;
+				data <= data_rx;
 			end if;
 		end if;
 	end process;

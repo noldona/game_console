@@ -12,7 +12,23 @@
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created
 -- Additional Comments:
---
+-- 		Memory Map
+-- 		+--------------------------------------------------------------------+
+-- 		|   Address Range   |   Size   |  Device                             |
+-- 		+--------------------------------------------------------------------+
+-- 		|  0x0000 - 0x00FF  |  0x0100  |  Zero Page RAM                      |
+-- 		+--------------------------------------------------------------------+
+-- 		|  0x0100 - 0x01FF  |  0x0100  |  Stack RAM                          |
+-- 		+--------------------------------------------------------------------+
+-- 		|  0x0200 - 0x1FFF  |  0x1E00  |  Working RAM                        |
+-- 		+--------------------------------------------------------------------+
+-- 		|  0x2000 - 0x3FFF  |  0x2000  |  Video Card Register                |
+-- 		+--------------------------------------------------------------------+
+-- 		|  0x4000 - 0x401F  |  0x0020  |  APU and I/O Registers              |
+-- 		+--------------------------------------------------------------------+
+-- 		|  0x4020 - 0xFFFF  |  0xBFE0  | Cartigate Space: PRG ROM, PRG RAM,  |
+-- 		|                   |          | Mapper Registers                    |
+-- 		+--------------------------------------------------------------------+
 -------------------------------------------------------------------------------
 
 
@@ -33,23 +49,38 @@ package console_utils is
 	-----------------------------------------------
 	-- Constant Definitions
 	-----------------------------------------------
-	constant PORT_00: integer := 0;
-	constant PORT_01: integer := 1;
-	constant PORT_02: integer := 2;
-	constant PORT_03: integer := 3;
-	constant PORT_04: integer := 4;
-	constant PORT_05: integer := 5;
-	constant PORT_06: integer := 6;
-	constant PORT_07: integer := 7;
-	constant PORT_08: integer := 8;
-	constant PORT_09: integer := 9;
-	constant PORT_10: integer := 10;
-	constant PORT_11: integer := 11;
-	constant PORT_12: integer := 12;
-	constant PORT_13: integer := 13;
-	constant PORT_14: integer := 14;
-	constant PORT_15: integer := 15;
+	-- I/O Port Definitions
+	constant CONTROLLER_1_UP: integer := 0;
+	constant CONTROLLER_1_DOWN: integer := 1;
+	constant CONTROLLER_1_LEFT: integer := 2;
+	constant CONTROLLER_1_RIGHT: integer := 3;
+	constant CONTROLLER_1_BUTTON_1: integer := 4;
+	constant CONTROLLER_1_BUTTON_2: integer := 5;
+	constant CONTROLLER_1_X_AXIS: integer := 6;
+	constant CONTROLLER_1_Y_AXIS: integer := 7;
+	constant CONTROLLER_2_UP: integer := 8;
+	constant CONTROLLER_2_DOWN: integer := 9;
+	constant CONTROLLER_2_LEFT: integer := 10;
+	constant CONTROLLER_2_RIGHT: integer := 11;
+	constant CONTROLLER_2_BUTTON_1: integer := 12;
+	constant CONTROLLER_2_BUTTON_2: integer := 13;
+	constant CONTROLLER_2_X_AXIS: integer := 14;
+	constant CONTROLLER_2_Y_AXIS: integer := 15;
 
+	-- Memory Map Constants
+	constant RAM_ADDR_MIN: integer := 16#0000#;
+	constant RAM_ADDR_MAX: integer := 16#1FFF#;
+	constant VC_REG_MIN: integer := 16#2000#;
+	-- Temporarily using this till more registers are implemented for
+	-- the video card
+	constant VC_REG_MAX: integer := 16#2000#;
+	-- constant VC_REG_MAX: integer := 16#3FFF#;
+	constant APU_REG_MIN: integer := 16#4000#;
+	constant APU_REG_MAX: integer := 16#401F#;
+	constant CART_ADDR_MIN: integer := 16#4020#;
+	constant CART_ADDR_MAX: integer := 16#FFFF#;
+
+	-- Bus Constants
 	constant BUS_HIGH_Z: std_logic_vector(7 downto 0) := "ZZZZZZZZ";
 
 	-----------------------------------------------
@@ -70,7 +101,8 @@ package body console_utils is
 		variable ram_content: t_Ram_Array(start to stop)(7 downto 0);
 		variable ram_depth: integer := stop - start;
 	begin
-		for i in 0 to ram_depth - 1 loop
+		report "'" & filename & "'" severity note;
+		for i in 0 to ram_depth loop
 			readline(text_file, text_line);
 			hread(text_line, ram_content(i + start));
 		end loop;

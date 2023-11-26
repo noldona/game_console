@@ -28,7 +28,7 @@ use WORK.CONSOLE_UTILS.ALL;
 entity ram is
 	generic (
 		START_ADDRESS: integer := 16#0000#;
-		END_ADDRESS: integer := 16#FFFFF#;
+		END_ADDRESS: integer := 16#FFFF#;
 		INIT_FILE: string := "";
 		READ_ONLY: std_logic := '0'  -- 0: RAM, 1: ROM
 	);
@@ -66,7 +66,7 @@ architecture ram_arch of ram is
 
 	signal data_tx: std_logic_vector(7 downto 0);
 	signal data_rx: std_logic_vector(7 downto 0);
-	signal en: std_logic;
+	signal EN: std_logic;
 
 begin
 	-------------------------------
@@ -77,28 +77,36 @@ begin
 	-- Module Implementation
 	-------------------------------
 	data_rx <= data;
-	data_tx <= RAM(to_integer(unsigned(addr)));
+	data_tx <= BUS_HIGH_Z when
+		(to_integer(unsigned(addr)) < START_ADDRESS or
+		(to_integer(unsigned(addr)) > END_ADDRESS)) else
+		RAM(to_integer(unsigned(addr)));
 
 	ENABLE: process (addr)
 	begin
-		if ((to_integer(unsigned(addr)) >= START_ADDRESS) and
-				(to_integer(unsigned(addr)) <= END_ADDRESS)) then
+		if (to_integer(unsigned(addr)) >= START_ADDRESS and
+				to_integer(unsigned(addr)) <= END_ADDRESS) then
 			EN <= '1';
 		else
 			EN <= '0';
 		end if;
 	end process;
 
-	MEMORY: process (clk)
+	RAM_PROC: process (clk, rst)
 	begin
-		if (rst = '0' and READ_ONLY = '0') then
-			RAM <= (others => (others => '0'));
+		if (rst = '0') then
+			if (READ_ONLY = '0') then
+				RAM <= (others => (others => '0'));
+			end if;
+			data <= BUS_HIGH_Z;
+		elsif (state = OFF) then
+			data <= BUS_HIGH_Z;
 		else
 			if (rising_edge(clk)) then
-				if (state = WRITE and READ_ONLY = '0') then
+				if (state = WRITE and READ_ONLY = '0' and EN = '1') then
 					RAM(to_integer(unsigned(addr))) <= data_rx;
 				end if;
-				data <= data_tx when (state = READ AND EN = '1') else BUS_HIGH_Z;
+				data <= data_tx when (state = READ and EN = '1') else BUS_HIGH_Z;
 			end if;
 		end if;
 	end process;

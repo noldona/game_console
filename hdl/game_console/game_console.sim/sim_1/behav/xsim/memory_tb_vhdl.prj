@@ -1,0 +1,36 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../game_console.gen/sources_1/ip/axi_quad_spi_0/sim/axi_quad_spi_0.vhd" \
+
+vhdl2008 xil_defaultlib  \
+"../../../../game_console.srcs/sources_1/new/console_utils.vhd" \
+"../../../../game_console.srcs/sources_1/new/alu.vhd" \
+"../../../../game_console.srcs/sources_1/new/vga_types.vhd" \
+"../../../../game_console.srcs/sources_1/new/control_unit.vhd" \
+"../../../../game_console.srcs/sources_1/new/cpu.vhd" \
+"../../../../game_console.srcs/sources_1/new/data_path.vhd" \
+"../../../../game_console.srcs/sources_1/new/memory.vhd" \
+"../../../../game_console.srcs/sources_1/new/ram.vhd" \
+"../../../../game_console.srcs/sources_1/new/reg.vhd" \
+"../../../../game_console.srcs/sources_1/new/sound_card.vhd" \
+"../../../../game_console.srcs/sources_1/new/sync_counter.vhd" \
+"../../../../game_console.srcs/sources_1/new/video_card.vhd" \
+"../../../../game_console.srcs/sources_1/new/console.vhd" \
+"../../../../game_console.srcs/sources_1/new/memory_mapper.vhd" \
+"../../../../game_console.srcs/sources_1/new/io.vhd" \
+"../../../../game_console.srcs/sim_1/new/alu_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/console_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/control_unit_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/cpu_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/data_path_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/memory_mapper_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/memory_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/ram_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/reg_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/sound_card_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/video_card_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/sync_counter_tb.vhd" \
+"../../../../game_console.srcs/sim_1/new/io_tb.vhd" \
+
+# Do not sort compile order
+nosort

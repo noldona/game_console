@@ -64,6 +64,7 @@ architecture cpu_arch of cpu is
 			IR_Load: in std_logic;
 			IR: out std_logic_vector(7 downto 0);
 			MAR_Load: in std_logic;
+			MAR_Byte: in std_logic;
 			PC_Load: in std_logic;
 			PC_Inc: in std_logic;
 			A_Load: in std_logic;
@@ -86,6 +87,7 @@ architecture cpu_arch of cpu is
 			IR_Load: out std_logic;
 			IR: in std_logic_vector(7 downto 0);
 			MAR_Load: out std_logic;
+			MAR_Byte: out std_logic;
 			PC_Load: out std_logic;
 			PC_Inc: out std_logic;
 			A_Load: out std_logic;
@@ -104,6 +106,7 @@ architecture cpu_arch of cpu is
 	signal IR_Load: std_logic;
 	signal IR: std_logic_vector(7 downto 0);
 	signal MAR_Load: std_logic;
+	signal MAR_Byte: std_logic;
 	signal PC_Load: std_logic;
 	signal PC_Inc: std_logic;
 	signal A_Load: std_logic;
@@ -127,6 +130,7 @@ begin
 			IR_Load => IR_Load,
 			IR => IR,
 			MAR_Load => MAR_Load,
+			MAR_Byte => MAR_Byte,
 			PC_Load => PC_Load,
 			PC_Inc => PC_Inc,
 			A_Load => A_Load,
@@ -147,6 +151,7 @@ begin
 			IR_Load => IR_Load,
 			IR => IR,
 			MAR_Load => MAR_Load,
+			MAR_Byte => MAR_Byte,
 			PC_Load => PC_Load,
 			PC_Inc => PC_Inc,
 			A_Load => A_Load,

@@ -29,8 +29,8 @@ use WORK.CONSOLE_UTILS.ALL;
 
 entity sync_counter is
 	generic (
-		resolution: t_VGA := SVGA_800_600_60;
-		dir: std_logic := '0'  -- '0' = Horizontal, '1' = Vertical
+		RESOLUTION: t_VGA := VGA_640_480_60;
+		DIR: std_logic := '0'  -- '0' = Horizontal, '1' = Vertical
 	);
 	port (
 		clk: in std_logic;
@@ -63,8 +63,8 @@ architecture sync_counter_arch of sync_counter is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant SYNC_VALS: t_Sync := ite((dir = '0'), resolution.hsync,
-		resolution.vsync);
+	constant SYNC_VALS: t_Sync := ite((DIR = '0'), RESOLUTION.hsync,
+		RESOLUTION.vsync);
 	constant SYNC_START: integer := SYNC_VALS.active + SYNC_VALS.front_porch;
 	constant SYNC_STOP: integer := SYNC_START + SYNC_VALS.sync_pulse;
 
@@ -81,22 +81,15 @@ begin
 	-------------------------------
 	-- Component Implementations
 	-------------------------------
-	SYNC_COUNTER: process (clk, rst) begin
+	SYNC_COUNTER: process (clk, rst)
+	begin
 		-- Counter
 		if (rst = '0') then
 			-- If reset
 			cnt <= x"0000";
-		elsif (rising_edge(clk)) then
-			if (cnt = SYNC_VALS.total) then
-				-- If reached total
-				cnt <= x"0000";
-				carry <= '1';
-			else
-				-- Else, increment count
-				cnt <= cnt + 1;
-				carry <= '0';
-			end if;
-
+			sync <= '1';
+			blank <= '1';
+		else
 			-- Blanking
 			if (cnt > SYNC_VALS.active) then
 				blank <= '1';
@@ -109,6 +102,18 @@ begin
 				sync <= '0';
 			else
 				sync <= '1';
+			end if;
+
+			if (rising_edge(clk)) then
+				if (cnt = SYNC_VALS.total) then
+					-- If reached total
+					cnt <= x"0000";
+					carry <= '1';
+				else
+					-- Else, increment count
+					cnt <= cnt + 1;
+					carry <= '0';
+				end if;
 			end if;
 		end if;
 	end process;
