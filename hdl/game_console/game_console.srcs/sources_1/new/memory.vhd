@@ -10,6 +10,8 @@
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Random Access Memory
+-- 		Input/Output Ports
 --
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created

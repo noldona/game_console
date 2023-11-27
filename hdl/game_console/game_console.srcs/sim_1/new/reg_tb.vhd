@@ -10,6 +10,8 @@
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Test Utilities
+-- 		Game Console Utilities
 -- 		Register
 --
 -- Revision: 0.1.0
@@ -24,6 +26,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity reg_tb is
@@ -102,37 +105,22 @@ begin
 	REG_TEST: process
 	begin
 		-- Test Reset State
-		report "Register Reset Test Begin" severity note;
+		report "Register Module: Reset Test: Begin" severity note;
 		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert data_tx = x"0000"
-			report "Register Test: Reset Test - Invalid 'data_tx' value, " &
-			"Expected: '0000' but got '" &
-			to_hstring(data_tx) &
-			"'"
-			severity error;
+		assert_equals(data_tx, x"0000", "Register Test", "Reset Test", "data_tx");
 		rst <= '1';  -- Take out of reset mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
-		report "Register Reset Test End" severity note;
+		report "Register Module: Reset Test: End" severity note;
 
 		-- Test Loading
-		report "Register Load Test Begin" severity note;
+		report "Register Module: Load Test: Begin" severity note;
 		-- Set the data
 		load <= '1';
 		data_rx <= x"FFFF";
-		assert data_tx = x"0000"
-			report "Register Test: Load Test - Invalid 'data_tx' value, Preload, " &
-			"Expected: '0000' but got '" &
-			to_hstring(data_tx) &
-			"'"
-			severity error;
+		assert_equals(data_tx, x"0000", "Register Test", "Load Test: Preload", "data_tx");
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be loaded
-		assert data_tx = x"FFFF"
-			report "Register Test: Load Test - Invalid 'data_tx' value, Postload, " &
-			"Expected: 'FFFF' but got '" &
-			to_hstring(data_tx) &
-			"'"
-			severity error;
-		report "Register Load Test End" severity note;
+		assert_equals(data_tx, x"FFFF", "Register Test", "Reset Test: Postload", "data_tx");
+		report "Register Module: Load Test: End" severity note;
 		wait;
 	end process;
 

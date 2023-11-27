@@ -26,24 +26,27 @@ use WORK.CONSOLE_UTILS.ALL;
 
 
 entity control_unit is
-	 port (
-	 	clk: in std_logic;
-	 	rst: in std_logic;
-	 	state: out t_Bus_State;
-	 	IR_Load: out std_logic;
-	 	IR: in std_logic_vector(7 downto 0);
-	 	MAR_Load: out std_logic;
+	port (
+		clk: in std_logic;
+		rst: in std_logic;
+		state: out t_Bus_State;
+		IR_Load: out std_logic;
+		IR: in std_logic_vector(7 downto 0);
+		MAR_Load: out std_logic;
 		MAR_Byte: out std_logic;
-	 	PC_Load: out std_logic;
-	 	PC_Inc: out std_logic;
-	 	A_Load: out std_logic;
-	 	B_Load: out std_logic;
-	 	ALU_Sel: out std_logic_vector(2 downto 0);
-	 	Status_Result: in std_logic_vector(7 downto 0);
-	 	Status_Load: out std_logic;
-	 	Bus1_Sel: out std_logic_vector(1 downto 0);
-	 	Bus2_Sel: out std_logic_vector(1 downto 0)
-	 );
+		PC_Load: out std_logic;
+		PC_Inc: out std_logic;
+		PC_Byte: out std_logic;
+		A_Load: out std_logic;
+		B_Load: out std_logic;
+		X_Load: out std_logic;
+		Y_Load: out std_logic;
+		ALU_Sel: out std_logic_vector(2 downto 0);
+		Status_Result: in std_logic_vector(7 downto 0);
+		Status_Load: out std_logic;
+		Bus1_Sel: out std_logic_vector(1 downto 0);
+		Bus2_Sel: out std_logic_vector(1 downto 0)
+	);
 end control_unit;
 
 architecture control_unit_arch of control_unit is
@@ -54,80 +57,6 @@ architecture control_unit_arch of control_unit is
 	-------------------------------
 	-- Types
 	-------------------------------
-	-- TODO: Update this to use the 6502 opcodes
-	type t_States is (
-		S_FETCH_0,  -- Opcode fetch states
-		S_FETCH_1,
-		S_FETCH_2,
-		S_FETCH_3,
-
-		S_DECODE_4,  -- Opcode decode state
-
-		S_LDA_IMM_5,  -- Load A (Immediate) states
-		S_LDA_IMM_6,
-		S_LDA_IMM_7,
-		S_LDA_IMM_8,
-
-		-- TODO: Make this handle 16-bit addresses
-		S_LDA_DIR_5,  -- Load A (Direct) states
-		S_LDA_DIR_6,
-		S_LDA_DIR_7,
-		S_LDA_DIR_8,
-		S_LDA_DIR_9,
-
-		-- TODO: Make this handle 16-bit addresses
-		S_STA_DIR_5,  -- Store A (Direct) states
-		S_STA_DIR_6,
-		S_STA_DIR_7,
-		S_STA_DIR_8,
-
-		S_LDB_IMM_5,  -- Load B (Immediate) states
-		S_LDB_IMM_6,
-		S_LDB_IMM_7,
-
-		-- TODO: Make this handle 16-bit addresses
-		S_LDB_DIR_5,  -- Load B (Direct) states
-		S_LDB_DIR_6,
-		S_LDB_DIR_7,
-		S_LDB_DIR_8,
-		S_LDB_DIR_9,
-
-		-- TODO: Make this handle 16-bit addresses
-		S_STB_DIR_5,  -- Store B (Direct) states
-		S_STB_DIR_6,
-		S_STB_DIR_7,
-		S_STB_DIR_8,
-
-		S_ADD_AB_5,  -- A <= A + B
-
-		S_SUB_AB_5,  -- A <= A - B
-
-		S_AND_AB_5,  -- A <= A & B
-
-		S_OR_AB_5,  -- A <= A | B
-
-		S_INCA_5,  -- A <= A + 1
-
-		S_DECA_5,  -- A <= A - 1
-
-		S_INCB_5,  -- B <= B + 1
-
-		S_DECB_5,  -- B <= B - 1
-
-		-- TODO: Make this handle 16-bit addresses
-		S_BRA_5,  -- Branch Always
-		S_BRA_6,
-		S_BRA_7,
-		S_BRA_8,
-
-		-- TODO: Create states for other branching commands
-
-		-- TODO: Make this handle 16-bit addresses
-		S_BEQ_5,  -- Branch if Z = 1
-		S_BEQ_6,
-		S_BEQ_7,
-		S_BEQ_8
-	);
 
 	-------------------------------
 	-- Constants
@@ -795,7 +724,7 @@ begin
 				B_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '1';
-				Bus1_Sel <= "10";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
+				Bus1_Sel <= "01";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
 

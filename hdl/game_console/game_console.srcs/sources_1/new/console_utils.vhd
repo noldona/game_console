@@ -46,6 +46,82 @@ package console_utils is
 	type t_Ram_Array is array(natural range <>) of std_logic_vector;
 	type t_Bus_State is (OFF, READ, WRITE);
 
+	-- TODO: Update this to use the 6502 opcodes
+	type t_States is (
+		S_FETCH_0,  -- Opcode Fetch states
+		S_FETCH_1,
+		S_FETCH_2,
+		S_FETCH_3,
+
+		S_DECODE_4,  -- Opcode Decode state
+
+		S_LDA_IMM_5,  -- Load A (Immediate) states
+		S_LDA_IMM_6,
+		S_LDA_IMM_7,
+		S_LDA_IMM_8,
+
+		-- TODO: Make this handle 16-bit addresses
+		S_LDA_DIR_5,  -- Load A (Direct) states
+		S_LDA_DIR_6,
+		S_LDA_DIR_7,
+		S_LDA_DIR_8,
+		S_LDA_DIR_9,
+
+		-- TODO: Make this handle 16-bit addresses
+		S_STA_DIR_5,  -- Store A (Direct) states
+		S_STA_DIR_6,
+		S_STA_DIR_7,
+		S_STA_DIR_8,
+
+		S_LDB_IMM_5,  -- Load B (Immediate) states
+		S_LDB_IMM_6,
+		S_LDB_IMM_7,
+		S_LDB_IMM_8,
+
+		-- TODO: Make this handle 16-bit addresses
+		S_LDB_DIR_5,  -- Load B (Direct) states
+		S_LDB_DIR_6,
+		S_LDB_DIR_7,
+		S_LDB_DIR_8,
+		S_LDB_DIR_9,
+
+		-- TODO: Make this handle 16-bit addresses
+		S_STB_DIR_5,  -- Store B (Direct) states
+		S_STB_DIR_6,
+		S_STB_DIR_7,
+		S_STB_DIR_8,
+
+		S_ADD_AB_5,  -- A <= A + B
+
+		S_SUB_AB_5,  -- A <= A - B
+
+		S_AND_AB_5,  -- A <= A & B
+
+		S_OR_AB_5,  -- A <= A | B
+
+		S_INCA_5,  -- A <= A + 1
+
+		S_DECA_5,  -- A <= A - 1
+
+		S_INCB_5,  -- B <= B + 1
+
+		S_DECB_5,  -- B <= B - 1
+
+		-- TODO: Make this handle 16-bit addresses
+		S_BRA_5,  -- Branch Always
+		S_BRA_6,
+		S_BRA_7,
+		S_BRA_8,
+
+		-- TODO: Create states for other branching commands
+
+		-- TODO: Make this handle 16-bit addresses
+		S_BEQ_5,  -- Branch if Z = 1
+		S_BEQ_6,
+		S_BEQ_7,
+		S_BEQ_8
+	);
+
 	-----------------------------------------------
 	-- Constant Definitions
 	-----------------------------------------------
@@ -89,6 +165,10 @@ package console_utils is
 	impure function init_ram_hex(start: integer; stop: integer; filename: string) return t_Ram_Array;
 	impure function init_ram_from_file_or_zeros(start: integer; stop: integer; filename: string) return t_Ram_Array;
 
+	-----------------------------------------------
+	-- Procedure Definitions
+	-----------------------------------------------
+
 end package;
 
 package body console_utils is
@@ -120,5 +200,9 @@ package body console_utils is
 			return init_ram_hex(start, stop, filename);
 		end if;
 	end function;
+
+	-------------------------------
+	-- Procedures
+	-------------------------------
 
 end package body console_utils;

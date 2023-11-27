@@ -10,6 +10,7 @@
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Random Access Memory
 --
 -- Revision: 0.1.0
@@ -24,6 +25,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity ram_tb is
@@ -141,8 +143,9 @@ begin
 	RAM_TEST: process
 	begin
 		-- Test Reset State
-		report "RAM Reset Test Begin" severity note;
+		report "RAM Module: Reset Test: Begin" severity note;
 		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
+		assert_equals(ram_data, BUS_HIGH_Z, "RAM Module", "Reset Test", "ram_data");
 		assert ram_data = BUS_HIGH_Z
 			report "RAM Test: Reset Test - Invalid 'data' value, " &
 				"Expected: 'ZZZZZZZZ' but got '" &
@@ -151,10 +154,10 @@ begin
 			severity error;
 		ram_rst <= '1';  -- Take out of reset mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
-		report "RAM Reset Test End" severity note;
+		report "RAM Module: Reset Test: End" severity note;
 
 		-- Test Writing/Reading
-		report "RAM Write/Read Test Begin" severity note;
+		report "RAM Module: Write/Read Test: Begin" severity note;
 		-- Set the data
 		ram_state <= WRITE;  -- Put in WRITE mode
 		ram_addr <= x"0088";  -- Set address to write to
@@ -163,56 +166,36 @@ begin
 		ram_data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
 		ram_state <= READ;  -- Put into READ mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert ram_data = x"FF"
-			report "RAM Test: Write/Read Test - Invalid 'data' value, " &
-			"Expected: 'FF' but got '" &
-			to_hstring(ram_data) &
-			"'"
-			severity error;
-		report "RAM Write/Read Test End" severity note;
+		assert_equals(ram_data, x"FF", "RAM Module", "Write/Read Test", "ram_data");
+		report "RAM Module: Write/Read Test: End" severity note;
 
 		-- Test Index Out of Range
-		report "RAM Index Out of Range Test Begin" severity note;
+		report "RAM Module: Index Out of Range Test: Begin" severity note;
 		ram_addr <= x"0100";  -- Set address out of range
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert ram_data = BUS_HIGH_Z
-			report "RAM Test: Index Out of Range Test - Invalid 'data' value, " &
-			"Expected: 'ZZZZZZZZ' but got '" &
-			to_hstring(ram_data) &
-			"'"
-			severity error;
-		report "RAM Index Out of Range Test End" severity note;
+		assert_equals(ram_data, BUS_HIGH_Z, "RAM Module", "Index Out of Range Test", "ram_data");
+		report "RAM Module: Index Out of Range Test: End" severity note;
 
 		-- Test Off State
-		report "RAM Off Test Begin" severity note;
+		report "RAM Module: Off Test: Begin" severity note;
 		ram_state <= OFF;  -- Set state to OFF mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for output to update
-		assert ram_data = BUS_HIGH_Z
-			report "RAM Test: Off Test - Invalid 'data' value, " &
-			"Expected: 'ZZZZZZZZ' but got '" &
-			to_hstring(ram_data) &
-			"'"
-			severity error;
-		report "RAM Off Test End" severity note;
+		assert_equals(ram_data, BUS_HIGH_Z, "RAM Module", "Off Test", "ram_data");
+		report "RAM Module: Off Test: End" severity note;
 		wait;
 	end process;
 
 	ROM_TEST: process
 	begin
 		-- Test Reset State
-		report "ROM Reset Test Begin" severity note;
+		report "ROM Module: Reset Test: Begin" severity note;
 		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert rom_data = BUS_HIGH_Z
-			report "ROM Test: Reset Test - Invalid 'data' value, " &
-			"Expected: 'ZZZZZZZZ' but got '" &
-			to_hstring(rom_data) &
-			"'"
-			severity error;
+		assert_equals(rom_data, BUS_HIGH_Z, "ROM Module", "Reset Test", "rom_data");
 		rom_rst <= '1';  -- Take out of reset mode
-		report "ROM Reset Test End" severity note;
+		report "ROM Module: Reset Test: End" severity note;
 
 		-- Test Writing/Reading
-		report "ROM Write/Read Test Begin" severity note;
+		report "ROM Module: Write/Read Test: Begin" severity note;
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		-- Set the data
 		rom_state <= WRITE;  -- Put in WRITE mode
@@ -222,41 +205,26 @@ begin
 		rom_data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
 		rom_state <= READ;  -- Put into READ mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert rom_data = x"88"
-			report "ROM Test: Write/Read Test - Invalid 'data' value, " &
-			"Expected: '88' but got '" &
-			to_hstring(rom_data) &
-			"'"
-			severity error;
-		report "ROM Write/Read Test End" severity note;
+		assert_equals(rom_data, x"88", "ROM Module", "Write/Read Test", "rom_data");
+		report "ROM Module: Write/Read Test: End" severity note;
 
 		-- Test Off State
-		report "ROM Off Test Begin" severity note;
+		report "ROM Module: Off Test: Begin" severity note;
 		rom_state <= OFF;  -- Set state to OFF mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for output to update
-		assert rom_data = BUS_HIGH_Z
-			report "ROM Test: Off Test - Invalid 'data' value, " &
-			"Expected: 'ZZZZZZZZ' but got '" &
-			to_hstring(rom_data) &
-			"'"
-			severity error;
-		report "ROM Off Test End" severity note;
+		assert_equals(rom_data, BUS_HIGH_Z, "ROM Module", "Off Test", "rom_data");
+		report "ROM Module: Off Test: End" severity note;
 
 		-- Test File Load
-		report "ROM File Load Test Begin" severity note;
+		report "ROM Module: File Load Test: Begin" severity note;
 		wait for CLK_PERIOD;
 		for i in 0 to 255 loop
 			rom_state <= READ;
 			rom_addr <= std_logic_vector(to_unsigned(i, 16));
 			wait for CLK_PERIOD;
-			assert rom_data = std_logic_vector(to_unsigned(i, 8))
-				report "ROM Test: File Load Test - Invalid 'data' value, " &
-					"Expected '" & integer'image(i) & "' but got '" &
-					to_hstring(rom_data) &
-					"'"
-				severity error;
+			assert_equals(rom_data, std_logic_vector(to_unsigned(i, 8)), "ROM Module", "File Load Test", "rom_data");
 		end loop;
-		report "ROM File Load Test End" severity note;
+		report "ROM Module: File Load Test: End" severity note;
 		wait;
 	end process;
 

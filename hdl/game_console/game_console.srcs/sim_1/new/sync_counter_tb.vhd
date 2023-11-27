@@ -11,6 +11,7 @@
 -- Dependencies:
 -- 		VGA Types
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Sync Counter
 --
 -- Revision: 0.1.0
@@ -26,6 +27,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 use WORK.VGA_TYPES.ALL;
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity sync_counter_tb is
@@ -111,67 +113,32 @@ begin
 	SYNC_COUNTER_TEST: process
 	begin
 		-- Test Reset State
-		report "Sync Counter Reset Test Begin" severity note;
+		report "Sync Counter Module: Reset Test: Begin" severity note;
 		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert sync = '1'
-			report "Sync Counter Test: Reset Test - Invalid 'sync' value, " &
-			"Expected: '1' but got '" &
-			std_logic'image(sync) &
-			"'"
-			severity error;
-		assert blank = '1'
-			report "Sync Counter Test: Reset Test - Invalid 'blank' value, " &
-			"Expected: '1' but got '" &
-			std_logic'image(blank) &
-			"'"
-			severity error;
+		assert_equals(sync, '1', "Sync Counter Test", "Reset Test", "sync");
+		assert_equals(blank, '1', "Sync Counter Test", "Reset Test", "blank");
 		rst <= '1';  -- Take out of reset mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
-		report "Sync Counter Reset Test End" severity note;
+		report "Sync Counter Module: Reset Test: End" severity note;
 
 		-- Test Blank State
-		report "Sync Counter Blank Test Beging" severity note;
-		assert blank = '0'
-			report "Sync Counter Test: Blank Test - Invalid 'blank' value, " &
-			"Expected: '0' but got '" &
-			std_logic'image(blank) &
-			"'"
-			severity error;
+		report "Sync Counter Module: Blank Test: Begin" severity note;
+		assert_equals(blank, '0', "Sync Counter Test", "Blank Test", "blank");
 		-- wait for 1 after active area
 		wait for (CLK_PERIOD * (SYNC_VALS.active - 6));
-		assert blank = '1'
-			report "Sync Counter Test: Blank Test - Invalid 'blank' value, " &
-			"Expected: '1' but got '" &
-			std_logic'image(blank) &
-			"'"
-			severity error;
-		report "Sync Counter Blank Test End" severity note;
+		assert_equals(blank, '1', "Sync Counter Test", "Blank Test", "blank");
+		report "Sync Counter Module: Blank Test: End" severity note;
 
 		-- Test Sync State
-		report "Sync Counter Sync Test Beging" severity note;
-		assert sync = '1'
-			report "Sync Counter Test: Sync Test - Invalid 'sync' value, " &
-			"Expected: '1' but got '" &
-			std_logic'image(sync) &
-			"'"
-			severity error;
+		report "Sync Counter Module: Sync Test: Begin" severity note;
+		assert_equals(sync, '1', "Sync Counter Test", "Sync Test", "sync");
 		-- wait for 1 after active area
 		wait for (CLK_PERIOD * SYNC_VALS.front_porch);
-		assert sync = '0'
-			report "Sync Counter Test: Sync Test - Invalid 'sync' value, " &
-			"Expected: '0' but got '" &
-			std_logic'image(sync) &
-			"'"
-			severity error;
+		assert_equals(sync, '0', "Sync Counter Test", "Sync Test", "sync");
 		-- wait till after the sync pulse
 		wait for (CLK_PERIOD * SYNC_VALS.sync_pulse);
-		assert sync = '1'
-			report "Sync Counter Test: Sync Test - Invalid 'sync' value, " &
-			"Expected: '1' but got '" &
-			std_logic'image(sync) &
-			"'"
-			severity error;
-		report "Sync Counter Sync Test End" severity note;
+		assert_equals(sync, '1', "Sync Counter Test", "Sync Test", "sync");
+		report "Sync Counter Module: Sync Test: End" severity note;
 		wait;
 	end process;
 

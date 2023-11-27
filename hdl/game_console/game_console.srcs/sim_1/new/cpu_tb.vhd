@@ -10,6 +10,7 @@
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Central Processing Unit
 -- 		Data Path Test Bench
 --		Control Unit Test Bench
@@ -26,6 +27,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity cpu_tb is

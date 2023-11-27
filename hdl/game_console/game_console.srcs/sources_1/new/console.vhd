@@ -11,6 +11,7 @@
 -- Dependencies:
 -- 		VGA Types
 -- 		Game Console Utilities
+-- 		Clock Wizard
 -- 		Central Processing Unit
 -- 		Video Card
 -- 		Memory

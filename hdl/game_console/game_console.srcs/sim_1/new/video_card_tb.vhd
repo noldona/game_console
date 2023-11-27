@@ -11,6 +11,7 @@
 -- Dependencies:
 -- 		VGA Types
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		VGA Video Card
 -- 		Sync Counter Test Bench
 --
@@ -27,6 +28,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 use WORK.VGA_TYPES.ALL;
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity video_card_tb is
@@ -208,44 +210,19 @@ begin
 		variable blank: std_logic;
 	begin
 		-- Test Reset State
-		report "VGA Reset Test Begin" severity note;
+		report "VGA Module: Reset Test: Begin" severity note;
 		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert vgaRed = "000"
-			report "VGA Test: Reset Test - Invalid 'vgaRed' value, " &
-			"Expected: '0' but got '" &
-			integer'image(to_integer(unsigned(vgaRed))) &
-			"'"
-			severity error;
-		assert vgaGreen = "000"
-			report "VGA Test: Reset Test - Invalid 'vgaGreen' value, " &
-			"Expected: '0' but got '" &
-			integer'image(to_integer(unsigned(vgaGreen))) &
-			"'"
-			severity error;
-		assert vgaBlue = "00"
-			report "VGA Test: Reset Test - Invalid 'vgaBlue' value, " &
-			"Expected: '0' but got '" &
-			integer'image(to_integer(unsigned(vgaBlue))) &
-			"'"
-			severity error;
-		assert hsync = '1'
-			report "VGA Test: Reset Test - Invalid 'hsync' value, " &
-			"Expected: '1' but got '" &
-			std_logic'image(hsync) &
-			"'"
-			severity error;
-		assert vsync = '1'
-			report "VGA Test: Reset Test - Invalid 'vsync' value, " &
-			"Expected: '1' but got '" &
-			std_logic'image(vsync) &
-			"'"
-			severity error;
+		assert_equals(vgaRed, "000", "VGA Module", "Reset Test", "vgaRed");
+		assert_equals(vgaGreen, "000", "VGA Module", "Reset Test", "vgaGreen");
+		assert_equals(vgaBlue, "00", "VGA Module", "Reset Test", "vgaBlue");
+		assert_equals(hsync, '1', "VGA Module", "Reset Test", "hsync");
+		assert_equals(vsync, '1', "VGA Module", "Reset Test", "vsync");
 		rst <= '1';  -- Take out of reset mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
-		report "VGA Reset Test End" severity note;
+		report "VGA Module: Reset Test: End" severity note;
 
 		-- Test Register Write/Read
-		report "VGA Register Test Begin" severity note;
+		report "VGA Module: Register Test: Begin" severity note;
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"2000";  -- Set address to Video Card Register
 		data <= x"80";  -- Set address to VRAM 2 base address
@@ -253,16 +230,11 @@ begin
 		data <= BUS_HIGH_Z;  --Reset data for preparation of the next assert
 		state <= READ;  -- Put into READ mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle data to be read
-		assert data = x"80"
-			report "VGA Test: Register Test - Invalid 'data' value, " &
-			"Expected: '" & integer'image(16#80#) & "' but got '" &
-			integer'image(to_integer(unsigned(data))) &
-			"'"
-			severity error;
-		report "VGA Register Test End" severity note;
+		assert_equals(data, x"80", "VGA Module", "Register Test", "data");
+		report "VGA Module: Register Test: End" severity note;
 
 		-- Test Image 2 Display
-		report "VGA Image 2 Test Begin" severity note;
+		report "VGA Module: Image 2 Test: Begin" severity note;
 		rst <= '0';  -- Reset counters back to 0
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"2000";  -- Set address to Video Card Register
@@ -283,30 +255,15 @@ begin
 				blue := "00" when (blank = '1') else ram_data(1 downto 0);
 				ram_clk <= '0';  -- Toggle the RAM clock off for next cycle
 				wait for CLK_PERIOD / 2;  -- Wait 1 clock cycle
-				assert vgaRed = red
-					report "VGA Test: Image 2 Test - Invalid 'vgaRed' value, " &
-					"Expected: '" & integer'image(to_integer(unsigned(red))) & "' but got '" &
-					integer'image(to_integer(unsigned(vgaRed))) &
-					"'"
-					severity error;
-				assert vgaGreen = green
-					report "VGA Test: Image 2 Test - Invalid 'vgaGren' value, " &
-					"Expected: '" & integer'image(to_integer(unsigned(green))) & "' but got '" &
-					integer'image(to_integer(unsigned(vgaGreen))) &
-					"'"
-					severity error;
-				assert vgaBlue = blue
-					report "VGA Test: Image 2 Test - Invalid 'vgaBlue' value, " &
-					"Expected: '" & integer'image(to_integer(unsigned(blue))) & "' but got '" &
-					integer'image(to_integer(unsigned(vgaBlue))) &
-					"'"
-					severity error;
+				assert_equals(vgaRed, red, "VGA Module", "Image 2 Test", "vgaRed");
+				assert_equals(vgaGreen, green, "VGA Module", "Image 2 Test", "vgaGreen");
+				assert_equals(vgaBlue, blue, "VGA Module", "Image 2 Test", "vgaBlue");
 			end loop;
 		end loop;
-		report "VGA Image 2 Test End" severity note;
+		report "VGA Module: Image 2 Test: End" severity note;
 
 		-- Test Image 2 Display
-		report "VGA Image 1 Test Begin" severity note;
+		report "VGA Module: Image 1 Test: Begin" severity note;
 		rst <= '0';  -- Reset counters back to 0
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle
 		rst <= '1';  -- Take out of reset mode
@@ -332,27 +289,12 @@ begin
 				blue := "00" when (blank = '1') else ram_data(1 downto 0);
 				ram_clk <= '0';  -- Toggle the RAM clock off for next cycle
 				wait for CLK_PERIOD / 2;  -- Wait 1 clock cycle
-				assert vgaRed = red
-					report "VGA Test: Image 1 Test - Invalid 'vgaRed' value, " &
-					"Expected: '" & integer'image(to_integer(unsigned(red))) & "' but got '" &
-					integer'image(to_integer(unsigned(vgaRed))) &
-					"'"
-					severity error;
-				assert vgaGreen = green
-					report "VGA Test: Image 1 Test - Invalid 'vgaGren' value, " &
-					"Expected: '" & integer'image(to_integer(unsigned(green))) & "' but got '" &
-					integer'image(to_integer(unsigned(vgaGreen))) &
-					"'"
-					severity error;
-				assert vgaBlue = blue
-					report "VGA Test: Image 1 Test - Invalid 'vgaBlue' value, " &
-					"Expected: '" & integer'image(to_integer(unsigned(blue))) & "' but got '" &
-					integer'image(to_integer(unsigned(vgaBlue))) &
-					"'"
-					severity error;
+				assert_equals(vgaRed, red, "VGA Module", "Image 1 Test", "vgaRed");
+				assert_equals(vgaGreen, green, "VGA Module", "Image 1 Test", "vgaGreen");
+				assert_equals(vgaBlue, blue, "VGA Module", "Image 1 Test", "vgaBlue");
 			end loop;
 		end loop;
-		report "VGA Image 1 Test End" severity note;
+		report "VGA Module: Image 1 Test: End" severity note;
 		wait;
 	end process;
 

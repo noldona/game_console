@@ -18,6 +18,7 @@ vhdl2008 xil_defaultlib  \
 "../../../../game_console.srcs/sources_1/new/console.vhd" \
 "../../../../game_console.srcs/sources_1/new/memory_mapper.vhd" \
 "../../../../game_console.srcs/sources_1/new/io.vhd" \
+"../../../../game_console.srcs/sources_1/new/test_utils.vhd" \
 "../../../../game_console.srcs/sim_1/new/alu_tb.vhd" \
 "../../../../game_console.srcs/sim_1/new/console_tb.vhd" \
 "../../../../game_console.srcs/sim_1/new/control_unit_tb.vhd" \

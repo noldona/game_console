@@ -22,6 +22,8 @@
 -- 		VGA Types
 -- 		Game Console Utilities
 -- 		Video Card Sync Counter
+-- 		Random Access Memory
+-- 		Register
 --
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created

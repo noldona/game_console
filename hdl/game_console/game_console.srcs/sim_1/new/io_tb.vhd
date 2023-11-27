@@ -10,6 +10,7 @@
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Input/Output ports
 --
 -- Revision: 0.1.0
@@ -24,6 +25,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity io_tb is
@@ -107,20 +109,15 @@ begin
 	IO_TEST: process
 	begin
 		-- Test Reset State
-		report "I/O Reset Test Begin" severity note;
+		report "I/O Module: Reset Test: Begin" severity note;
 		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert data = BUS_HIGH_Z
-			report "I/O Test: Reset Test - Invalid 'data' value, " &
-				"Expected: 'ZZZZZZZZ' but got '" &
-				to_hstring(data) &
-				"'"
-			severity error;
+		assert_equals(data, BUS_HIGH_Z, "I/O Module", "Reset Test", "data");
 		rst <= '1';  -- Take out of reset mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
-		report "I/O Reset Test End" severity note;
+		report "I/O Module: Reset Test: End" severity note;
 
 		-- Test Writing I/O
-		report "I/O Writing I/O Test Begin" severity note;
+		report "I/O Module: Writing I/O Test: Begin" severity note;
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"4005";  -- Set address to write to in I/O
 		data <= x"FF";  -- Set data to write
@@ -128,27 +125,17 @@ begin
 		data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
 		state <= READ;  -- Put into READ mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert io_ports(5) = x"FF"
-			report "I/O Test: Writing I/O Test - Invalid 'data' value, " &
-			"Expected: 'FF' but got '" &
-			to_hstring(io_ports(5)) &
-			"'"
-			severity error;
-		report "I/O Writing I/O Test End" severity note;
+		assert_equals(io_ports(5), x"FF", "I/O Module", "Writing I/O Test", "io_ports(5)");
+		report "I/O Module: Writing I/O Test: End" severity note;
 
 		-- Test Reading I/O
-		report "I/O Reading I/O Test Begin" severity note;
+		report "I/O Module: Reading I/O Test: Begin" severity note;
 		state <= READ;  -- Put into READ mode
 		addr <= x"4004";  -- Set address to read from in I/O
 		io_ports(4) <= x"AA";  -- Set data for I/O input
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert data = x"AA"
-			report "I/O Test: Reading I/O Test - Invalid 'data' value, " &
-			"Expected: 'AA' but got '" &
-			to_hstring(data) &
-			"'"
-			severity error;
-		report "I/O Reading I/O Test End" severity note;
+		assert_equals(data, x"AA", "I/O Module", "Reading I/O Test", "data");
+		report "I/O Module: Reading I/O Test: End" severity note;
 		wait;
 	end process;
 

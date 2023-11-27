@@ -12,6 +12,7 @@
 -- Dependencies:
 -- 		Game Console Utilities
 -- 		Arithmetic Logic Unit
+-- 		Register
 --
 -- Revision: 0.1.0
 -- Revision 0.1.0 - File Created

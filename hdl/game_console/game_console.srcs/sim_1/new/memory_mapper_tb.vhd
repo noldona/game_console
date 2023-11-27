@@ -10,6 +10,7 @@
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Memory Mapper
 --
 -- Revision: 0.1.0
@@ -24,6 +25,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity memory_mapper_tb is

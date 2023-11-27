@@ -10,6 +10,7 @@
 --
 -- Dependencies:
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Memory
 -- 		Random Access Memory Test Bench
 --
@@ -25,6 +26,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity memory_tb is
@@ -118,20 +120,15 @@ begin
 	MEMORY_TEST: process
 	begin
 		-- Test Reset State
-		report "Memory Reset Test Begin" severity note;
+		report "Memory Module: Reset Test: Begin" severity note;
 		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert data = BUS_HIGH_Z
-			report "Memory Test: Reset Test - Invalid 'data' value, " &
-				"Expected: 'ZZZZZZZZ' but got '" &
-				to_hstring(data) &
-				"'"
-			severity error;
+		assert_equals(data, BUS_HIGH_Z, "Memory Module", "Reset Test", "data");
 		rst <= '1';  -- Take out of reset mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
-		report "Memory Reset Test End" severity note;
+		report "Memory Module: Reset Test: End" severity note;
 
 		-- Test Writing/Reading Working RAM
-		report "Memory Write/Read Working RAM Test Begin" severity note;
+		report "Memory Module: Write/Read Working RAM Test: Begin" severity note;
 		-- Set the data
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"01AA";  -- Set address to write to in Working RAM
@@ -140,16 +137,11 @@ begin
 		data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
 		state <= READ;  -- Put into READ mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert data = x"FF"
-			report "Memory Test: Write/Read Working RAM Test - Invalid 'data' value, " &
-			"Expected: 'FF' but got '" &
-			to_hstring(data) &
-			"'"
-			severity error;
-		report "Memory Write/Read Working RAM Test End" severity note;
+		assert_equals(data, x"FF", "Memory Module", "Write/Read Working RAM Test", "data");
+		report "Memory Module: Write/Read Working RAM Test: End" severity note;
 
 		-- Test Writing/Reading Program ROM
-		report "Memory Write/Read Program ROM Test Begin" severity note;
+		report "Memory Module: Write/Read Program ROM Test: Begin" severity note;
 		-- Set the data
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"40A8";  -- Set address to write to in Program ROM
@@ -158,16 +150,11 @@ begin
 		data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
 		state <= READ;  -- Put into READ mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert data = x"88"
-			report "Memory Test: Write/Read Program ROM Test - Invalid 'data' value, " &
-			"Expected: '88' but got '" &
-			to_hstring(data) &
-			"'"
-			severity error;
-		report "Memory Write/Read Program ROM Test End" severity note;
+		assert_equals(data, x"88", "Memory Module", "Write/Read Program ROM Test", "data");
+		report "Memory Module: Write/Read Program ROM Test: End" severity note;
 
 		-- Test Writing I/O
-		report "Memory Writing I/O Test Begin" severity note;
+		report "Memory Module: Writing I/O Test: Begin" severity note;
 		state <= WRITE;  -- Put in WRITE mode
 		addr <= x"4005";  -- Set address to write to in I/O
 		data <= BUS_HIGH_Z;
@@ -177,27 +164,17 @@ begin
 		data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
 		state <= READ;  -- Put into READ mode
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert io_ports(5) = x"FF"
-			report "Memory Test: Writing I/O Test - Invalid 'data' value, " &
-			"Expected: 'FF' but got '" &
-			to_hstring(io_ports(5)) &
-			"'"
-			severity error;
-		report "Memory Writing I/O Test End" severity note;
+		assert_equals(io_ports(5), x"FF", "Memory Module", "Writing I/O Test", "io_ports(5)");
+		report "Memory Module: Writing I/O Test: End" severity note;
 
 		-- Test Reading I/O
-		report "Memory Reading I/O Test Begin" severity note;
+		report "Memory Module: Reading I/O Test: Begin" severity note;
 		state <= READ;  -- Put into READ mode
 		addr <= x"4004";  -- Set address to read from in I/O
 		io_ports(4) <= x"AA";  -- Set data for I/O input
 		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert data = x"AA"
-			report "Memory Test: Reading I/O Test - Invalid 'data' value, " &
-			"Expected: 'AA' but got '" &
-			to_hstring(data) &
-			"'"
-			severity error;
-		report "Memory Reading I/O Test End" severity note;
+		assert_equals(data, x"AA", "Memory Module", "Reading I/O Test", "data");
+		report "Memory Module: Reading I/O Test: End" severity note;
 		wait;
 	end process;
 

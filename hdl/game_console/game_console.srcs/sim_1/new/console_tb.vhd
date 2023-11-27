@@ -11,6 +11,7 @@
 -- Dependencies:
 -- 		VGA Types
 -- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Game Console
 -- 		Central Processing Unit Test Bench
 -- 		Video Card Test Bench
@@ -30,6 +31,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 use WORK.VGA_TYPES.ALL;
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity console_tb is
@@ -96,14 +98,15 @@ begin
 	-- Component Implementations
 	-------------------------------
 
-	-------------------------------
-	-- Module Implementation
-	-------------------------------
-	-- TODO: Implement the Game Console test bench
-
+	-- Submodule Test Benches
 	CPU_UUT: cpu_tb;
 	VGA_UUT: video_card_tb;
 	MEM_UUT: memory_tb;
 	APU_UUT: sound_card_tb;
+
+	-------------------------------
+	-- Module Implementation
+	-------------------------------
+	-- TODO: Implement the Game Console test bench
 
 end console_tb_arch;

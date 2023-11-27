@@ -62,7 +62,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="cmod-s7-25"/>
-    <Option Name="WTXSimLaunchSim" Val="309"/>
+    <Option Name="WTXSimLaunchSim" Val="341"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -178,6 +178,12 @@
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/new/io.vhd">
+        <FileInfo SFType="VHDL2008">
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/test_utils.vhd">
         <FileInfo SFType="VHDL2008">
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -317,6 +323,16 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/sync_counter_tb_behav.wcfg">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/control_unit_tb_behav.wcfg">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="control_unit_tb"/>
@@ -337,6 +353,8 @@
         <Option Name="XSimWcfgFile" Val="$PPRDIR/memory_tb_behav.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/alu_tb_behav.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/data_path_tb_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/sync_counter_tb_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/control_unit_tb_behav.wcfg"/>
         <Option Name="Incremental" Val="0"/>
       </Config>
     </FileSet>

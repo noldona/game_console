@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="control_unit_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="console_utils" />
+            <top_module name="control_unit_tb" />
+            <top_module name="glbl" />
+            <top_module name="test_utils" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="2,085.092 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="125"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/control_unit_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/IR_Load" type="logic">
+      <obj_property name="ElementShortName">IR_Load</obj_property>
+      <obj_property name="ObjectShortName">IR_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/IR" type="array">
+      <obj_property name="ElementShortName">IR[7:0]</obj_property>
+      <obj_property name="ObjectShortName">IR[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/MAR_Load" type="logic">
+      <obj_property name="ElementShortName">MAR_Load</obj_property>
+      <obj_property name="ObjectShortName">MAR_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/MAR_Byte" type="logic">
+      <obj_property name="ElementShortName">MAR_Byte</obj_property>
+      <obj_property name="ObjectShortName">MAR_Byte</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/PC_Load" type="logic">
+      <obj_property name="ElementShortName">PC_Load</obj_property>
+      <obj_property name="ObjectShortName">PC_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/PC_Inc" type="logic">
+      <obj_property name="ElementShortName">PC_Inc</obj_property>
+      <obj_property name="ObjectShortName">PC_Inc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/PC_Byte" type="logic">
+      <obj_property name="ElementShortName">PC_Byte</obj_property>
+      <obj_property name="ObjectShortName">PC_Byte</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/A_Load" type="logic">
+      <obj_property name="ElementShortName">A_Load</obj_property>
+      <obj_property name="ObjectShortName">A_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/B_Load" type="logic">
+      <obj_property name="ElementShortName">B_Load</obj_property>
+      <obj_property name="ObjectShortName">B_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/X_Load" type="logic">
+      <obj_property name="ElementShortName">X_Load</obj_property>
+      <obj_property name="ObjectShortName">X_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/Y_Load" type="logic">
+      <obj_property name="ElementShortName">Y_Load</obj_property>
+      <obj_property name="ObjectShortName">Y_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/ALU_Sel" type="array">
+      <obj_property name="ElementShortName">ALU_Sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ALU_Sel[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/Status_Result" type="array">
+      <obj_property name="ElementShortName">Status_Result[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Status_Result[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/Status_Load" type="logic">
+      <obj_property name="ElementShortName">Status_Load</obj_property>
+      <obj_property name="ObjectShortName">Status_Load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/Bus1_Sel" type="array">
+      <obj_property name="ElementShortName">Bus1_Sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Bus1_Sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/control_unit_tb/Bus2_Sel" type="array">
+      <obj_property name="ElementShortName">Bus2_Sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Bus2_Sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group8655" type="group">
+      <obj_property name="label">UUT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/control_unit_tb/UUT/current_state" type="other">
+         <obj_property name="ElementShortName">current_state</obj_property>
+         <obj_property name="ObjectShortName">current_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/control_unit_tb/UUT/next_state" type="other">
+         <obj_property name="ElementShortName">next_state</obj_property>
+         <obj_property name="ObjectShortName">next_state</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

@@ -9,6 +9,8 @@
 -- Description: This is a test bench for the Arithmetic Logic Unit module
 --
 -- Dependencies:
+-- 		Game Console Utilities
+-- 		Test Utilities
 -- 		Arithmetic Logic Unit
 --
 -- Revision: 0.1.0
@@ -23,6 +25,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 use WORK.CONSOLE_UTILS.ALL;
+use WORK.TEST_UTILS.ALL;
 
 
 entity alu_tb is
@@ -83,104 +86,59 @@ begin
 	ALU_TEST: process
 	begin
 		-- Test Addition
-		report "ALU Addition Test Begin" severity note;
+		report "ALU Module: Addition Test: Begin" severity note;
 		a <= x"02";  -- +2
 		b <= x"03";  -- +2
 		sel <= "000";  -- Addition
 		wait for 1ns;  -- Wait for ALU to process
-		assert result = x"05"  -- +5
-			report "ALU Test: Addition Test - Invalid 'result' value, " &
-				"Expected: '05' but got '" &
-				to_hstring(result) &
-				"'"
-			severity error;
-		assert status = x"00"  -- N = 0, Z = 0, V = 0, C = 0
-			report "ALU Test: Addition Test - Invalid 'status' value, " &
-				"Expected: '00' but got '" &
-				to_hstring(status) &
-				"'"
-			severity error;
-		report "ALU Addition Test End" severity note;
+		assert_equals(result, x"05", "ALU Module", "Addition Test", "result");
+		-- N = 0, Z = 0, V = 0, C = 0
+		assert_equals(status, x"00", "ALU Module", "Addition Test", "status");
+		report "ALU Module: Addition Test: End" severity note;
 
 		-- Test Negative Flag
-		report "ALU Negative Test Begin" severity note;
+		report "ALU Module: Negative Test: Begin" severity note;
 		a <= x"02";  -- +2
 		b <= x"FD";  -- -3
 		sel <= "000";  -- Addition
 		wait for 1ns;  -- Wait for ALU to process
-		assert result = x"FF"  -- -1
-			report "ALU Test: Negative Test - Invalid 'result' value, " &
-				"Expected: 'FF' but got '" &
-				to_hstring(result) &
-				"'"
-			severity error;
-		assert status = x"08"  -- N = 1, Z = 0, V = 0, C = 0
-			report "ALU Test: Negative Test - Invalid 'status' value, " &
-				"Expected: '08' but got '" &
-				to_hstring(status) &
-				"'"
-			severity error;
-		report "ALU Negative Test End" severity note;
+		assert_equals(result, x"FF", "ALU Module", "Negative Test", "result");
+		-- N = 1, Z = 0, V = 0, C = 0
+		assert_equals(status, x"08", "ALU Module", "Negative Test", "status");
+		report "ALU Module: Negative Test: End" severity note;
 
 		-- Test Zero Flag
-		report "ALU Zero Test Begin" severity note;
+		report "ALU Module: Zero Test: Begin" severity note;
 		a <= x"00";  -- 0
 		b <= x"00";  -- 0
 		sel <= "000";  -- Addition
 		wait for 1ns;  -- Wait for ALU to process
-		assert result = x"00"  -- 0
-			report "ALU Test: Zero Test - Invalid 'result' value, " &
-				"Expected: '00' but got '" &
-				to_hstring(result) &
-				"'"
-			severity error;
-		assert status = x"04"  -- N = 0, Z = 1, V = 0, C = 0
-			report "ALU Test: Zero Test - Invalid 'status' value, " &
-				"Expected: '04' but got '" &
-				to_hstring(status) &
-				"'"
-			severity error;
-		report "ALU Zero Test End" severity note;
+		assert_equals(result, x"00", "ALU Module", "Zero Test", "result");
+		-- N = 0, Z = 1, V = 0, C = 0
+		assert_equals(status, x"04", "ALU Module", "Zero Test", "status");
+		report "ALU Module: Zero Test: End" severity note;
 
 		-- Test Overflow Flag
-		report "ALU Overflow Test Begin" severity note;
+		report "ALU Module: Overflow Test: Begin" severity note;
 		a <= x"01";  -- +1
 		b <= x"7F";  -- +127
 		sel <= "000";  -- Addition
 		wait for 1ns;  -- Wait for ALU to process
-		assert result = x"80"  -- -128
-			report "ALU Test: Overflow Test - Invalid 'result' value, " &
-				"Expected: '80' but got '" &
-				to_hstring(result) &
-				"'"
-			severity error;
-		assert status = x"0A"  -- N = 1, Z = 0, V = 1, C = 0
-			report "ALU Test: Overflow Test - Invalid 'status' value, " &
-				"Expected: '0A' but got '" &
-				to_hstring(status) &
-				"'"
-			severity error;
-		report "ALU Overflow Test End" severity note;
+		assert_equals(result, x"80", "ALU Module", "Overflow Test", "result");
+		-- N = 1, Z = 0, V = 1, C = 0
+		assert_equals(status, x"0A", "ALU Module", "Overflow Test", "status");
+		report "ALU Module: Overflow Test: End" severity note;
 
 		-- Test Carry Flag
-		report "ALU Carry Test Begin" severity note;
+		report "ALU Module: Carry Test: Begin" severity note;
 		a <= x"FF";  -- +255
 		b <= x"01";  -- +1
 		sel <= "000";  -- Addition
 		wait for 1ns;  -- Wait for ALU to process
-		assert result = x"00"  -- 0
-			report "ALU Test: Carry Test - Invalid 'result' value, " &
-				"Expected: '05' but got '" &
-				to_hstring(result) &
-				"'"
-			severity error;
-		assert status = x"05" -- N = 0, Z = 1, V = 0, C = 1
-			report "ALU Test: Carry Test - Invalid 'status' value, " &
-				"Expected: '05' but got '" &
-				to_hstring(status) &
-				"'"
-			severity error;
-		report "ALU Carry Test End" severity note;
+		assert_equals(result, x"00", "ALU Module", "Carry Test", "result");
+		-- N = 0, Z = 1, V = 0, C = 1
+		assert_equals(status, x"05", "ALU Module", "Carry Test", "status");
+		report "ALU Module: Carry Test: End" severity note;
 		wait;
 	end process;
 
