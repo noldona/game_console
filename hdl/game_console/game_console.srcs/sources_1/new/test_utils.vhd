@@ -38,11 +38,13 @@ package test_utils is
 	-- Function Definitions
 	-----------------------------------------------
 	function to_string(N: t_States) return string;
+	function to_string(N: t_Bus_State) return string;
 
 	-----------------------------------------------
 	-- Procedure Definitions
 	-----------------------------------------------
 	procedure assert_equals(var: in t_States; should: in t_States; module_name: string; test_name: string; var_name: string);
+	procedure assert_equals(var: in t_Bus_State; should: in t_Bus_State; module_name: string; test_name: string; var_name: string);
 	procedure assert_equals(var: in std_logic_vector; should: in std_logic_vector; module_name: string; test_name: string; var_name: string);
 	procedure assert_equals(var: in std_logic; should: in std_logic; module_name: string; test_name: string; var_name: string);
 
@@ -87,6 +89,20 @@ package body test_utils is
 				return "S_LDA_DIR_8";
 			when S_LDA_DIR_9 =>
 				return "S_LDA_DIR_9";
+			when S_LDA_DIR_10 =>
+				return "S_LDA_DIR_10";
+			when S_LDA_DIR_11 =>
+				return "S_LDA_DIR_11";
+			when S_LDA_DIR_12 =>
+				return "S_LDA_DIR_12";
+			when S_LDA_DIR_13 =>
+				return "S_LDA_DIR_13";
+			when S_LDA_DIR_14 =>
+				return "S_LDA_DIR_14";
+			when S_LDA_DIR_15 =>
+				return "S_LDA_DIR_15";
+			when S_LDA_DIR_16 =>
+				return "S_LDA_DIR_16";
 			-- Store A (Direct) states
 			when S_STA_DIR_5 =>
 				return "S_STA_DIR_5";
@@ -96,6 +112,20 @@ package body test_utils is
 				return "S_STA_DIR_7";
 			when S_STA_DIR_8 =>
 				return "S_STA_DIR_8";
+			when S_STA_DIR_9 =>
+				return "S_STA_DIR_9";
+			when S_STA_DIR_10 =>
+				return "S_STA_DIR_10";
+			when S_STA_DIR_11 =>
+				return "S_STA_DIR_11";
+			when S_STA_DIR_12 =>
+				return "S_STA_DIR_12";
+			when S_STA_DIR_13 =>
+				return "S_STA_DIR_13";
+			when S_STA_DIR_14 =>
+				return "S_STA_DIR_14";
+			when S_STA_DIR_15 =>
+				return "S_STA_DIR_15";
 			-- Load B (Immediate) states
 			when S_LDB_IMM_5 =>
 				return "S_LDB_IMM_5";
@@ -116,6 +146,20 @@ package body test_utils is
 				return "S_LDB_DIR_8";
 			when S_LDB_DIR_9 =>
 				return "S_LDB_DIR_9";
+			when S_LDB_DIR_10 =>
+				return "S_LDB_DIR_10";
+			when S_LDB_DIR_11 =>
+				return "S_LDB_DIR_11";
+			when S_LDB_DIR_12 =>
+				return "S_LDB_DIR_12";
+			when S_LDB_DIR_13 =>
+				return "S_LDB_DIR_13";
+			when S_LDB_DIR_14 =>
+				return "S_LDB_DIR_14";
+			when S_LDB_DIR_15 =>
+				return "S_LDB_DIR_15";
+			when S_LDB_DIR_16 =>
+				return "S_LDB_DIR_16";
 			-- Store B (Direct) states
 			when S_STB_DIR_5 =>
 				return "S_STB_DIR_5";
@@ -125,6 +169,20 @@ package body test_utils is
 				return "S_STB_DIR_7";
 			when S_STB_DIR_8 =>
 				return "S_STB_DIR_8";
+			when S_STB_DIR_9 =>
+				return "S_STB_DIR_9";
+			when S_STB_DIR_10 =>
+				return "S_STB_DIR_10";
+			when S_STB_DIR_11 =>
+				return "S_STB_DIR_11";
+			when S_STB_DIR_12 =>
+				return "S_STB_DIR_12";
+			when S_STB_DIR_13 =>
+				return "S_STB_DIR_13";
+			when S_STB_DIR_14 =>
+				return "S_STB_DIR_14";
+			when S_STB_DIR_15 =>
+				return "S_STB_DIR_15";
 			-- A <= A + B
 			when S_ADD_AB_5 =>
 				return "S_ADD_AB_5";
@@ -172,6 +230,20 @@ package body test_utils is
 		end case ;
 	end to_string;
 
+	function to_string(N: t_Bus_State) return string is
+	begin
+		case (N) is
+			when OFF =>
+				return "OFF";
+			when READ =>
+				return "READ";
+			when WRITE =>
+				return "WRITE";
+			when others =>
+				return "";
+		end case ;
+	end to_string;
+
 	-------------------------------
 	-- Procedures
 	-------------------------------
@@ -184,6 +256,16 @@ package body test_utils is
 				"but got '" & to_string(var) & "'"
 			severity error;
 	end procedure assert_equals;
+
+	procedure assert_equals(var: in t_Bus_State; should: in t_Bus_State; module_name: string; test_name: string; var_name: string) is
+		begin
+			assert var = should
+				report module_name & ": " & test_name & " - " &
+					"Invalid '" & var_name & "' value, " &
+					"Expected: '" & to_string(should) & "' " &
+					"but got '" & to_string(var) & "'"
+				severity error;
+		end procedure assert_equals;
 
 	procedure assert_equals(var: in std_logic_vector; should: in std_logic_vector; module_name: string; test_name: string; var_name: string) is
 	begin

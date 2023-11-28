@@ -34,6 +34,7 @@ entity data_path is
 		rst: in std_logic;
 		data: inout std_logic_vector(7 downto 0);
 		addr: out std_logic_vector(15 downto 0);
+		state: in t_Bus_State;
 		IR_Load: in std_logic;
 		IR: out std_logic_vector(7 downto 0);
 		MAR_Load: in std_logic;
@@ -41,6 +42,8 @@ entity data_path is
 		PC_Load: in std_logic;
 		PC_Inc: in std_logic;
 		PC_Byte: in std_logic;
+		ADL_Load: in std_logic;
+		ADH_Load: in std_logic;
 		A_Load: in std_logic;
 		B_Load: in std_logic;
 		X_Load: in std_logic;
@@ -48,7 +51,7 @@ entity data_path is
 		ALU_Sel: in std_logic_vector(2 downto 0);
 		Status_Result: out std_logic_vector(7 downto 0);
 		Status_Load: in std_logic;
-		Bus1_Sel: in std_logic_vector(1 downto 0);
+		Bus1_Sel: in std_logic_vector(2 downto 0);
 		Bus2_Sel: in std_logic_vector(1 downto 0)
 	);
 end data_path;
@@ -104,6 +107,8 @@ architecture data_path_arch of data_path is
 	signal Bus2: std_logic_vector(7 downto 0);
 
 	-- Registers
+	signal ADL: std_logic_vector(7 downto 0);  -- Address Low Byte
+	signal ADH: std_logic_vector(7 downto 0);  -- Address High Byte
 	signal A: std_logic_vector(7 downto 0);  -- Accumulator
 	signal B: std_logic_vector(7 downto 0);  -- General Purpose Register
 	signal X: std_logic_vector(7 downto 0);  -- Index Register
@@ -137,6 +142,30 @@ begin
 			load => IR_Load,
 			data_rx => Bus2,
 			data_tx => IR
+		);
+
+	ADL_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
+		port map (
+			clk => clk,
+			rst => rst,
+			load => ADL_Load,
+			data_rx => Bus2,
+			data_tx => ADL
+		);
+
+	ADH_REGISTER: reg
+		generic map (
+			SIZE => 8
+		)
+		port map (
+			clk => clk,
+			rst => rst,
+			load => ADH_Load,
+			data_rx => Bus2,
+			data_tx => ADH
 		);
 
 	A_REGISTER: reg
@@ -218,10 +247,12 @@ begin
 	MUX_BUS1: process (Bus1_Sel, PC, A, B)
 	begin
 		case (Bus1_Sel) is
-			when "00" => Bus1 <= PC(7 downto 0);
-			when "01" => Bus1 <= PC(15 downto 8);
-			when "10" => Bus1 <= A;
-			when "11" => Bus1 <= B;
+			when "000" => Bus1 <= PC(7 downto 0);
+			when "001" => Bus1 <= PC(15 downto 8);
+			when "010" => Bus1 <= A;
+			when "011" => Bus1 <= B;
+			when "100" => Bus1 <= ADL;
+			when "101" => Bus1 <= ADH;
 			when others => Bus1 <= x"00";
 		end case;
 	end process;
@@ -242,7 +273,6 @@ begin
 		if (rst = '0') then
 			-- TODO: Change this to use reset vector x"FFFC"-x"FFFD"
 			PC_uns <= x"4020";
-			data <= BUS_HIGH_Z;
 		elsif (rising_edge(clk)) then
 			if (PC_Load = '1') then
 				if (PC_Byte = '0') then
@@ -269,6 +299,15 @@ begin
 					MAR(15 downto 8) <= Bus2;  -- High Byte
 				end if;
 			end if;
+		end if;
+	end process;
+
+	DATA_OUTPUT: process (clk, rst)
+	begin
+		if (rst = '0') then
+			data <= BUS_HIGH_Z;
+		elsif (rising_edge(clk)) then
+			data <= data_tx when (state = WRITE) else BUS_HIGH_Z;
 		end if;
 	end process;
 

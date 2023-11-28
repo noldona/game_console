@@ -114,31 +114,32 @@ begin
 	begin
 		-- Test Reset State
 		report "Sync Counter Module: Reset Test: Begin" severity note;
-		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert_equals(sync, '1', "Sync Counter Test", "Reset Test", "sync");
-		assert_equals(blank, '1', "Sync Counter Test", "Reset Test", "blank");
-		rst <= '1';  -- Take out of reset mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
+			wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
+			assert_equals(sync, '1', "Sync Counter Test", "Reset Test", "sync");
+			assert_equals(blank, '1', "Sync Counter Test", "Reset Test", "blank");
+			rst <= '1';  -- Take out of reset mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Sync Counter Module: Reset Test: End" severity note;
 
 		-- Test Blank State
 		report "Sync Counter Module: Blank Test: Begin" severity note;
-		assert_equals(blank, '0', "Sync Counter Test", "Blank Test", "blank");
-		-- wait for 1 after active area
-		wait for (CLK_PERIOD * (SYNC_VALS.active - 6));
-		assert_equals(blank, '1', "Sync Counter Test", "Blank Test", "blank");
+			assert_equals(blank, '0', "Sync Counter Test", "Blank Test", "blank");
+			-- wait for 1 after active area
+			wait for (CLK_PERIOD * (SYNC_VALS.active - 6));
+			assert_equals(blank, '1', "Sync Counter Test", "Blank Test", "blank");
 		report "Sync Counter Module: Blank Test: End" severity note;
 
 		-- Test Sync State
 		report "Sync Counter Module: Sync Test: Begin" severity note;
-		assert_equals(sync, '1', "Sync Counter Test", "Sync Test", "sync");
-		-- wait for 1 after active area
-		wait for (CLK_PERIOD * SYNC_VALS.front_porch);
-		assert_equals(sync, '0', "Sync Counter Test", "Sync Test", "sync");
-		-- wait till after the sync pulse
-		wait for (CLK_PERIOD * SYNC_VALS.sync_pulse);
-		assert_equals(sync, '1', "Sync Counter Test", "Sync Test", "sync");
+			assert_equals(sync, '1', "Sync Counter Test", "Sync Test", "sync");
+			-- wait for 1 after active area
+			wait for (CLK_PERIOD * SYNC_VALS.front_porch);
+			assert_equals(sync, '0', "Sync Counter Test", "Sync Test", "sync");
+			-- wait till after the sync pulse
+			wait for (CLK_PERIOD * SYNC_VALS.sync_pulse);
+			assert_equals(sync, '1', "Sync Counter Test", "Sync Test", "sync");
 		report "Sync Counter Module: Sync Test: End" severity note;
+
 		wait;
 	end process;
 

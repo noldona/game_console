@@ -58,6 +58,7 @@ architecture data_path_tb_arch of data_path_tb is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: out std_logic_vector(15 downto 0);
+			state: in t_Bus_State;
 			IR_Load: in std_logic;
 			IR: out std_logic_vector(7 downto 0);
 			MAR_Load: in std_logic;
@@ -65,6 +66,8 @@ architecture data_path_tb_arch of data_path_tb is
 			PC_Load: in std_logic;
 			PC_Inc: in std_logic;
 			PC_Byte: in std_logic;
+			ADL_Load: in std_logic;
+			ADH_Load: in std_logic;
 			A_Load: in std_logic;
 			B_Load: in std_logic;
 			X_Load: in std_logic;
@@ -72,7 +75,7 @@ architecture data_path_tb_arch of data_path_tb is
 			ALU_Sel: in std_logic_vector(2 downto 0);
 			Status_Result: out std_logic_vector(7 downto 0);
 			Status_Load: in std_logic;
-			Bus1_Sel: in std_logic_vector(1 downto 0);
+			Bus1_Sel: in std_logic_vector(2 downto 0);
 			Bus2_Sel: in std_logic_vector(1 downto 0)
 		);
 	end component;
@@ -92,6 +95,7 @@ architecture data_path_tb_arch of data_path_tb is
 	signal rst: std_logic := '0';
 	signal data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
 	signal addr: std_logic_vector(15 downto 0) := x"0000";
+	signal state: t_Bus_State := OFF;
 	signal IR_Load: std_logic := '0';
 	signal IR: std_logic_vector(7 downto 0);
 	signal MAR_Load: std_logic := '0';
@@ -99,6 +103,8 @@ architecture data_path_tb_arch of data_path_tb is
 	signal PC_Load: std_logic := '0';
 	signal PC_Inc: std_logic := '0';
 	signal PC_Byte: std_logic := '0';
+	signal ADL_Load: std_logic := '0';
+	signal ADH_Load: std_logic := '0';
 	signal A_Load: std_logic := '0';
 	signal B_Load: std_logic := '0';
 	signal X_Load: std_logic := '0';
@@ -106,7 +112,7 @@ architecture data_path_tb_arch of data_path_tb is
 	signal ALU_Sel: std_logic_vector(2 downto 0) := "000";
 	signal Status_Result: std_logic_vector(7 downto 0);
 	signal Status_Load: std_logic := '0';
-	signal Bus1_Sel: std_logic_vector(1 downto 0) := "00";
+	signal Bus1_Sel: std_logic_vector(2 downto 0) := "000";
 	signal Bus2_Sel: std_logic_vector(1 downto 0) := "00";
 
 begin
@@ -119,6 +125,7 @@ begin
 			rst => rst,
 			data => data,
 			addr => addr,
+			state => state,
 			IR_Load => IR_Load,
 			IR => IR,
 			MAR_Load => MAR_Load,
@@ -126,6 +133,8 @@ begin
 			PC_Load => PC_Load,
 			PC_Inc => PC_Inc,
 			PC_Byte => PC_Byte,
+			ADL_Load => ADL_Load,
+			ADH_Load => ADH_Load,
 			A_Load => A_Load,
 			B_Load => B_Load,
 			X_Load => X_Load,
@@ -162,270 +171,345 @@ begin
 		alias UUT_SP is <<signal UUT.SP: std_logic_vector(7 downto 0)>>;
 		alias UUT_PC is <<signal UUT.PC: std_logic_vector(15 downto 0)>>;
 		alias UUT_MAR is <<signal UUT.MAR: std_logic_vector(15 downto 0)>>;
+		alias UUT_ADL is <<signal UUT.ADL: std_logic_vector(7 downto 0)>>;
+		alias UUT_ADH is <<signal UUT.ADH: std_logic_vector(7 downto 0)>>;
 	begin
 		-- Test Reset State
 		report "Data Path Module: Reset Test: Begin" severity note;
-		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert_equals(IR, x"00", "Data Path Module", "Reset Test", "IR");
-		assert_equals(UUT_A, x"00", "Data Path Module", "Reset Test", "UUT_A");
-		assert_equals(UUT_B, x"00", "Data Path Module", "Reset Test", "UUT_B");
-		assert_equals(UUT_X, x"00", "Data Path Module", "Reset Test", "UUT_X");
-		assert_equals(UUT_Y, x"00", "Data Path Module", "Reset Test", "UUT_Y");
-		-- TODO: Implement Stack Pointer
-		-- assert_equals(UUT_SP, x"00", "Data Path Module", "Reset Test", "UUT_SP");
-		-- TODO: Change this to use reset vector x"FFFC"-x"FFFD"
-		assert_equals(UUT_PC, x"4020", "Data Path Module", "Reset Test", "UUT_PC");
-		assert_equals(UUT_MAR, x"0000", "Data Path Module", "Reset Test", "UUT_MAR");
-		rst <= '1';  -- Take out of reset mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
+			wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
+			assert_equals(IR, x"00", "Data Path Module", "Reset Test", "IR");
+			assert_equals(UUT_A, x"00", "Data Path Module", "Reset Test", "UUT_A");
+			assert_equals(UUT_B, x"00", "Data Path Module", "Reset Test", "UUT_B");
+			assert_equals(UUT_X, x"00", "Data Path Module", "Reset Test", "UUT_X");
+			assert_equals(UUT_Y, x"00", "Data Path Module", "Reset Test", "UUT_Y");
+			-- TODO: Implement Stack Pointer
+			-- assert_equals(UUT_SP, x"00", "Data Path Module", "Reset Test", "UUT_SP");
+			-- TODO: Change this to use reset vector x"FFFC"-x"FFFD"
+			assert_equals(UUT_PC, x"4020", "Data Path Module", "Reset Test", "UUT_PC");
+			assert_equals(UUT_MAR, x"0000", "Data Path Module", "Reset Test", "UUT_MAR");
+			assert_equals(UUT_ADL, x"0000", "Data Path Module", "Reset Test", "UUT_ADL");
+			assert_equals(UUT_ADH, x"0000", "Data Path Module", "Reset Test", "UUT_ADH");
+			rst <= '1';  -- Take out of reset mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Data Path Module: Reset Test: End" severity note;
 
 		-- Test Loading Instruction Register
 		report "Data Path Module: Load Instruction Register Test: Begin" severity note;
-		-- Set the data
-		data <= x"FF";  -- Set data to write
-		IR_Load <= '1';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(IR, x"FF", "Data Path Module", "Load Instruction Register Test", "IR");
+			-- Set the data
+			data <= x"FF";  -- Set data to write
+			IR_Load <= '1';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(IR, x"FF", "Data Path Module", "Load Instruction Register Test", "IR");
 		report "Data Path Module: Load Instruction Register Test: End" severity note;
+
+		-- Test Loading ADL Register
+		report "Data Path Module: Load ADL Register Test: Begin" severity note;
+			-- Set the data
+			data <= x"01";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '1';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_ADL, x"01", "Data Path Module", "Load ADL Register Test", "UUT_ADL");
+		report "Data Path Module: Load ADL Register Test: End" severity note;
+
+		-- Test Loading ADH Register
+		report "Data Path Module: Load ADH Register Test: Begin" severity note;
+			-- Set the data
+			data <= x"01";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '1';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_ADH, x"01", "Data Path Module", "Load ADH Register Test", "UUT_ADH");
+		report "Data Path Module: Load ADH Register Test: End" severity note;
 
 		-- Test Loading A Register
 		report "Data Path Module: Load A Register Test: Begin" severity note;
-		-- Set the data
-		data <= x"01";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '1';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(UUT_A, x"01", "Data Path Module", "Load A Register Test", "UUT_A");
+			-- Set the data
+			data <= x"01";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '1';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_A, x"01", "Data Path Module", "Load A Register Test", "UUT_A");
 		report "Data Path Module: Load A Register Test: End" severity note;
 
 		-- Test Loading B Register
 		report "Data Path Module: Load B Register Test: Begin" severity note;
-		-- Set the data
-		data <= x"7F";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '1';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(UUT_B, x"7F", "Data Path Module", "Load B Register Test", "UUT_B");
+			-- Set the data
+			data <= x"7F";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '1';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_B, x"7F", "Data Path Module", "Load B Register Test", "UUT_B");
 		report "Data Path Module: Load B Register Test: End" severity note;
 
 		-- Test Loading X Register
 		report "Data Path Module: Load X Register Test: Begin" severity note;
-		-- Set the data
-		data <= x"FC";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '1';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(UUT_X, x"FC", "Data Path Module", "Load X Register Test", "UUT_X");
+			-- Set the data
+			data <= x"FC";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '1';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_X, x"FC", "Data Path Module", "Load X Register Test", "UUT_X");
 		report "Data Path Module: Load X Register Test: End" severity note;
 
 		-- Test Loading Y Register
 		report "Data Path Module: Load Y Register Test: Begin" severity note;
-		-- Set the data
-		data <= x"FB";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '1';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(UUT_Y, x"FB", "Data Path Module", "Load Y Register Test", "UUT_Y");
+			-- Set the data
+			data <= x"FB";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '1';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_Y, x"FB", "Data Path Module", "Load Y Register Test", "UUT_Y");
 		report "Data Path Module: Load Y Register Test: End" severity note;
 
 		-- Test Loading MAR Register
 		report "Data Path Module: Load MAR Register Test: Begin" severity note;
-		-- Set the data
-		data <= x"CB";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '1';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		data <= x"02";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '1';
-		MAR_Byte <= '1';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(UUT_MAR, x"02CB", "Data Path Module", "Load MAR Register Test", "UUT_MAR");
+			-- Set the data
+			data <= x"CB";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '1';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			data <= x"02";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '1';
+			MAR_Byte <= '1';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_MAR, x"02CB", "Data Path Module", "Load MAR Register Test", "UUT_MAR");
 		report "Data Path Module: Load MAR Register Test: End" severity note;
 
 		-- Test Loading PC Register
 		report "Data Path Module: Load PC Register Test: Begin" severity note;
-		-- Set the data
-		data <= x"AD";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '1';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		data <= x"03";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '1';
-		PC_Inc <= '0';
-		PC_Byte <= '1';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(UUT_PC, x"03AD", "Data Path Module", "Load PC Register Test", "UUT_PC");
+			-- Set the data
+			data <= x"AD";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '1';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			data <= x"03";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '1';
+			PC_Inc <= '0';
+			PC_Byte <= '1';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_PC, x"03AD", "Data Path Module", "Load PC Register Test", "UUT_PC");
 		report "Data Path Module: Load PC Register Test: End" severity note;
 
 		-- Test Incrementing PC Register
 		report "Data Path Module: Increment PC Register Test: Begin" severity note;
-		-- Set the data
-		data <= BUS_HIGH_Z;  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '1';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "00";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		assert_equals(UUT_PC, x"03AE", "Data Path Module", "Increment PC Register Test", "UUT_PC");
+			-- Set the data
+			data <= BUS_HIGH_Z;  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '1';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			assert_equals(UUT_PC, x"03AE", "Data Path Module", "Increment PC Register Test", "UUT_PC");
 		report "Data Path Module: Increment PC Register Test: End" severity note;
 
 		-- Test ALU
 		report "Data Path Module: ALU Test: Begin" severity note;
-		-- Using the values previous set in A (01) and B (7F)
-		-- Set the data
-		data <= x"AD";  -- Set data to write
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '1';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "000";  -- 000 = Addition
-		Status_Load <= '1';
-		Bus1_Sel <= "10";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		IR_Load <= '0';
-		MAR_Load <= '0';
-		MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		PC_Load <= '0';
-		PC_Inc <= '0';
-		PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
-		A_Load <= '0';
-		B_Load <= '0';
-		X_Load <= '0';
-		Y_Load <= '0';
-		ALU_Sel <= "111";  -- 000 = Addition
-		Status_Load <= '0';
-		Bus1_Sel <= "10";  -- "00" = PC Low Byte, "01" = PC High Byte, "10" = A, "11" = B
-		Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
-		assert_equals(UUT_A, x"80", "Data Path Module", "ALU Test", "UUT_A");
-		-- N = 1, Z = 0, V = 1, C = 0
-		assert_equals(Status_Result, x"0A", "Data Path Module", "ALU Test", "Status_Result");
+			-- Using the values previous set in A (01) and B (7F)
+			-- Set the data
+			data <= x"AD";  -- Set data to write
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			ADL_Load <= '0';
+			ADH_Load <= '0';
+			A_Load <= '1';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "000";  -- 000 = Addition
+			Status_Load <= '1';
+			Bus1_Sel <= "010";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			IR_Load <= '0';
+			MAR_Load <= '0';
+			MAR_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			PC_Load <= '0';
+			PC_Inc <= '0';
+			PC_Byte <= '0';  -- 0 = Low Byte, 1 = High Byte
+			A_Load <= '0';
+			B_Load <= '0';
+			X_Load <= '0';
+			Y_Load <= '0';
+			ALU_Sel <= "111";  -- 000 = Addition
+			Status_Load <= '0';
+			Bus1_Sel <= "010";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+			Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Data Bus
+			assert_equals(UUT_A, x"80", "Data Path Module", "ALU Test", "UUT_A");
+			-- N = 1, Z = 0, V = 1, C = 0
+			assert_equals(Status_Result, x"0A", "Data Path Module", "ALU Test", "Status_Result");
 		report "Data Path Module: ALU Test: End" severity note;
+
+		-- TODO: Add test to test data output
+
 		wait;
 	end process;
 

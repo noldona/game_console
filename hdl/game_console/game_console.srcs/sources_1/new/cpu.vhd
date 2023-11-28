@@ -61,12 +61,16 @@ architecture cpu_arch of cpu is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: out std_logic_vector(15 downto 0);
+			state: in t_Bus_State;
 			IR_Load: in std_logic;
 			IR: out std_logic_vector(7 downto 0);
 			MAR_Load: in std_logic;
 			MAR_Byte: in std_logic;
 			PC_Load: in std_logic;
 			PC_Inc: in std_logic;
+			PC_Byte: in std_logic;
+			ADL_Load: in std_logic;
+			ADH_Load: in std_logic;
 			A_Load: in std_logic;
 			B_Load: in std_logic;
 			X_Load: in std_logic;
@@ -74,7 +78,7 @@ architecture cpu_arch of cpu is
 			ALU_Sel: in std_logic_vector(2 downto 0);
 			Status_Result: out std_logic_vector(7 downto 0);
 			Status_Load: in std_logic;
-			Bus1_Sel: in std_logic_vector(1 downto 0);
+			Bus1_Sel: in std_logic_vector(2 downto 0);
 			Bus2_Sel: in std_logic_vector(1 downto 0)
 		);
 	end component;
@@ -90,12 +94,17 @@ architecture cpu_arch of cpu is
 			MAR_Byte: out std_logic;
 			PC_Load: out std_logic;
 			PC_Inc: out std_logic;
+			PC_Byte: out std_logic;
+			ADL_Load: out std_logic;
+			ADH_Load: out std_logic;
 			A_Load: out std_logic;
 			B_Load: out std_logic;
+			X_Load: out std_logic;
+			Y_Load: out std_logic;
 			ALU_Sel: out std_logic_vector(2 downto 0);
 			Status_Result: in std_logic_vector(7 downto 0);
 			Status_Load: out std_logic;
-			Bus1_Sel: out std_logic_vector(1 downto 0);
+			Bus1_Sel: out std_logic_vector(2 downto 0);
 			Bus2_Sel: out std_logic_vector(1 downto 0)
 		);
 	end component;
@@ -109,6 +118,9 @@ architecture cpu_arch of cpu is
 	signal MAR_Byte: std_logic;
 	signal PC_Load: std_logic;
 	signal PC_Inc: std_logic;
+	signal PC_Byte: std_logic;
+	signal ADL_Load: std_logic;
+	signal ADH_Load: std_logic;
 	signal A_Load: std_logic;
 	signal B_Load: std_logic;
 	signal X_Load: std_logic;
@@ -116,7 +128,7 @@ architecture cpu_arch of cpu is
 	signal ALU_Sel: std_logic_vector(2 downto 0);
 	signal Status_Result: std_logic_vector(7 downto 0);
 	signal Status_Load: std_logic;
-	signal Bus1_Sel: std_logic_vector(1 downto 0);
+	signal Bus1_Sel: std_logic_vector(2 downto 0);
 	signal Bus2_Sel: std_logic_vector(1 downto 0);
 
 begin
@@ -133,6 +145,9 @@ begin
 			MAR_Byte => MAR_Byte,
 			PC_Load => PC_Load,
 			PC_Inc => PC_Inc,
+			PC_Byte => PC_Byte,
+			ADL_Load => ADL_Load,
+			ADH_Load => ADH_Load,
 			A_Load => A_Load,
 			B_Load => B_Load,
 			ALU_Sel => ALU_Sel,
@@ -148,12 +163,16 @@ begin
 			rst => rst,
 			data => data,
 			addr => addr,
+			state => state,
 			IR_Load => IR_Load,
 			IR => IR,
 			MAR_Load => MAR_Load,
 			MAR_Byte => MAR_Byte,
 			PC_Load => PC_Load,
 			PC_Inc => PC_Inc,
+			PC_Byte => PC_Byte,
+			ADL_Load => ADL_Load,
+			ADH_Load => ADH_Load,
 			A_Load => A_Load,
 			B_Load => B_Load,
 			X_Load => X_Load,

@@ -106,21 +106,22 @@ begin
 	begin
 		-- Test Reset State
 		report "Register Module: Reset Test: Begin" severity note;
-		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert_equals(data_tx, x"0000", "Register Test", "Reset Test", "data_tx");
-		rst <= '1';  -- Take out of reset mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
+			wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
+			assert_equals(data_tx, x"0000", "Register Test", "Reset Test", "data_tx");
+			rst <= '1';  -- Take out of reset mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Register Module: Reset Test: End" severity note;
 
 		-- Test Loading
 		report "Register Module: Load Test: Begin" severity note;
-		-- Set the data
-		load <= '1';
-		data_rx <= x"FFFF";
-		assert_equals(data_tx, x"0000", "Register Test", "Load Test: Preload", "data_tx");
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be loaded
-		assert_equals(data_tx, x"FFFF", "Register Test", "Reset Test: Postload", "data_tx");
+			-- Set the data
+			load <= '1';
+			data_rx <= x"FFFF";
+			assert_equals(data_tx, x"0000", "Register Test", "Load Test: Preload", "data_tx");
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be loaded
+			assert_equals(data_tx, x"FFFF", "Register Test", "Reset Test: Postload", "data_tx");
 		report "Register Module: Load Test: End" severity note;
+
 		wait;
 	end process;
 

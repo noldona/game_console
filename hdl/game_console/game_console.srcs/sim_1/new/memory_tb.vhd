@@ -121,60 +121,61 @@ begin
 	begin
 		-- Test Reset State
 		report "Memory Module: Reset Test: Begin" severity note;
-		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert_equals(data, BUS_HIGH_Z, "Memory Module", "Reset Test", "data");
-		rst <= '1';  -- Take out of reset mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
+			wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
+			assert_equals(data, BUS_HIGH_Z, "Memory Module", "Reset Test", "data");
+			rst <= '1';  -- Take out of reset mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Memory Module: Reset Test: End" severity note;
 
 		-- Test Writing/Reading Working RAM
 		report "Memory Module: Write/Read Working RAM Test: Begin" severity note;
-		-- Set the data
-		state <= WRITE;  -- Put in WRITE mode
-		addr <= x"01AA";  -- Set address to write to in Working RAM
-		data <= x"FF";  -- Set data to write
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
-		state <= READ;  -- Put into READ mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert_equals(data, x"FF", "Memory Module", "Write/Read Working RAM Test", "data");
+			-- Set the data
+			state <= WRITE;  -- Put in WRITE mode
+			addr <= x"01AA";  -- Set address to write to in Working RAM
+			data <= x"FF";  -- Set data to write
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
+			state <= READ;  -- Put into READ mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
+			assert_equals(data, x"FF", "Memory Module", "Write/Read Working RAM Test", "data");
 		report "Memory Module: Write/Read Working RAM Test: End" severity note;
 
 		-- Test Writing/Reading Program ROM
 		report "Memory Module: Write/Read Program ROM Test: Begin" severity note;
-		-- Set the data
-		state <= WRITE;  -- Put in WRITE mode
-		addr <= x"40A8";  -- Set address to write to in Program ROM
-		data <= x"FF";  -- Set data to write
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
-		state <= READ;  -- Put into READ mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert_equals(data, x"88", "Memory Module", "Write/Read Program ROM Test", "data");
+			-- Set the data
+			state <= WRITE;  -- Put in WRITE mode
+			addr <= x"40A8";  -- Set address to write to in Program ROM
+			data <= x"FF";  -- Set data to write
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
+			state <= READ;  -- Put into READ mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
+			assert_equals(data, x"88", "Memory Module", "Write/Read Program ROM Test", "data");
 		report "Memory Module: Write/Read Program ROM Test: End" severity note;
 
 		-- Test Writing I/O
 		report "Memory Module: Writing I/O Test: Begin" severity note;
-		state <= WRITE;  -- Put in WRITE mode
-		addr <= x"4005";  -- Set address to write to in I/O
-		data <= BUS_HIGH_Z;
-		wait for CLK_PERIOD;
-		data <= x"FF";  -- Set data to write
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
-		state <= READ;  -- Put into READ mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert_equals(io_ports(5), x"FF", "Memory Module", "Writing I/O Test", "io_ports(5)");
+			state <= WRITE;  -- Put in WRITE mode
+			addr <= x"4005";  -- Set address to write to in I/O
+			data <= BUS_HIGH_Z;
+			wait for CLK_PERIOD;
+			data <= x"FF";  -- Set data to write
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert
+			state <= READ;  -- Put into READ mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
+			assert_equals(io_ports(5), x"FF", "Memory Module", "Writing I/O Test", "io_ports(5)");
 		report "Memory Module: Writing I/O Test: End" severity note;
 
 		-- Test Reading I/O
 		report "Memory Module: Reading I/O Test: Begin" severity note;
-		state <= READ;  -- Put into READ mode
-		addr <= x"4004";  -- Set address to read from in I/O
-		io_ports(4) <= x"AA";  -- Set data for I/O input
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
-		assert_equals(data, x"AA", "Memory Module", "Reading I/O Test", "data");
+			state <= READ;  -- Put into READ mode
+			addr <= x"4004";  -- Set address to read from in I/O
+			io_ports(4) <= x"AA";  -- Set data for I/O input
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be read
+			assert_equals(data, x"AA", "Memory Module", "Reading I/O Test", "data");
 		report "Memory Module: Reading I/O Test: End" severity note;
+
 		wait;
 	end process;
 

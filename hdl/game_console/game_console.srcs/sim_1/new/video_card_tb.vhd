@@ -211,90 +211,91 @@ begin
 	begin
 		-- Test Reset State
 		report "VGA Module: Reset Test: Begin" severity note;
-		wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
-		assert_equals(vgaRed, "000", "VGA Module", "Reset Test", "vgaRed");
-		assert_equals(vgaGreen, "000", "VGA Module", "Reset Test", "vgaGreen");
-		assert_equals(vgaBlue, "00", "VGA Module", "Reset Test", "vgaBlue");
-		assert_equals(hsync, '1', "VGA Module", "Reset Test", "hsync");
-		assert_equals(vsync, '1', "VGA Module", "Reset Test", "vsync");
-		rst <= '1';  -- Take out of reset mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
+			wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
+			assert_equals(vgaRed, "000", "VGA Module", "Reset Test", "vgaRed");
+			assert_equals(vgaGreen, "000", "VGA Module", "Reset Test", "vgaGreen");
+			assert_equals(vgaBlue, "00", "VGA Module", "Reset Test", "vgaBlue");
+			assert_equals(hsync, '1', "VGA Module", "Reset Test", "hsync");
+			assert_equals(vsync, '1', "VGA Module", "Reset Test", "vsync");
+			rst <= '1';  -- Take out of reset mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "VGA Module: Reset Test: End" severity note;
 
 		-- Test Register Write/Read
 		report "VGA Module: Register Test: Begin" severity note;
-		state <= WRITE;  -- Put in WRITE mode
-		addr <= x"2000";  -- Set address to Video Card Register
-		data <= x"80";  -- Set address to VRAM 2 base address
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		data <= BUS_HIGH_Z;  --Reset data for preparation of the next assert
-		state <= READ;  -- Put into READ mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle data to be read
-		assert_equals(data, x"80", "VGA Module", "Register Test", "data");
+			state <= WRITE;  -- Put in WRITE mode
+			addr <= x"2000";  -- Set address to Video Card Register
+			data <= x"80";  -- Set address to VRAM 2 base address
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			data <= BUS_HIGH_Z;  --Reset data for preparation of the next assert
+			state <= READ;  -- Put into READ mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle data to be read
+			assert_equals(data, x"80", "VGA Module", "Register Test", "data");
 		report "VGA Module: Register Test: End" severity note;
 
 		-- Test Image 2 Display
 		report "VGA Module: Image 2 Test: Begin" severity note;
-		rst <= '0';  -- Reset counters back to 0
-		state <= WRITE;  -- Put in WRITE mode
-		addr <= x"2000";  -- Set address to Video Card Register
-		data <= x"80";  -- Set address to VRAM 2 base address
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle
-		rst <= '1';  -- Take out of reset mode
-		for y in 0 to RESOLUTION.vsync.total loop
-			for x in 0 to RESOLUTION.hsync.total loop
-				-- Set RAM address to current pixel
-				blank := '1' when (x > RESOLUTION.hsync.active or y > RESOLUTION.vsync.active) else '0';
-				ram_addr <= std_logic_vector(to_unsigned((((y / Y_DIV) * RESOLUTION.hsync.active) +
-					(x / X_DIV)  + 16#8000#), 16));
-				ram_clk <= '1';  -- Toggle the RAM clock on to load the value
-				wait for CLK_PERIOD / 2;
-				-- Get color for the pixel
-				red := "000" when (blank = '1') else ram_data(7 downto 5);
-				green := "000" when (blank = '1') else ram_data(4 downto 2);
-				blue := "00" when (blank = '1') else ram_data(1 downto 0);
-				ram_clk <= '0';  -- Toggle the RAM clock off for next cycle
-				wait for CLK_PERIOD / 2;  -- Wait 1 clock cycle
-				assert_equals(vgaRed, red, "VGA Module", "Image 2 Test", "vgaRed");
-				assert_equals(vgaGreen, green, "VGA Module", "Image 2 Test", "vgaGreen");
-				assert_equals(vgaBlue, blue, "VGA Module", "Image 2 Test", "vgaBlue");
+			rst <= '0';  -- Reset counters back to 0
+			state <= WRITE;  -- Put in WRITE mode
+			addr <= x"2000";  -- Set address to Video Card Register
+			data <= x"80";  -- Set address to VRAM 2 base address
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle
+			rst <= '1';  -- Take out of reset mode
+			for y in 0 to RESOLUTION.vsync.total loop
+				for x in 0 to RESOLUTION.hsync.total loop
+					-- Set RAM address to current pixel
+					blank := '1' when (x > RESOLUTION.hsync.active or y > RESOLUTION.vsync.active) else '0';
+					ram_addr <= std_logic_vector(to_unsigned((((y / Y_DIV) * RESOLUTION.hsync.active) +
+						(x / X_DIV)  + 16#8000#), 16));
+					ram_clk <= '1';  -- Toggle the RAM clock on to load the value
+					wait for CLK_PERIOD / 2;
+					-- Get color for the pixel
+					red := "000" when (blank = '1') else ram_data(7 downto 5);
+					green := "000" when (blank = '1') else ram_data(4 downto 2);
+					blue := "00" when (blank = '1') else ram_data(1 downto 0);
+					ram_clk <= '0';  -- Toggle the RAM clock off for next cycle
+					wait for CLK_PERIOD / 2;  -- Wait 1 clock cycle
+					assert_equals(vgaRed, red, "VGA Module", "Image 2 Test", "vgaRed");
+					assert_equals(vgaGreen, green, "VGA Module", "Image 2 Test", "vgaGreen");
+					assert_equals(vgaBlue, blue, "VGA Module", "Image 2 Test", "vgaBlue");
+				end loop;
 			end loop;
-		end loop;
 		report "VGA Module: Image 2 Test: End" severity note;
 
 		-- Test Image 2 Display
 		report "VGA Module: Image 1 Test: Begin" severity note;
-		rst <= '0';  -- Reset counters back to 0
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle
-		rst <= '1';  -- Take out of reset mode
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
-		state <= WRITE;  -- Put in WRITE mode
-		addr <= x"2000";  -- Set address to Video Card Register
-		data <= x"80";  -- Set address to VRAM 2 base address
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
-		rst <= '0';  -- Reset counters back to 0
-		wait for CLK_PERIOD;  -- Wait 1 clock cycle
-		rst <= '1';  -- Take out of reset mode
-		for y in 0 to RESOLUTION.vsync.total loop
-			for x in 0 to RESOLUTION.hsync.total loop
-				-- Set RAM address to current pixel
-				blank := '1' when (x > RESOLUTION.hsync.active or y > RESOLUTION.vsync.active) else '0';
-				ram_addr <= std_logic_vector(to_unsigned(((y / Y_DIV) * RESOLUTION.hsync.active) +
-					(x / X_DIV), 16));
-				ram_clk <= '1';  -- Toggle the RAM clock on to load the value
-				wait for CLK_PERIOD / 2;
-				-- Get color for the pixel
-				red := "000" when (blank = '1') else ram_data(7 downto 5);
-				green := "000" when (blank = '1') else ram_data(4 downto 2);
-				blue := "00" when (blank = '1') else ram_data(1 downto 0);
-				ram_clk <= '0';  -- Toggle the RAM clock off for next cycle
-				wait for CLK_PERIOD / 2;  -- Wait 1 clock cycle
-				assert_equals(vgaRed, red, "VGA Module", "Image 1 Test", "vgaRed");
-				assert_equals(vgaGreen, green, "VGA Module", "Image 1 Test", "vgaGreen");
-				assert_equals(vgaBlue, blue, "VGA Module", "Image 1 Test", "vgaBlue");
+			rst <= '0';  -- Reset counters back to 0
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle
+			rst <= '1';  -- Take out of reset mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
+			state <= WRITE;  -- Put in WRITE mode
+			addr <= x"2000";  -- Set address to Video Card Register
+			data <= x"80";  -- Set address to VRAM 2 base address
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
+			rst <= '0';  -- Reset counters back to 0
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle
+			rst <= '1';  -- Take out of reset mode
+			for y in 0 to RESOLUTION.vsync.total loop
+				for x in 0 to RESOLUTION.hsync.total loop
+					-- Set RAM address to current pixel
+					blank := '1' when (x > RESOLUTION.hsync.active or y > RESOLUTION.vsync.active) else '0';
+					ram_addr <= std_logic_vector(to_unsigned(((y / Y_DIV) * RESOLUTION.hsync.active) +
+						(x / X_DIV), 16));
+					ram_clk <= '1';  -- Toggle the RAM clock on to load the value
+					wait for CLK_PERIOD / 2;
+					-- Get color for the pixel
+					red := "000" when (blank = '1') else ram_data(7 downto 5);
+					green := "000" when (blank = '1') else ram_data(4 downto 2);
+					blue := "00" when (blank = '1') else ram_data(1 downto 0);
+					ram_clk <= '0';  -- Toggle the RAM clock off for next cycle
+					wait for CLK_PERIOD / 2;  -- Wait 1 clock cycle
+					assert_equals(vgaRed, red, "VGA Module", "Image 1 Test", "vgaRed");
+					assert_equals(vgaGreen, green, "VGA Module", "Image 1 Test", "vgaGreen");
+					assert_equals(vgaBlue, blue, "VGA Module", "Image 1 Test", "vgaBlue");
+				end loop;
 			end loop;
-		end loop;
 		report "VGA Module: Image 1 Test: End" severity note;
+
 		wait;
 	end process;
 
