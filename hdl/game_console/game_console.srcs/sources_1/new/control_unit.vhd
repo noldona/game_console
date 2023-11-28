@@ -142,7 +142,7 @@ begin
 						if (Status_Result(2) = '1') then  -- N = 1
 							next_state <= S_BEQ_5;
 						else
-							next_state <= S_BEQ_8;
+							next_state <= S_BEQ_15;
 						end if;
 					when others =>
 						next_state <= S_FETCH_0;
@@ -308,6 +308,18 @@ begin
 			when S_BRA_7 =>
 				next_state <= S_BRA_8;
 			when S_BRA_8 =>
+				next_state <= S_BRA_9;
+			when S_BRA_9 =>
+				next_state <= S_BRA_10;
+			when S_BRA_10 =>
+				next_state <= S_BRA_11;
+			when S_BRA_11 =>
+				next_state <= S_BRA_12;
+			when S_BRA_12 =>
+				next_state <= S_BRA_13;
+			when S_BRA_13 =>
+				next_state <= S_BRA_14;
+			when S_BRA_14 =>
 				next_state <= S_FETCH_0;
 
 			-- Branch Z = 1
@@ -316,10 +328,24 @@ begin
 			when S_BEQ_6 =>
 				next_state <= S_BEQ_7;
 			when S_BEQ_7 =>
+				next_state <= S_BEQ_8;
+			when S_BEQ_8 =>
+				next_state <= S_BEQ_9;
+			when S_BEQ_9 =>
+				next_state <= S_BEQ_10;
+			when S_BEQ_10 =>
+				next_state <= S_BEQ_11;
+			when S_BEQ_11 =>
+				next_state <= S_BEQ_12;
+			when S_BEQ_12 =>
+				next_state <= S_BEQ_13;
+			when S_BEQ_13 =>
+				next_state <= S_BEQ_14;
+			when S_BEQ_14 =>
 				next_state <= S_FETCH_0;
 
 			-- Branch Z = 0
-			when S_BEQ_8 =>
+			when S_BEQ_15 =>
 				next_state <= S_FETCH_0;
 
 			when others =>
@@ -962,7 +988,6 @@ begin
 				state <= WRITE;
 
 
-			-- TODO: Update instructions below here
 			-------------------------------
 			-- Load B (Immediate)
 			-------------------------------
@@ -984,7 +1009,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Put PC High Byte into MAR High Byte to provide address of operand
 			when S_LDB_IMM_6 =>
 				IR_Load <= '0';
@@ -1003,7 +1028,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Increment PC, Operand will be available next state
 			when S_LDB_IMM_7 =>
 				IR_Load <= '0';
@@ -1064,7 +1089,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Put PC High Byte into MAR High Byte to provide address of operand
 			when S_LDB_DIR_6 =>
 				IR_Load <= '0';
@@ -1083,7 +1108,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Increment PC, Operand will be available next state
 			when S_LDB_DIR_7 =>
 				IR_Load <= '0';
@@ -1106,7 +1131,7 @@ begin
 			-- Operand is available, latch into ADL
 			when S_LDB_DIR_8 =>
 				IR_Load <= '0';
-				MAR_Load <= '1';
+				MAR_Load <= '0';
 				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
@@ -1140,7 +1165,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Put PC High Byte into MAR High Byte to provide address of operand
 			when S_LDB_DIR_10 =>
 				IR_Load <= '0';
@@ -1159,7 +1184,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Increment PC, Operand will be available next state
 			when S_LDB_DIR_11 =>
 				IR_Load <= '0';
@@ -1182,7 +1207,7 @@ begin
 			-- Operand is available, latch into ADH
 			when S_LDB_DIR_12 =>
 				IR_Load <= '0';
-				MAR_Load <= '1';
+				MAR_Load <= '0';
 				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
@@ -1235,7 +1260,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "101";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Wait, Operand will be available next state
 			when S_LDB_DIR_15 =>
 				IR_Load <= '0';
@@ -1296,7 +1321,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Put PC High Byte into MAR High Byte to provide address of operand
 			when S_STB_DIR_6 =>
 				IR_Load <= '0';
@@ -1315,7 +1340,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Increment PC, Operand will be available next state
 			when S_STB_DIR_7 =>
 				IR_Load <= '0';
@@ -1338,7 +1363,7 @@ begin
 			-- Operand is available, latch into ADL
 			when S_STB_DIR_8 =>
 				IR_Load <= '0';
-				MAR_Load <= '1';
+				MAR_Load <= '0';
 				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
@@ -1372,7 +1397,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Put PC High Byte into MAR High Byte to provide address of operand
 			when S_STB_DIR_10 =>
 				IR_Load <= '0';
@@ -1391,7 +1416,7 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Increment PC, Operand will be available next state
 			when S_STB_DIR_11 =>
 				IR_Load <= '0';
@@ -1414,7 +1439,7 @@ begin
 			-- Operand is available, latch into ADH
 			when S_STB_DIR_12 =>
 				IR_Load <= '0';
-				MAR_Load <= '1';
+				MAR_Load <= '0';
 				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
@@ -1467,12 +1492,12 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "101";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				state <= OFF;
 			-- Store B into memory location at provided address
 			when S_STB_DIR_15 =>
 				IR_Load <= '0';
-				MAR_Load <= '1';
-				MAR_Byte <= '1';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				PC_Byte <= '0';
@@ -1514,13 +1539,13 @@ begin
 				state <= OFF;
 
 
-			-- TODO: Implment steps for other math and logic commands
+			-- TODO: Implement steps for other math and logic commands
 
 
 			-------------------------------
 			-- Branch Always
 			-------------------------------
-			-- Put PC into MAR to provide address of operand
+			-- Put PC Low Byte into MAR Low Byte to provide address of operand
 			when S_BRA_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
@@ -1538,9 +1563,104 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
-			-- Prepare to receive operand from memory
+				state <= OFF;
+			-- Put PC High Byte into MAR High Byte to provide address of operand
 			when S_BRA_6 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Increment PC, Operand will be available next state
+			when S_BRA_7 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Operand is available, latch into ADL
+			when S_BRA_8 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '1';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= READ;
+			-- Put PC Low Byte into MAR Low Byte to provide address of operand
+			when S_BRA_9 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Put PC High Byte into MAR High Byte to provide address of operand
+			when S_BRA_10 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Wait, Operand will be available next state
+			when S_BRA_11 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
 				MAR_Byte <= '0';
@@ -1556,10 +1676,29 @@ begin
 				ALU_Sel <= "000";
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
-				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
-			-- Put operand into PC (Leave Bus2 = Memory)
-			when S_BRA_7 =>
+			-- Operand is available, latch into ADH
+			when S_BRA_12 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '1';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= READ;
+			-- Latch ADL into PC Low Byte to provide address for data
+			when S_BRA_13 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
 				MAR_Byte <= '0';
@@ -1574,16 +1713,35 @@ begin
 				Y_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
-				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
+				Bus1_Sel <= "100";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Latch ADH into PC High Byte to provide address for data
+			when S_BRA_14 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '1';
+				PC_Inc <= '0';
+				PC_Byte <= '1';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "101";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
 
 			-- TODO: Implement steps for other branching commands
 
 			-------------------------------
 			-- Branch if Z = 1
 			-------------------------------
-			-- Put PC into MAR to provide address of operand
+			-- Put PC Low Byte into MAR Low Byte to provide address of operand
 			when S_BEQ_5 =>
 				IR_Load <= '0';
 				MAR_Load <= '1';
@@ -1601,12 +1759,12 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
-			-- Prepare to receive operand from memory
+				state <= OFF;
+			-- Put PC High Byte into MAR High Byte to provide address of operand
 			when S_BEQ_6 =>
 				IR_Load <= '0';
-				MAR_Load <= '0';
-				MAR_Byte <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '1';
 				PC_Load <= '0';
 				PC_Inc <= '0';
 				PC_Byte <= '0';
@@ -1618,34 +1776,11 @@ begin
 				Y_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '0';
-				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
-				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
-			-- Put operand into PC (Leave Bus2 = Memory)
+			-- Increment PC, Operand will be available next state
 			when S_BEQ_7 =>
-				IR_Load <= '0';
-				MAR_Load <= '0';
-				MAR_Byte <= '0';
-				PC_Load <= '1';
-				PC_Inc <= '0';
-				PC_Byte <= '0';
-				ADL_Load <= '0';
-				ADH_Load <= '0';
-				A_Load <= '0';
-				B_Load <= '0';
-				X_Load <= '0';
-				Y_Load <= '0';
-				ALU_Sel <= "000";
-				Status_Load <= '0';
-				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
-				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= READ;
-
-			-------------------------------
-			-- Branch if Z = 0
-			-------------------------------
-			-- Z = 0, so just increment PC
-			when S_BEQ_8 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
 				MAR_Byte <= '0';
@@ -1662,7 +1797,164 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Operand is available, latch into ADL
+			when S_BEQ_8 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '1';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= READ;
+			-- Put PC Low Byte into MAR Low Byte to provide address of operand
+			when S_BEQ_9 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Put PC High Byte into MAR High Byte to provide address of operand
+			when S_BEQ_10 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				MAR_Byte <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Wait, Operand will be available next state
+			when S_BEQ_11 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Operand is available, latch into ADH
+			when S_BEQ_12 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '1';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "10";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= READ;
+			-- Latch ADL into PC Low Byte to provide address for data
+			when S_BEQ_13 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '1';
+				PC_Inc <= '0';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "100";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Latch ADH into PC High Byte to provide address for data
+			when S_BEQ_14 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '1';
+				PC_Inc <= '0';
+				PC_Byte <= '1';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "101";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+
+
+			-------------------------------
+			-- Branch if Z = 0
+			-------------------------------
+			-- Z = 0, so just increment PC
+			when S_BEQ_15 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
 
 			-------------------------------
 			-- Others

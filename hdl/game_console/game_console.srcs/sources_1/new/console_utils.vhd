@@ -131,19 +131,30 @@ package console_utils is
 
 		S_DECB_5,  -- B <= B - 1
 
-		-- TODO: Make this handle 16-bit addresses
 		S_BRA_5,  -- Branch Always
 		S_BRA_6,
 		S_BRA_7,
 		S_BRA_8,
+		S_BRA_9,
+		S_BRA_10,
+		S_BRA_11,
+		S_BRA_12,
+		S_BRA_13,
+		S_BRA_14,
 
 		-- TODO: Create states for other branching commands
 
-		-- TODO: Make this handle 16-bit addresses
 		S_BEQ_5,  -- Branch if Z = 1
 		S_BEQ_6,
 		S_BEQ_7,
-		S_BEQ_8
+		S_BEQ_8,
+		S_BEQ_9,
+		S_BEQ_10,
+		S_BEQ_11,
+		S_BEQ_12,
+		S_BEQ_13,
+		S_BEQ_14,
+		S_BEQ_15  -- Branch if Z = 0
 	);
 
 	-----------------------------------------------

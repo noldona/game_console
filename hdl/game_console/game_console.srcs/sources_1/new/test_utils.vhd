@@ -216,6 +216,18 @@ package body test_utils is
 				return "S_BRA_7";
 			when S_BRA_8 =>
 				return "S_BRA_8";
+			when S_BRA_9 =>
+				return "S_BRA_9";
+			when S_BRA_10 =>
+				return "S_BRA_10";
+			when S_BRA_11 =>
+				return "S_BRA_11";
+			when S_BRA_12 =>
+				return "S_BRA_12";
+			when S_BRA_13 =>
+				return "S_BRA_13";
+			when S_BRA_14 =>
+				return "S_BRA_14";
 			-- Branch if Z = 1
 			when S_BEQ_5 =>
 				return "S_BEQ_5";
@@ -225,6 +237,20 @@ package body test_utils is
 				return "S_BEQ_7";
 			when S_BEQ_8 =>
 				return "S_BEQ_8";
+			when S_BEQ_9 =>
+				return "S_BEQ_9";
+			when S_BEQ_10 =>
+				return "S_BEQ_10";
+			when S_BEQ_11 =>
+				return "S_BEQ_11";
+			when S_BEQ_12 =>
+				return "S_BEQ_12";
+			when S_BEQ_13 =>
+				return "S_BEQ_13";
+			when S_BEQ_14 =>
+				return "S_BEQ_14";
+			when S_BEQ_15 =>
+				return "S_BEQ_15";
 			when others =>
 				return "";
 		end case ;
