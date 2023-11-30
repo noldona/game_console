@@ -46,6 +46,8 @@ architecture cpu_tb_arch of cpu_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
+	constant CLK_PERIOD: time := 1 sec / clk_hz;
 
 	-------------------------------
 	-- Components
@@ -56,7 +58,7 @@ architecture cpu_tb_arch of cpu_tb is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: out std_logic_vector(15 downto 0);
-			state: out t_Bus_State;
+			state: out t_Bus_States;
 			rdy: out std_logic
 		);
 	end component;
@@ -72,18 +74,70 @@ architecture cpu_tb_arch of cpu_tb is
 	-------------------------------
 	-- Signals
 	-------------------------------
+	signal clk: std_logic := '0';
+	signal rst: std_logic := '0';
+	signal data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
+	signal addr: std_logic_vector(15 downto 0);
+	signal state: t_Bus_States;
+	signal rdy: std_logic;
 
 begin
 	-------------------------------
 	-- Component Implementations
 	-------------------------------
+	UUT: cpu
+		port map (
+			clk => clk,
+			rst => rst,
+			data => data,
+			addr => addr,
+			state => state,
+			rdy => rdy
+		);
+
+	-- Submodule Test Benches
+	-- Commented out because CPU test interferes with below test benches
+	-- DATA_PATH_UUT: data_path_tb;
+	-- CONTROL_UNIT_UUT: control_unit_tb;
 
 	-------------------------------
 	-- Module Implementation
 	-------------------------------
-	-- TODO: Implement the Central Processing Unit test bench
+	CLK_PROC: process
+	begin
+		wait for CLK_PERIOD / 2;
+		if (clk = '1') then
+			clk <= '0';
+		else
+			clk <= '1';
+		end if;
+	end process;
 
-	DATA_PATH_UUT: data_path_tb;
-	CONTROL_UNIT_UUT: control_unit_tb;
+	CPU_TEST: process
+		variable tst_addr: integer := 16#4020#;
+	begin
+		-- Test Reset State
+		report "CPU Module: Reset Test: Begin" severity note;
+			wait for CLK_PERIOD * 5;  -- Wait 5 clock cycles
+			assert_equals(addr, x"0000", "CPU Module", "Reset Test", "addr");
+			assert_equals(data, BUS_HIGH_Z, "CPU Module", "Reset Test", "data");
+			assert_equals(state, OFF, "CPU Module", "Reset Test", "state");
+			rst <= '1';  -- Take out of reset mode
+			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
+		report "CPU Module: Reset Test: End" severity note;
+
+		report "CPU Module: Address Test: Begin" severity note;
+			wait for CLK_PERIOD;  -- Wait till address is fully loaded
+			assert_equals(to_integer(unsigned(addr)), tst_addr, "CPU Module", "Address Test", "addr");
+			tst_addr := tst_addr + 1;
+			wait for CLK_PERIOD * 4;  -- Wait till next address
+			for i in 0 to 4 loop
+				assert_equals(to_integer(unsigned(addr)), tst_addr, "CPU Module", "Address Test", "addr");
+				tst_addr := tst_addr + 1;
+				wait for CLK_PERIOD * 5;  -- Wait till next address
+			end loop;
+		report "CPU Module: Address Test: End" severity note;
+		wait;
+	end process;
 
 end cpu_tb_arch;

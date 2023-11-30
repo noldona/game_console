@@ -45,15 +45,15 @@ use WORK.CONSOLE_UTILS.ALL;
 
 entity memory is
 	generic (
-		IO_DIR: std_logic_vector(0 to 15) := x"0000"
+		IO_DIR: std_logic_vector(15 downto 0) := x"0000"
 	);
 	port (
 		clk: in std_logic;
 		rst: in std_logic;
 		data: inout std_logic_vector(7 downto 0);
 		addr: in std_logic_vector(15 downto 0);
-		state: in t_Bus_State;
-		io_ports: inout t_Digital_IO(15 downto 0)(7 downto 0)
+		state: in t_Bus_States;
+		io_ports: in t_Digital_IO(15 downto 0)(7 downto 0)
 	);
 end memory;
 
@@ -83,7 +83,7 @@ architecture memory_arch of memory is
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			addr: in std_logic_vector(15 downto 0);
 			data: inout std_logic_vector(7 downto 0)
 		);
@@ -97,10 +97,10 @@ architecture memory_arch of memory is
 		port (
 			clk : in std_logic;
 			rst : in std_logic;
-			state : in t_Bus_State;
+			state : in t_Bus_States;
 			addr : in std_logic_vector (15 downto 0);
 			data : inout std_logic_vector (7 downto 0);
-			io_ports: inout t_Digital_IO(15 downto 0)(7 downto 0)
+			io_ports: in t_Digital_IO(15 downto 0)(7 downto 0)
 		);
 	end component;
 

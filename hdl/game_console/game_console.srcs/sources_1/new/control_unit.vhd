@@ -29,7 +29,7 @@ entity control_unit is
 	port (
 		clk: in std_logic;
 		rst: in std_logic;
-		state: out t_Bus_State;
+		state: out t_Bus_States;
 		IR_Load: out std_logic;
 		IR: in std_logic_vector(7 downto 0);
 		MAR_Load: out std_logic;
@@ -71,8 +71,8 @@ architecture control_unit_arch of control_unit is
 	-------------------------------
 	-- Signals
 	-------------------------------
-	signal current_state: t_States;
-	signal next_state: t_States;
+	signal current_state: t_Control_States;
+	signal next_state: t_Control_States;
 
 begin
 	-------------------------------
@@ -346,6 +346,8 @@ begin
 
 			-- Branch Z = 0
 			when S_BEQ_15 =>
+				next_state <= S_BEQ_16;
+			when S_BEQ_16 =>
 				next_state <= S_FETCH_0;
 
 			when others =>
@@ -377,7 +379,6 @@ begin
 				Status_Load <= '0';
 				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "01";  -- "00" = ALU, "01" = Bus1, "10" = Memory
-				state <= OFF;
 			-- Put PC High Byte onto MAR High Byte to provide address of opcode
 			when S_FETCH_1 =>
 				IR_Load <= '0';
@@ -932,7 +933,7 @@ begin
 			-- Latch ADL into MAR Low Byte to provide address for data
 			when S_STA_DIR_13 =>
 				IR_Load <= '0';
-				MAR_Load <= '0';
+				MAR_Load <= '1';
 				MAR_Byte <= '0';
 				PC_Load <= '0';
 				PC_Inc <= '0';
@@ -1534,7 +1535,7 @@ begin
 				Y_Load <= '0';
 				ALU_Sel <= "000";
 				Status_Load <= '1';
-				Bus1_Sel <= "001";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus1_Sel <= "010";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
 				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
 				state <= OFF;
 
@@ -1938,6 +1939,25 @@ begin
 			-------------------------------
 			-- Z = 0, so just increment PC
 			when S_BEQ_15 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				MAR_Byte <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				PC_Byte <= '0';
+				ADL_Load <= '0';
+				ADH_Load <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				X_Load <= '0';
+				Y_Load <= '0';
+				ALU_Sel <= "000";
+				Status_Load <= '0';
+				Bus1_Sel <= "000";  -- "000" = PC Low Byte, "001" = PC High Byte, "010" = A, "011" = B, "100" = ADL, "101" = ADH
+				Bus2_Sel <= "00";  -- "00" = ALU, "01" = Bus1, "10" = Memory
+				state <= OFF;
+			-- Increment PC again to get past 16-bit address
+			when S_BEQ_16 =>
 				IR_Load <= '0';
 				MAR_Load <= '0';
 				MAR_Byte <= '0';

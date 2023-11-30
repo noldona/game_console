@@ -45,7 +45,7 @@ architecture memory_tb_arch of memory_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant CLK_HZ: integer := 25178570;  -- 12.17857 MHz
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
 	constant CLK_PERIOD: time := 1 sec / clk_hz;
 
 	-------------------------------
@@ -53,14 +53,14 @@ architecture memory_tb_arch of memory_tb is
 	-------------------------------
 	component memory
 		generic (
-			IO_DIR: std_logic_vector(0 to 15) := x"0000"
+			IO_DIR: std_logic_vector(15 downto 0) := x"0000"
 		);
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: in std_logic_vector(15 downto 0);
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			io_ports: inout t_Digital_IO(15 downto 0)(7 downto 0)
 		);
 	end component;
@@ -80,7 +80,7 @@ architecture memory_tb_arch of memory_tb is
 	signal rst: std_logic := '0';
 	signal data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
 	signal addr: std_logic_vector(15 downto 0) := x"0000";
-	signal state: t_Bus_State := OFF;
+	signal state: t_Bus_States := OFF;
 	signal io_ports: t_Digital_IO(15 downto 0)(7 downto 0) := (others => BUS_HIGH_Z);
 
 begin
@@ -144,7 +144,7 @@ begin
 		report "Memory Module: Write/Read Program ROM Test: Begin" severity note;
 			-- Set the data
 			state <= WRITE;  -- Put in WRITE mode
-			addr <= x"40A8";  -- Set address to write to in Program ROM
+			addr <= x"41A8";  -- Set address to write to in Program ROM
 			data <= x"FF";  -- Set data to write
 			wait for CLK_PERIOD;  -- Wait 1 clock cycle for data to be written
 			data <= BUS_HIGH_Z;  -- Reset data for prepartion of the next assert

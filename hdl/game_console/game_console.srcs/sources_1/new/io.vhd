@@ -33,10 +33,10 @@ entity io is
 	port (
 		clk : in std_logic;
 		rst : in std_logic;
-		state : in t_Bus_State;
+		state : in t_Bus_States;
 		addr : in std_logic_vector (15 downto 0);
 		data : inout std_logic_vector (7 downto 0);
-		io_ports: inout t_Digital_IO(15 downto 0)(7 downto 0)
+		io_ports: in t_Digital_IO(15 downto 0)(7 downto 0)
 	);
 end io;
 
@@ -93,13 +93,14 @@ begin
 	begin
 		if (rst = '0' or state = OFF) then
 			data <= BUS_HIGH_Z;
-			io_ports <= (others => BUS_HIGH_Z);
+--			io_ports <= (others => BUS_HIGH_Z);
 		else
-			if (rising_edge(clk)) then
-				if (state = WRITE and EN = '1' and
-						IO_DIR(to_integer(unsigned(addr)) - START_ADDRESS) = '1') then
-					io_ports(to_integer(unsigned(addr)) - START_ADDRESS) <= data_rx;
-				end if;
+			if (falling_edge(clk)) then
+				-- Commented out due to making I/O only input for sake of time
+--				if (state = WRITE and EN = '1' and
+--						IO_DIR(to_integer(unsigned(addr)) - START_ADDRESS) = '1') then
+--					io_ports(to_integer(unsigned(addr)) - START_ADDRESS) <= data_rx;
+--				end if;
 				data <= data_tx when (state = READ and EN = '1') else BUS_HIGH_Z;
 			end if;
 		end if;

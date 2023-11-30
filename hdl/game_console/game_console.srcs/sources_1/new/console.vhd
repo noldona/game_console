@@ -47,11 +47,12 @@ entity console is
 		vgaRed: out std_logic_vector(2 downto 0);
 		vgaGreen: out std_logic_vector(2 downto 0);
 		vgaBlue: out std_logic_vector(1 downto 0);
-		hysnc: out std_logic;
-		vsync: out std_logic
+		hsync: out std_logic;
+		vsync: out std_logic;
 
 		-- Memory Ports
 		-- TODO: Add ports for controllers
+		toggle_btn: in std_logic
 
 		-- Sound Card Ports
 		-- TODO: Add ports for audio out
@@ -66,7 +67,6 @@ architecture console_arch of console is
 	-------------------------------
 	-- Types
 	-------------------------------
-	type t_States is (RESET, START, EXECUTE, SHUTDONW);
 
 	-------------------------------
 	-- Constants
@@ -98,7 +98,7 @@ architecture console_arch of console is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: out std_logic_vector(15 downto 0);
-			state: out t_Bus_State;
+			state: out t_Bus_States;
 			rdy: out std_logic
 		);
 	end component;
@@ -116,7 +116,7 @@ architecture console_arch of console is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: in std_logic_vector(15 downto 0);
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			rdy: in std_logic;
 			vgaRed: out std_logic_vector(2 downto 0);
 			vgaGreen: out std_logic_vector(2 downto 0);
@@ -128,15 +128,15 @@ architecture console_arch of console is
 
 	component memory
 		generic (
-			IO_DIR: std_logic_vector(0 to 15) := x"0000"
+			IO_DIR: std_logic_vector(15 downto 0) := x"0000"
 		);
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: in std_logic_vector(15 downto 0);
-			state: in t_Bus_State;
-			io_ports: inout t_Digital_IO(0 to 15)(7 downto 0)
+			state: in t_Bus_States;
+			io_ports: inout t_Digital_IO(15 downto 0)(7 downto 0)
 		);
 	end component;
 
@@ -155,16 +155,18 @@ architecture console_arch of console is
 	-- Bus signals
 	signal data_bus: std_logic_vector(7 downto 0);
 	signal addr_bus: std_logic_vector(15 downto 0);
-	signal state: t_Bus_State;
+	signal state: t_Bus_States;
+
+	-- I/O signals
+	signal io_ports: t_Digital_IO(15 downto 0)(7 downto 0) := (others => x"00");
 
 	-- Other signals
 	signal rdy: std_logic;
-	signal rst: std_logic := '1';
-	signal io_ports: t_Digital_IO(0 to 15)(7 downto 0);
+	signal rst: std_logic := '0';
 
 	-- State
-	signal current_state: t_States;
-	signal next_state: t_States;
+	signal current_state: t_Console_States := RESET;
+	signal next_state: t_Console_States;
 
 begin
 	-- Configure which VGA clock we are using based upon the selected
@@ -190,7 +192,7 @@ begin
 
 	CPU_1: cpu
 		port map (
-			clk => clk_25MHz,
+			clk => clk,
 			rst => rst,
 			data => data_bus,
 			addr => addr_bus,
@@ -207,7 +209,7 @@ begin
 			REG_ADDR_MAX => VC_REG_MAX
 		)
 		port map (
-			clk => clk_25MHz,
+			clk => clk,
 			rst => rst,
 			data => data_bus,
 			addr => addr_bus,
@@ -216,7 +218,7 @@ begin
 			vgaRed => vgaRed,
 			vgaGreen => vgaGreen,
 			vgaBlue => vgaBlue,
-			hsync => hysnc,
+			hsync => hsync,
 			vsync => vsync
 		);
 
@@ -225,7 +227,7 @@ begin
 			IO_DIR => x"0000"
 		)
 		port map (
-			clk => clk_25MHz,
+			clk => clk,
 			rst => rst,
 			data => data_bus,
 			addr => addr_bus,
@@ -238,13 +240,50 @@ begin
 	-------------------------------
 	-- Module Implementation
 	-------------------------------
-	START_UP: process (clk_25MHz)
+	io_ports(0)(0) <= toggle_btn;
+
+	STATE_MEMORY: process (clk, rst)
+	begin
+		if (rst = '0') then
+			current_state <= RESET;
+		elsif (rising_edge(clk)) then
+			current_state <= next_state;
+		end if;
+	end process;
+
+	CONSOLE_PROC: process (current_state, clk, rst_btn)
 		variable cnt: integer := 0;
 	begin
-		if (rising_edge(clk_25MHz)) then
-			cnt := cnt + 1;
-			if (cnt = 2) then
-				rst <= '0';
+		if (rising_edge(clk)) then
+			if (rst_btn = '1') then
+				next_state <= SHUTDOWN;
+			else
+				case (current_state) is
+					when RESET =>
+						rst <= '1';
+						cnt := 0;
+						next_state <= START;
+					when START =>
+						cnt := cnt + 1;
+						if (cnt >= 2) then
+							next_state <= EXECUTE;
+						else
+							next_state <= START;
+						end if;
+					when EXECUTE =>
+						cnt := 0;
+						next_state <= EXECUTE;
+					when SHUTDOWN =>
+						cnt := cnt + 1;
+						if (cnt >= 2) then
+							rst <= '0';
+							next_state <= RESET;
+						else
+							next_state <= SHUTDOWN;
+						end if;
+					when others =>
+						next_state <= RESET;
+				end case;
 			end if;
 		end if;
 	end process;

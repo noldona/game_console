@@ -46,7 +46,7 @@ architecture sync_counter_tb_arch of sync_counter_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant CLK_HZ: integer := 25178570;  -- 12.17857 MHz
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
 	constant CLK_PERIOD: time := 1 sec / CLK_HZ;
 	constant SYNC_VALS: t_Sync := VGA_640_480_60.hsync;
 

@@ -37,14 +37,17 @@ package test_utils is
 	-----------------------------------------------
 	-- Function Definitions
 	-----------------------------------------------
-	function to_string(N: t_States) return string;
-	function to_string(N: t_Bus_State) return string;
+	function to_string(N: t_Control_States) return string;
+	function to_string(N: t_Bus_States) return string;
+	function to_string(N: t_Console_States) return string;
 
 	-----------------------------------------------
 	-- Procedure Definitions
 	-----------------------------------------------
-	procedure assert_equals(var: in t_States; should: in t_States; module_name: string; test_name: string; var_name: string);
-	procedure assert_equals(var: in t_Bus_State; should: in t_Bus_State; module_name: string; test_name: string; var_name: string);
+	procedure assert_equals(var: in t_Control_States; should: in t_Control_States; module_name: string; test_name: string; var_name: string);
+	procedure assert_equals(var: in t_Bus_States; should: in t_Bus_States; module_name: string; test_name: string; var_name: string);
+	procedure assert_equals(var: in t_Console_States; should: in t_Console_States; module_name: string; test_name: string; var_name: string);
+	procedure assert_equals(var: in integer; should: in integer; module_name: string; test_name: string; var_name: string);
 	procedure assert_equals(var: in std_logic_vector; should: in std_logic_vector; module_name: string; test_name: string; var_name: string);
 	procedure assert_equals(var: in std_logic; should: in std_logic; module_name: string; test_name: string; var_name: string);
 
@@ -54,7 +57,7 @@ package body test_utils is
 	-------------------------------
 	-- Functions
 	-------------------------------
-	function to_string(N: t_States) return string is
+	function to_string(N: t_Control_States) return string is
 	begin
 		case (N) is
 			-- Opcode Fetch states
@@ -251,12 +254,14 @@ package body test_utils is
 				return "S_BEQ_14";
 			when S_BEQ_15 =>
 				return "S_BEQ_15";
+			when S_BEQ_16 =>
+				return "S_BEQ_16";
 			when others =>
 				return "";
 		end case ;
 	end to_string;
 
-	function to_string(N: t_Bus_State) return string is
+	function to_string(N: t_Bus_States) return string is
 	begin
 		case (N) is
 			when OFF =>
@@ -270,10 +275,26 @@ package body test_utils is
 		end case ;
 	end to_string;
 
+	function to_string(N: t_Console_States) return string is
+	begin
+		case (N) is
+			when RESET =>
+				return "RESET";
+			when START =>
+				return "START";
+			when EXECUTE =>
+				return "EXECUTE";
+			when SHUTDOWN =>
+				return "SHUTDOWN";
+			when others =>
+				return "";
+		end case;
+	end to_string;
+
 	-------------------------------
 	-- Procedures
 	-------------------------------
-	procedure assert_equals(var: in t_States; should: in t_States; module_name: string; test_name: string; var_name: string) is
+	procedure assert_equals(var: in t_Control_States; should: in t_Control_States; module_name: string; test_name: string; var_name: string) is
 	begin
 		assert var = should
 			report module_name & ": " & test_name & " - " &
@@ -283,15 +304,35 @@ package body test_utils is
 			severity error;
 	end procedure assert_equals;
 
-	procedure assert_equals(var: in t_Bus_State; should: in t_Bus_State; module_name: string; test_name: string; var_name: string) is
-		begin
-			assert var = should
-				report module_name & ": " & test_name & " - " &
-					"Invalid '" & var_name & "' value, " &
-					"Expected: '" & to_string(should) & "' " &
-					"but got '" & to_string(var) & "'"
-				severity error;
-		end procedure assert_equals;
+	procedure assert_equals(var: in t_Bus_States; should: in t_Bus_States; module_name: string; test_name: string; var_name: string) is
+	begin
+		assert var = should
+			report module_name & ": " & test_name & " - " &
+				"Invalid '" & var_name & "' value, " &
+				"Expected: '" & to_string(should) & "' " &
+				"but got '" & to_string(var) & "'"
+			severity error;
+	end procedure assert_equals;
+
+	procedure assert_equals(var: in t_Console_States; should: in t_Console_States; module_name: string; test_name: string; var_name: string) is
+	begin
+		assert var = should
+			report module_name & ": " & test_name & " - " &
+				"Invalid '" & var_name & "' value, " &
+				"Expected: '" & to_string(should) & "' " &
+				"but got '" & to_string(var) & "'"
+			severity error;
+	end procedure assert_equals;
+
+	procedure assert_equals(var: in integer; should: in integer; module_name: string; test_name: string; var_name: string) is
+	begin
+		assert var = should
+			report module_name & ": " & test_name & " - " &
+				"Invalid '" & var_name & "' value, " &
+				"Expected: '" & integer'image(should) & "' " &
+				"but got '" & integer'image(var) & "'"
+			severity error;
+	end procedure assert_equals;
 
 	procedure assert_equals(var: in std_logic_vector; should: in std_logic_vector; module_name: string; test_name: string; var_name: string) is
 	begin

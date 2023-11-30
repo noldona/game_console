@@ -44,7 +44,7 @@ architecture ram_tb_arch of ram_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant CLK_HZ: integer := 25178570;  -- 12.17857 MHz
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
 	constant CLK_PERIOD: time := 1 sec / CLK_HZ;
 
 	-------------------------------
@@ -60,7 +60,7 @@ architecture ram_tb_arch of ram_tb is
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			addr: in std_logic_vector(15 downto 0);
 			data: inout std_logic_vector(7 downto 0)
 		);
@@ -72,14 +72,14 @@ architecture ram_tb_arch of ram_tb is
 	-- RAM Signals
 	signal ram_clk: std_logic := '0';
 	signal ram_rst: std_logic := '0';
-	signal ram_state: t_Bus_State := OFF;
+	signal ram_state: t_Bus_States := OFF;
 	signal ram_addr: std_logic_vector(15 downto 0) := x"0000";
 	signal ram_data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
 
 	-- ROM Signals
 	signal rom_clk: std_logic := '0';
 	signal rom_rst: std_logic := '0';
-	signal rom_state: t_Bus_State := OFF;
+	signal rom_state: t_Bus_States := OFF;
 	signal rom_addr: std_logic_vector(15 downto 0) := x"0000";
 	signal rom_data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
 

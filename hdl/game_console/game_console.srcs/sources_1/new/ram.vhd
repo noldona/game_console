@@ -35,7 +35,7 @@ entity ram is
 	port (
 		clk: in std_logic;
 		rst: in std_logic;
-		state: in t_Bus_State;
+		state: in t_Bus_States;
 		addr: in std_logic_vector(15 downto 0);
 		data: inout std_logic_vector(7 downto 0)
 	);
@@ -102,7 +102,7 @@ begin
 		elsif (state = OFF) then
 			data <= BUS_HIGH_Z;
 		else
-			if (rising_edge(clk)) then
+			if (falling_edge(clk)) then
 				if (state = WRITE and READ_ONLY = '0' and EN = '1') then
 					RAM(to_integer(unsigned(addr))) <= data_rx;
 				end if;

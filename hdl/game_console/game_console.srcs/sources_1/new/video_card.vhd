@@ -53,7 +53,7 @@ entity video_card is
 		rst: in std_logic;
 		data: inout std_logic_vector(7 downto 0);
 		addr: in std_logic_vector(15 downto 0);
-		state: in t_Bus_State;
+		state: in t_Bus_States;
 		rdy: in std_logic;
 		vgaRed: out std_logic_vector(2 downto 0);
 		vgaGreen: out std_logic_vector(2 downto 0);
@@ -113,7 +113,7 @@ architecture video_card_arch of video_card is
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			addr: in std_logic_vector(15 downto 0);
 			data: inout std_logic_vector(7 downto 0)
 		);

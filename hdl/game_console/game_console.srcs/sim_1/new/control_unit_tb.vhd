@@ -44,7 +44,7 @@ architecture control_unit_tb_arch of control_unit_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant CLK_HZ: integer := 25178570;  -- 12.17857 MHz
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
 	constant CLK_PERIOD: time := 1 sec / clk_hz;
 
 	-------------------------------
@@ -54,7 +54,7 @@ architecture control_unit_tb_arch of control_unit_tb is
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
-			state: out t_Bus_State;
+			state: out t_Bus_States;
 			IR_Load: out std_logic;
 			IR: in std_logic_vector(7 downto 0);
 			MAR_Load: out std_logic;
@@ -81,7 +81,7 @@ architecture control_unit_tb_arch of control_unit_tb is
 	-------------------------------
 	signal clk: std_logic := '0';
 	signal rst: std_logic := '0';
-	signal state: t_Bus_State;
+	signal state: t_Bus_States;
 	signal IR_Load: std_logic;
 	signal IR: std_logic_vector(7 downto 0) := x"00";
 	signal MAR_Load: std_logic;
@@ -144,8 +144,8 @@ begin
 	end process;
 
 	CONTROL_UNIT_TEST: process
-		alias UUT_current_state is <<signal UUT.current_state: t_States>>;
-		alias UUT_next_state is <<signal UUT.next_state: t_States>>;
+		alias UUT_current_state is <<signal UUT.current_state: t_Control_States>>;
+		alias UUT_next_state is <<signal UUT.next_state: t_Control_States>>;
 	begin
 		-- Test Reset State
 		report "Control Unit Module: Reset Test: Begin" severity note;

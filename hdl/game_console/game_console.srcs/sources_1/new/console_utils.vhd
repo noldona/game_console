@@ -44,10 +44,11 @@ package console_utils is
 	-----------------------------------------------
 	type t_Digital_IO is array(natural range <>) of std_logic_vector;
 	type t_Ram_Array is array(natural range <>) of std_logic_vector;
-	type t_Bus_State is (OFF, READ, WRITE);
+	type t_Bus_States is (OFF, READ, WRITE);
+	type t_Console_States is (RESET, START, EXECUTE, SHUTDOWN);
 
 	-- TODO: Update this to use the 6502 opcodes
-	type t_States is (
+	type t_Control_States is (
 		S_FETCH_0,  -- Opcode Fetch states
 		S_FETCH_1,
 		S_FETCH_2,
@@ -154,7 +155,8 @@ package console_utils is
 		S_BEQ_12,
 		S_BEQ_13,
 		S_BEQ_14,
-		S_BEQ_15  -- Branch if Z = 0
+		S_BEQ_15,  -- Branch if Z = 0
+		S_BEQ_16
 	);
 
 	-----------------------------------------------

@@ -46,7 +46,7 @@ architecture data_path_tb_arch of data_path_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant CLK_HZ: integer := 25178570;  -- 12.17857 MHz
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
 	constant CLK_PERIOD: time := 1 sec / clk_hz;
 
 	-------------------------------
@@ -58,7 +58,7 @@ architecture data_path_tb_arch of data_path_tb is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: out std_logic_vector(15 downto 0);
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			IR_Load: in std_logic;
 			IR: out std_logic_vector(7 downto 0);
 			MAR_Load: in std_logic;
@@ -95,7 +95,7 @@ architecture data_path_tb_arch of data_path_tb is
 	signal rst: std_logic := '0';
 	signal data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
 	signal addr: std_logic_vector(15 downto 0) := x"0000";
-	signal state: t_Bus_State := OFF;
+	signal state: t_Bus_States := OFF;
 	signal IR_Load: std_logic := '0';
 	signal IR: std_logic_vector(7 downto 0);
 	signal MAR_Load: std_logic := '0';
@@ -187,8 +187,8 @@ begin
 			-- TODO: Change this to use reset vector x"FFFC"-x"FFFD"
 			assert_equals(UUT_PC, x"4020", "Data Path Module", "Reset Test", "UUT_PC");
 			assert_equals(UUT_MAR, x"0000", "Data Path Module", "Reset Test", "UUT_MAR");
-			assert_equals(UUT_ADL, x"0000", "Data Path Module", "Reset Test", "UUT_ADL");
-			assert_equals(UUT_ADH, x"0000", "Data Path Module", "Reset Test", "UUT_ADH");
+			assert_equals(UUT_ADL, x"00", "Data Path Module", "Reset Test", "UUT_ADL");
+			assert_equals(UUT_ADH, x"00", "Data Path Module", "Reset Test", "UUT_ADH");
 			rst <= '1';  -- Take out of reset mode
 			wait for CLK_PERIOD;  -- Wait 1 clock cycle before changing data
 		report "Data Path Module: Reset Test: End" severity note;

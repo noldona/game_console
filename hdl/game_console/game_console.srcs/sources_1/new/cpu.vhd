@@ -34,7 +34,7 @@ entity cpu is
 		rst: in std_logic;
 		data: inout std_logic_vector(7 downto 0);
 		addr: out std_logic_vector(15 downto 0);
-		state: out t_Bus_State;
+		state: out t_Bus_States;
 		rdy: out std_logic
 	);
 end cpu;
@@ -61,7 +61,7 @@ architecture cpu_arch of cpu is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: out std_logic_vector(15 downto 0);
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			IR_Load: in std_logic;
 			IR: out std_logic_vector(7 downto 0);
 			MAR_Load: in std_logic;
@@ -87,7 +87,7 @@ architecture cpu_arch of cpu is
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
-			state: out t_Bus_State;
+			state: out t_Bus_States;
 			IR_Load: out std_logic;
 			IR: in std_logic_vector(7 downto 0);
 			MAR_Load: out std_logic;
@@ -139,6 +139,7 @@ begin
 		port map (
 			clk => clk,
 			rst => rst,
+			state => state,
 			IR_Load => IR_Load,
 			IR => IR,
 			MAR_Load => MAR_Load,
@@ -150,6 +151,8 @@ begin
 			ADH_Load => ADH_Load,
 			A_Load => A_Load,
 			B_Load => B_Load,
+			X_Load => X_Load,
+			Y_Load => Y_Load,
 			ALU_Sel => ALU_Sel,
 			Status_Result => Status_Result,
 			Status_Load => Status_Load,

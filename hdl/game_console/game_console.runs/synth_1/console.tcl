@@ -70,9 +70,13 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param checkpoint.writeSynthRtdsInDcp 1
+set_param chipscope.maxJobs 3
 set_msg_config -id {Common 17-41} -limit 10000000
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
-create_project -in_memory -part xc7s25csga225-1
+create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
@@ -80,11 +84,11 @@ set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
 set_property webtalk.parent_dir C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.cache/wt [current_project]
 set_property parent.project_path C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.xpr [current_project]
-set_property XPM_LIBRARIES {XPM_CDC XPM_FIFO XPM_MEMORY} [current_project]
+set_property XPM_LIBRARIES XPM_CDC [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part_repo_paths {C:/Users/dyrge/AppData/Roaming/Xilinx/Vivado/2023.1/xhub/board_store/xilinx_board_store} [current_project]
-set_property board_part digilentinc.com:cmod-s7-25:part0:1.0 [current_project]
+set_property board_part digilentinc.com:basys3:part0:1.2 [current_project]
 set_property ip_output_repo c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
@@ -105,17 +109,12 @@ read_vhdl -vhdl2008 -library xil_defaultlib {
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/console.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/memory_mapper.vhd
   C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/io.vhd
+  C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/new/test_utils.vhd
 }
 read_ip -quiet C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 set_property used_in_implementation false [get_files -all c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
-
-read_ip -quiet C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/sources_1/ip/axi_quad_spi_0/axi_quad_spi_0.xci
-set_property used_in_implementation false [get_files -all c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/axi_quad_spi_0/axi_quad_spi_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/axi_quad_spi_0/axi_quad_spi_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/axi_quad_spi_0/axi_quad_spi_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.gen/sources_1/ip/axi_quad_spi_0/axi_quad_spi_0_clocks.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -129,13 +128,16 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/constrs_1/imports/Downloads/Cmod-S7-25-Master.xdc
 set_property used_in_implementation false [get_files C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/constrs_1/imports/Downloads/Cmod-S7-25-Master.xdc]
 
+read_xdc C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/constrs_1/imports/Downloads/Basys-3-Master.xdc
+set_property used_in_implementation false [get_files C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/constrs_1/imports/Downloads/Basys-3-Master.xdc]
+
 set_param ips.enableIPCacheLiteLoad 1
 
 read_checkpoint -auto_incremental -incremental C:/Users/dyrge/Documents/EEL4744/game_console/hdl/game_console/game_console.srcs/utils_1/imports/synth_1/video_card.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top console -part xc7s25csga225-1
+synth_design -top console -part xc7a35tcpg236-1
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"

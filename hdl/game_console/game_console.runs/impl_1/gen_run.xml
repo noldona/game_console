@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1701312565">
+  <File Type="ROUTE-PWR" Name="console_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="console.tcl"/>
+  <File Type="ROUTE-PWR-SUM" Name="console_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="console_reports.tcl"/>
+  <File Type="OPT-RQA-PB" Name="console_rqa_opted.pb"/>
+  <File Type="BITSTR-MMI" Name="console.mmi"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="console_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="console_timing_summary_init.rpt"/>
+  <File Type="OPT-TIMING" Name="console_timing_summary_opted.rpt"/>
+  <File Type="OPT-DCP" Name="console_opt.dcp"/>
+  <File Type="OPT-DRC" Name="console_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="console.hwdef"/>
+  <File Type="PWROPT-DCP" Name="console_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="console_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="console_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="console_placed.dcp"/>
+  <File Type="PLACE-IO" Name="console_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="console_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="console_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="console_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="console_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="console_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="console_incremental_reuse_pre_placed.rpt"/>
+  <File Type="BG-BIN" Name="console.bin"/>
+  <File Type="PLACE-TIMING" Name="console_timing_summary_placed.rpt"/>
+  <File Type="ROUTE-PWR-RPX" Name="console_power_routed.rpx"/>
+  <File Type="PLACE-RQA-PB" Name="console_rqa_placed.pb"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="console_postplace_pwropt.dcp"/>
+  <File Type="BITSTR-MSK" Name="console.msk"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="console_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="console_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="console_drc_physopted.rpt"/>
+  <File Type="BITSTR-RBT" Name="console.rbt"/>
+  <File Type="PHYSOPT-TIMING" Name="console_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="console_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="console_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="console_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="console_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="console_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="console_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="console_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="console_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="console_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-RQS-PB" Name="console_rqs_routed.pb"/>
+  <File Type="ROUTE-STATUS" Name="console_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="console_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="console_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="console_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="console_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="console_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="console_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="console_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="console_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="console_bus_skew_routed.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="console_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="console_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="console_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="console_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="console_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="console_bus_skew_postroute_physopted.rpt"/>
+  <File Type="BG-BIT" Name="console.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="console_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="console_bus_skew_postroute_physopted.rpx"/>
+  <File Type="BITSTR-NKY" Name="console.nky"/>
+  <File Type="BITSTR-BMM" Name="console_bd.bmm"/>
+  <File Type="PDI-FILE" Name="console.pdi"/>
+  <File Type="BOOT-PDI-FILE" Name="console_soc.pdi"/>
+  <File Type="PL-PDI-FILE" Name="console_pld.pdi"/>
+  <File Type="RCFI_FILE" Name="console.rcfi"/>
+  <File Type="CFI_FILE" Name="console.cfi"/>
+  <File Type="RNPI_FILE" Name="console.rnpi"/>
+  <File Type="NPI_FILE" Name="console.npi"/>
+  <File Type="RBD_FILE" Name="console.rbd"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="console.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="console.sysdef"/>
+  <File Type="BG-BGN" Name="console.bgn"/>
+  <File Type="BG-DRC" Name="console.drc"/>
+  <File Type="RDI-RDI" Name="console.vdi"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="ROUTE-RQS" Name="console_routed.rqs"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="console_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/console_utils.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/alu.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/vga_types.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/control_unit.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/cpu.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/data_path.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/memory.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ram.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/reg.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/sound_card.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/sync_counter.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/video_card.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/console.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/memory_mapper.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/io.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/test_utils.vhd">
+      <FileInfo SFType="VHDL2008">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="console"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/Downloads/Cmod-S7-25-Master.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../Downloads/Cmod-S7-25-Master.xdc"/>
+        <Attr Name="ImportTime" Val="1693488260"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/Downloads/Basys-3-Master.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../Downloads/Basys-3-Master.xdc"/>
+        <Attr Name="ImportTime" Val="1674517926"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
+    <Filter Type="Utils"/>
+    <File Path="$PSRCDIR/utils_1/imports/synth_1/video_card.dcp">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedInSteps" Val="synth_1"/>
+        <Attr Name="AutoDcp" Val="1"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2023">
+      <Desc>Default settings for Implementation.</Desc>
+    </StratHandle>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="clk_wiz_0"/>
+</GenRun>

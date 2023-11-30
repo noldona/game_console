@@ -47,7 +47,7 @@ architecture video_card_tb_arch of video_card_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant CLK_HZ: integer := 25178570;  -- 12.17857 MHz
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
 	constant CLK_PERIOD: time := 1 sec / clk_hz;
 	constant RESOLUTION: t_VGA := VGA_640_480_60;
 	constant X_DIV: integer := 2;
@@ -69,7 +69,7 @@ architecture video_card_tb_arch of video_card_tb is
 			rst: in std_logic;
 			data: inout std_logic_vector(7 downto 0);
 			addr: in std_logic_vector(15 downto 0);
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			rdy: in std_logic;
 			vgaRed: out std_logic_vector(2 downto 0);
 			vgaGreen: out std_logic_vector(2 downto 0);
@@ -101,7 +101,7 @@ architecture video_card_tb_arch of video_card_tb is
 		port (
 			clk: in std_logic;
 			rst: in std_logic;
-			state: in t_Bus_State;
+			state: in t_Bus_States;
 			addr: in std_logic_vector(15 downto 0);
 			data: inout std_logic_vector(7 downto 0)
 		);
@@ -115,7 +115,7 @@ architecture video_card_tb_arch of video_card_tb is
 	signal rst: std_logic := '0';
 	signal data: std_logic_vector(7 downto 0) := BUS_HIGH_Z;
 	signal addr: std_logic_vector(15 downto 0) := x"0000";
-	signal state: t_Bus_State := READ;
+	signal state: t_Bus_States := READ;
 	signal rdy: std_logic := '1';
 	signal vgaRed: std_logic_vector(2 downto 0);
 	signal vgaGreen: std_logic_vector(2 downto 0);

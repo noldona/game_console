@@ -34,7 +34,7 @@ entity data_path is
 		rst: in std_logic;
 		data: inout std_logic_vector(7 downto 0);
 		addr: out std_logic_vector(15 downto 0);
-		state: in t_Bus_State;
+		state: in t_Bus_States;
 		IR_Load: in std_logic;
 		IR: out std_logic_vector(7 downto 0);
 		MAR_Load: in std_logic;

@@ -45,7 +45,7 @@ architecture reg_tb_arch of reg_tb is
 	-------------------------------
 	-- Constants
 	-------------------------------
-	constant CLK_HZ: integer := 25178570;  -- 12.17857 MHz
+	constant CLK_HZ: integer := 25178570;  -- 25.17857 MHz
 	constant CLK_PERIOD: time := 1 sec / CLK_HZ;
 
 	-------------------------------

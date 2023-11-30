@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="console_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="console_tb" />
+            <top_module name="console_utils" />
+            <top_module name="glbl" />
+            <top_module name="test_utils" />
+            <top_module name="vga_types" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="45,095.146 ns"></ZoomStartTime>
+      <ZoomEndTime time="45,772.647 ns"></ZoomEndTime>
+      <Cursor1Time time="45,381.720 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="214"></NameColumnWidth>
+      <ValueColumnWidth column_width="102"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="8" />
+   <wave_markers>
+      <marker time="124998" label="" />
+      <marker time="41291006" label="" />
+      <marker time="42502334" label="" />
+      <marker time="43157642" label="" />
+      <marker time="44368970" label="" />
+      <marker time="46295181" label="" />
+      <marker time="45659730" label="" />
+   </wave_markers>
+   <wvobject fp_name="/console_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/console_tb/rst_btn" type="logic">
+      <obj_property name="ElementShortName">rst_btn</obj_property>
+      <obj_property name="ObjectShortName">rst_btn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/console_tb/vgaRed" type="array">
+      <obj_property name="ElementShortName">vgaRed[2:0]</obj_property>
+      <obj_property name="ObjectShortName">vgaRed[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/console_tb/vgaGreen" type="array">
+      <obj_property name="ElementShortName">vgaGreen[2:0]</obj_property>
+      <obj_property name="ObjectShortName">vgaGreen[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/console_tb/vgaBlue" type="array">
+      <obj_property name="ElementShortName">vgaBlue[1:0]</obj_property>
+      <obj_property name="ObjectShortName">vgaBlue[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/console_tb/hsync" type="logic">
+      <obj_property name="ElementShortName">hsync</obj_property>
+      <obj_property name="ObjectShortName">hsync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/console_tb/vsync" type="logic">
+      <obj_property name="ElementShortName">vsync</obj_property>
+      <obj_property name="ObjectShortName">vsync</obj_property>
+   </wvobject>
+   <wvobject fp_name="group8655" type="group">
+      <obj_property name="label">UUT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/console_tb/UUT/clk_12MHz" type="logic">
+         <obj_property name="ElementShortName">clk_12MHz</obj_property>
+         <obj_property name="ObjectShortName">clk_12MHz</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/rst_btn" type="logic">
+         <obj_property name="ElementShortName">rst_btn</obj_property>
+         <obj_property name="ObjectShortName">rst_btn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/vgaRed" type="array">
+         <obj_property name="ElementShortName">vgaRed[2:0]</obj_property>
+         <obj_property name="ObjectShortName">vgaRed[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/vgaGreen" type="array">
+         <obj_property name="ElementShortName">vgaGreen[2:0]</obj_property>
+         <obj_property name="ObjectShortName">vgaGreen[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/vgaBlue" type="array">
+         <obj_property name="ElementShortName">vgaBlue[1:0]</obj_property>
+         <obj_property name="ObjectShortName">vgaBlue[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/hsync" type="logic">
+         <obj_property name="ElementShortName">hsync</obj_property>
+         <obj_property name="ObjectShortName">hsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/vsync" type="logic">
+         <obj_property name="ElementShortName">vsync</obj_property>
+         <obj_property name="ObjectShortName">vsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/io_ports" type="array">
+         <obj_property name="ElementShortName">io_ports[15:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">io_ports[15:0][7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/clk_25MHz" type="logic">
+         <obj_property name="ElementShortName">clk_25MHz</obj_property>
+         <obj_property name="ObjectShortName">clk_25MHz</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/data_bus" type="array">
+         <obj_property name="ElementShortName">data_bus[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_bus[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/addr_bus" type="array">
+         <obj_property name="ElementShortName">addr_bus[15:0]</obj_property>
+         <obj_property name="ObjectShortName">addr_bus[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/state" type="other">
+         <obj_property name="ElementShortName">state</obj_property>
+         <obj_property name="ObjectShortName">state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/rdy" type="logic">
+         <obj_property name="ElementShortName">rdy</obj_property>
+         <obj_property name="ObjectShortName">rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/current_state" type="other">
+         <obj_property name="ElementShortName">current_state</obj_property>
+         <obj_property name="ObjectShortName">current_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/console_tb/UUT/next_state" type="other">
+         <obj_property name="ElementShortName">next_state</obj_property>
+         <obj_property name="ObjectShortName">next_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="group12070" type="group">
+         <obj_property name="label">CPU</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/data" type="array">
+            <obj_property name="ElementShortName">data[7:0]</obj_property>
+            <obj_property name="ObjectShortName">data[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/addr" type="array">
+            <obj_property name="ElementShortName">addr[15:0]</obj_property>
+            <obj_property name="ObjectShortName">addr[15:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/state" type="other">
+            <obj_property name="ElementShortName">state</obj_property>
+            <obj_property name="ObjectShortName">state</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/rdy" type="logic">
+            <obj_property name="ElementShortName">rdy</obj_property>
+            <obj_property name="ObjectShortName">rdy</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/IR_Load" type="logic">
+            <obj_property name="ElementShortName">IR_Load</obj_property>
+            <obj_property name="ObjectShortName">IR_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/IR" type="array">
+            <obj_property name="ElementShortName">IR[7:0]</obj_property>
+            <obj_property name="ObjectShortName">IR[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/MAR_Load" type="logic">
+            <obj_property name="ElementShortName">MAR_Load</obj_property>
+            <obj_property name="ObjectShortName">MAR_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/MAR_Byte" type="logic">
+            <obj_property name="ElementShortName">MAR_Byte</obj_property>
+            <obj_property name="ObjectShortName">MAR_Byte</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/PC_Load" type="logic">
+            <obj_property name="ElementShortName">PC_Load</obj_property>
+            <obj_property name="ObjectShortName">PC_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/PC_Inc" type="logic">
+            <obj_property name="ElementShortName">PC_Inc</obj_property>
+            <obj_property name="ObjectShortName">PC_Inc</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/PC_Byte" type="logic">
+            <obj_property name="ElementShortName">PC_Byte</obj_property>
+            <obj_property name="ObjectShortName">PC_Byte</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/ADL_Load" type="logic">
+            <obj_property name="ElementShortName">ADL_Load</obj_property>
+            <obj_property name="ObjectShortName">ADL_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/ADH_Load" type="logic">
+            <obj_property name="ElementShortName">ADH_Load</obj_property>
+            <obj_property name="ObjectShortName">ADH_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/A_Load" type="logic">
+            <obj_property name="ElementShortName">A_Load</obj_property>
+            <obj_property name="ObjectShortName">A_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/B_Load" type="logic">
+            <obj_property name="ElementShortName">B_Load</obj_property>
+            <obj_property name="ObjectShortName">B_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/X_Load" type="logic">
+            <obj_property name="ElementShortName">X_Load</obj_property>
+            <obj_property name="ObjectShortName">X_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/Y_Load" type="logic">
+            <obj_property name="ElementShortName">Y_Load</obj_property>
+            <obj_property name="ObjectShortName">Y_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/ALU_Sel" type="array">
+            <obj_property name="ElementShortName">ALU_Sel[2:0]</obj_property>
+            <obj_property name="ObjectShortName">ALU_Sel[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/Status_Result" type="array">
+            <obj_property name="ElementShortName">Status_Result[7:0]</obj_property>
+            <obj_property name="ObjectShortName">Status_Result[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/Status_Load" type="logic">
+            <obj_property name="ElementShortName">Status_Load</obj_property>
+            <obj_property name="ObjectShortName">Status_Load</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/Bus1_Sel" type="array">
+            <obj_property name="ElementShortName">Bus1_Sel[2:0]</obj_property>
+            <obj_property name="ObjectShortName">Bus1_Sel[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/CPU_1/Bus2_Sel" type="array">
+            <obj_property name="ElementShortName">Bus2_Sel[1:0]</obj_property>
+            <obj_property name="ObjectShortName">Bus2_Sel[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="group12468" type="group">
+            <obj_property name="label">Control Unit</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/current_state" type="other">
+               <obj_property name="ElementShortName">current_state</obj_property>
+               <obj_property name="ObjectShortName">current_state</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/next_state" type="other">
+               <obj_property name="ElementShortName">next_state</obj_property>
+               <obj_property name="ObjectShortName">next_state</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/state" type="other">
+               <obj_property name="ElementShortName">state</obj_property>
+               <obj_property name="ObjectShortName">state</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/IR_Load" type="logic">
+               <obj_property name="ElementShortName">IR_Load</obj_property>
+               <obj_property name="ObjectShortName">IR_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/IR" type="array">
+               <obj_property name="ElementShortName">IR[7:0]</obj_property>
+               <obj_property name="ObjectShortName">IR[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/MAR_Load" type="logic">
+               <obj_property name="ElementShortName">MAR_Load</obj_property>
+               <obj_property name="ObjectShortName">MAR_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/MAR_Byte" type="logic">
+               <obj_property name="ElementShortName">MAR_Byte</obj_property>
+               <obj_property name="ObjectShortName">MAR_Byte</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/PC_Load" type="logic">
+               <obj_property name="ElementShortName">PC_Load</obj_property>
+               <obj_property name="ObjectShortName">PC_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/PC_Inc" type="logic">
+               <obj_property name="ElementShortName">PC_Inc</obj_property>
+               <obj_property name="ObjectShortName">PC_Inc</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/PC_Byte" type="logic">
+               <obj_property name="ElementShortName">PC_Byte</obj_property>
+               <obj_property name="ObjectShortName">PC_Byte</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/ADL_Load" type="logic">
+               <obj_property name="ElementShortName">ADL_Load</obj_property>
+               <obj_property name="ObjectShortName">ADL_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/ADH_Load" type="logic">
+               <obj_property name="ElementShortName">ADH_Load</obj_property>
+               <obj_property name="ObjectShortName">ADH_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/A_Load" type="logic">
+               <obj_property name="ElementShortName">A_Load</obj_property>
+               <obj_property name="ObjectShortName">A_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/B_Load" type="logic">
+               <obj_property name="ElementShortName">B_Load</obj_property>
+               <obj_property name="ObjectShortName">B_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/X_Load" type="logic">
+               <obj_property name="ElementShortName">X_Load</obj_property>
+               <obj_property name="ObjectShortName">X_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/Y_Load" type="logic">
+               <obj_property name="ElementShortName">Y_Load</obj_property>
+               <obj_property name="ObjectShortName">Y_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/ALU_Sel" type="array">
+               <obj_property name="ElementShortName">ALU_Sel[2:0]</obj_property>
+               <obj_property name="ObjectShortName">ALU_Sel[2:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/Status_Result" type="array">
+               <obj_property name="ElementShortName">Status_Result[7:0]</obj_property>
+               <obj_property name="ObjectShortName">Status_Result[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/Status_Load" type="logic">
+               <obj_property name="ElementShortName">Status_Load</obj_property>
+               <obj_property name="ObjectShortName">Status_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/Bus1_Sel" type="array">
+               <obj_property name="ElementShortName">Bus1_Sel[2:0]</obj_property>
+               <obj_property name="ObjectShortName">Bus1_Sel[2:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/CU_1/Bus2_Sel" type="array">
+               <obj_property name="ElementShortName">Bus2_Sel[1:0]</obj_property>
+               <obj_property name="ObjectShortName">Bus2_Sel[1:0]</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="group12077" type="group">
+            <obj_property name="label">Data Path</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/data" type="array">
+               <obj_property name="ElementShortName">data[7:0]</obj_property>
+               <obj_property name="ObjectShortName">data[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/addr" type="array">
+               <obj_property name="ElementShortName">addr[15:0]</obj_property>
+               <obj_property name="ObjectShortName">addr[15:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/state" type="other">
+               <obj_property name="ElementShortName">state</obj_property>
+               <obj_property name="ObjectShortName">state</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/IR_Load" type="logic">
+               <obj_property name="ElementShortName">IR_Load</obj_property>
+               <obj_property name="ObjectShortName">IR_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/IR" type="array">
+               <obj_property name="ElementShortName">IR[7:0]</obj_property>
+               <obj_property name="ObjectShortName">IR[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/MAR_Load" type="logic">
+               <obj_property name="ElementShortName">MAR_Load</obj_property>
+               <obj_property name="ObjectShortName">MAR_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/MAR_Byte" type="logic">
+               <obj_property name="ElementShortName">MAR_Byte</obj_property>
+               <obj_property name="ObjectShortName">MAR_Byte</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/PC_Load" type="logic">
+               <obj_property name="ElementShortName">PC_Load</obj_property>
+               <obj_property name="ObjectShortName">PC_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/PC_Inc" type="logic">
+               <obj_property name="ElementShortName">PC_Inc</obj_property>
+               <obj_property name="ObjectShortName">PC_Inc</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/PC_Byte" type="logic">
+               <obj_property name="ElementShortName">PC_Byte</obj_property>
+               <obj_property name="ObjectShortName">PC_Byte</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ADL_Load" type="logic">
+               <obj_property name="ElementShortName">ADL_Load</obj_property>
+               <obj_property name="ObjectShortName">ADL_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ADH_Load" type="logic">
+               <obj_property name="ElementShortName">ADH_Load</obj_property>
+               <obj_property name="ObjectShortName">ADH_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/A_Load" type="logic">
+               <obj_property name="ElementShortName">A_Load</obj_property>
+               <obj_property name="ObjectShortName">A_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/B_Load" type="logic">
+               <obj_property name="ElementShortName">B_Load</obj_property>
+               <obj_property name="ObjectShortName">B_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/X_Load" type="logic">
+               <obj_property name="ElementShortName">X_Load</obj_property>
+               <obj_property name="ObjectShortName">X_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Y_Load" type="logic">
+               <obj_property name="ElementShortName">Y_Load</obj_property>
+               <obj_property name="ObjectShortName">Y_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ALU_Sel" type="array">
+               <obj_property name="ElementShortName">ALU_Sel[2:0]</obj_property>
+               <obj_property name="ObjectShortName">ALU_Sel[2:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Status_Result" type="array">
+               <obj_property name="ElementShortName">Status_Result[7:0]</obj_property>
+               <obj_property name="ObjectShortName">Status_Result[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Status_Load" type="logic">
+               <obj_property name="ElementShortName">Status_Load</obj_property>
+               <obj_property name="ObjectShortName">Status_Load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Bus1_Sel" type="array">
+               <obj_property name="ElementShortName">Bus1_Sel[2:0]</obj_property>
+               <obj_property name="ObjectShortName">Bus1_Sel[2:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Bus2_Sel" type="array">
+               <obj_property name="ElementShortName">Bus2_Sel[1:0]</obj_property>
+               <obj_property name="ObjectShortName">Bus2_Sel[1:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/data_tx" type="array">
+               <obj_property name="ElementShortName">data_tx[7:0]</obj_property>
+               <obj_property name="ObjectShortName">data_tx[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/data_rx" type="array">
+               <obj_property name="ElementShortName">data_rx[7:0]</obj_property>
+               <obj_property name="ObjectShortName">data_rx[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Bus1" type="array">
+               <obj_property name="ElementShortName">Bus1[7:0]</obj_property>
+               <obj_property name="ObjectShortName">Bus1[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Bus2" type="array">
+               <obj_property name="ElementShortName">Bus2[7:0]</obj_property>
+               <obj_property name="ObjectShortName">Bus2[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ADL" type="array">
+               <obj_property name="ElementShortName">ADL[7:0]</obj_property>
+               <obj_property name="ObjectShortName">ADL[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ADH" type="array">
+               <obj_property name="ElementShortName">ADH[7:0]</obj_property>
+               <obj_property name="ObjectShortName">ADH[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/A" type="array">
+               <obj_property name="ElementShortName">A[7:0]</obj_property>
+               <obj_property name="ObjectShortName">A[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/B" type="array">
+               <obj_property name="ElementShortName">B[7:0]</obj_property>
+               <obj_property name="ObjectShortName">B[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/X" type="array">
+               <obj_property name="ElementShortName">X[7:0]</obj_property>
+               <obj_property name="ObjectShortName">X[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/Y" type="array">
+               <obj_property name="ElementShortName">Y[7:0]</obj_property>
+               <obj_property name="ObjectShortName">Y[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/SP" type="array">
+               <obj_property name="ElementShortName">SP[7:0]</obj_property>
+               <obj_property name="ObjectShortName">SP[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/PC" type="array">
+               <obj_property name="ElementShortName">PC[15:0]</obj_property>
+               <obj_property name="ObjectShortName">PC[15:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/MAR" type="array">
+               <obj_property name="ElementShortName">MAR[15:0]</obj_property>
+               <obj_property name="ObjectShortName">MAR[15:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/status" type="array">
+               <obj_property name="ElementShortName">status[7:0]</obj_property>
+               <obj_property name="ObjectShortName">status[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/status_out" type="array">
+               <obj_property name="ElementShortName">status_out[7:0]</obj_property>
+               <obj_property name="ObjectShortName">status_out[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ALU_Result" type="array">
+               <obj_property name="ElementShortName">ALU_Result[7:0]</obj_property>
+               <obj_property name="ObjectShortName">ALU_Result[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/PC_uns" type="array">
+               <obj_property name="ElementShortName">PC_uns[15:0]</obj_property>
+               <obj_property name="ObjectShortName">PC_uns[15:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="group12948" type="group">
+               <obj_property name="label">ALU</obj_property>
+               <obj_property name="DisplayName">label</obj_property>
+               <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ALU_1/a" type="array">
+                  <obj_property name="ElementShortName">a[7:0]</obj_property>
+                  <obj_property name="ObjectShortName">a[7:0]</obj_property>
+               </wvobject>
+               <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ALU_1/b" type="array">
+                  <obj_property name="ElementShortName">b[7:0]</obj_property>
+                  <obj_property name="ObjectShortName">b[7:0]</obj_property>
+               </wvobject>
+               <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ALU_1/sel" type="array">
+                  <obj_property name="ElementShortName">sel[2:0]</obj_property>
+                  <obj_property name="ObjectShortName">sel[2:0]</obj_property>
+               </wvobject>
+               <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ALU_1/result" type="array">
+                  <obj_property name="ElementShortName">result[7:0]</obj_property>
+                  <obj_property name="ObjectShortName">result[7:0]</obj_property>
+               </wvobject>
+               <wvobject fp_name="/console_tb/UUT/CPU_1/DP_1/ALU_1/status" type="array">
+                  <obj_property name="ElementShortName">status[7:0]</obj_property>
+                  <obj_property name="ObjectShortName">status[7:0]</obj_property>
+               </wvobject>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group12071" type="group">
+         <obj_property name="label">Memory</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/console_tb/UUT/MEM/clk" type="logic">
+            <obj_property name="ElementShortName">clk</obj_property>
+            <obj_property name="ObjectShortName">clk</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/MEM/rst" type="logic">
+            <obj_property name="ElementShortName">rst</obj_property>
+            <obj_property name="ObjectShortName">rst</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/MEM/data" type="array">
+            <obj_property name="ElementShortName">data[7:0]</obj_property>
+            <obj_property name="ObjectShortName">data[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/MEM/addr" type="array">
+            <obj_property name="ElementShortName">addr[15:0]</obj_property>
+            <obj_property name="ObjectShortName">addr[15:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/MEM/state" type="other">
+            <obj_property name="ElementShortName">state</obj_property>
+            <obj_property name="ObjectShortName">state</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/MEM/io_ports" type="array">
+            <obj_property name="ElementShortName">io_ports[15:0][7:0]</obj_property>
+            <obj_property name="ObjectShortName">io_ports[15:0][7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group12848" type="group">
+         <obj_property name="label">VGA_Card</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/data" type="array">
+            <obj_property name="ElementShortName">data[7:0]</obj_property>
+            <obj_property name="ObjectShortName">data[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/addr" type="array">
+            <obj_property name="ElementShortName">addr[15:0]</obj_property>
+            <obj_property name="ObjectShortName">addr[15:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/state" type="other">
+            <obj_property name="ElementShortName">state</obj_property>
+            <obj_property name="ObjectShortName">state</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/rdy" type="logic">
+            <obj_property name="ElementShortName">rdy</obj_property>
+            <obj_property name="ObjectShortName">rdy</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/vgaRed" type="array">
+            <obj_property name="ElementShortName">vgaRed[2:0]</obj_property>
+            <obj_property name="ObjectShortName">vgaRed[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/vgaGreen" type="array">
+            <obj_property name="ElementShortName">vgaGreen[2:0]</obj_property>
+            <obj_property name="ObjectShortName">vgaGreen[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/vgaBlue" type="array">
+            <obj_property name="ElementShortName">vgaBlue[1:0]</obj_property>
+            <obj_property name="ObjectShortName">vgaBlue[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/vsync" type="logic">
+            <obj_property name="ElementShortName">vsync</obj_property>
+            <obj_property name="ObjectShortName">vsync</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/hsync" type="logic">
+            <obj_property name="ElementShortName">hsync</obj_property>
+            <obj_property name="ObjectShortName">hsync</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/hblank" type="logic">
+            <obj_property name="ElementShortName">hblank</obj_property>
+            <obj_property name="ObjectShortName">hblank</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/hcarry" type="logic">
+            <obj_property name="ElementShortName">hcarry</obj_property>
+            <obj_property name="ObjectShortName">hcarry</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/vblank" type="logic">
+            <obj_property name="ElementShortName">vblank</obj_property>
+            <obj_property name="ObjectShortName">vblank</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/vcarry" type="logic">
+            <obj_property name="ElementShortName">vcarry</obj_property>
+            <obj_property name="ObjectShortName">vcarry</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/addr_x" type="array">
+            <obj_property name="ElementShortName">addr_x[15:0]</obj_property>
+            <obj_property name="ObjectShortName">addr_x[15:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/addr_y" type="array">
+            <obj_property name="ElementShortName">addr_y[15:0]</obj_property>
+            <obj_property name="ObjectShortName">addr_y[15:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/temp" type="array">
+            <obj_property name="ElementShortName">temp[31:0]</obj_property>
+            <obj_property name="ObjectShortName">temp[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/ram_addr" type="array">
+            <obj_property name="ElementShortName">ram_addr[15:0]</obj_property>
+            <obj_property name="ObjectShortName">ram_addr[15:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/ram_data" type="array">
+            <obj_property name="ElementShortName">ram_data[7:0]</obj_property>
+            <obj_property name="ObjectShortName">ram_data[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/data_rx" type="array">
+            <obj_property name="ElementShortName">data_rx[7:0]</obj_property>
+            <obj_property name="ObjectShortName">data_rx[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/data_tx" type="array">
+            <obj_property name="ElementShortName">data_tx[7:0]</obj_property>
+            <obj_property name="ObjectShortName">data_tx[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/EN" type="logic">
+            <obj_property name="ElementShortName">EN</obj_property>
+            <obj_property name="ObjectShortName">EN</obj_property>
+         </wvobject>
+         <wvobject fp_name="/console_tb/UUT/VGA_CARD/load" type="logic">
+            <obj_property name="ElementShortName">load</obj_property>
+            <obj_property name="ObjectShortName">load</obj_property>
+         </wvobject>
+         <wvobject fp_name="group12942" type="group">
+            <obj_property name="label">VGA_Reg</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/console_tb/UUT/VGA_CARD/VGA_REG/load" type="logic">
+               <obj_property name="ElementShortName">load</obj_property>
+               <obj_property name="ObjectShortName">load</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/VGA_CARD/VGA_REG/data_rx" type="array">
+               <obj_property name="ElementShortName">data_rx[7:0]</obj_property>
+               <obj_property name="ObjectShortName">data_rx[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/VGA_CARD/VGA_REG/data_tx" type="array">
+               <obj_property name="ElementShortName">data_tx[7:0]</obj_property>
+               <obj_property name="ObjectShortName">data_tx[7:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/console_tb/UUT/VGA_CARD/VGA_REG/data" type="array">
+               <obj_property name="ElementShortName">data[7:0]</obj_property>
+               <obj_property name="ObjectShortName">data[7:0]</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+</wave_config>
